@@ -1,0 +1,23 @@
+List all accessible projects in the account.
+
+USAGE
+  basecamp projects list [flags]
+
+FLAGS
+      --all             Fetch all projects (no limit)
+  -h, --help            help for list
+  -n, --limit int       Maximum number of projects to fetch (0 = all)
+      --page int        Fetch a single page (use --all for everything)
+      --reverse         Reverse sort order
+      --sort string     Sort by field (title, created, updated)
+      --status string   Filter by status (active, archived, trashed)
+
+INHERITED FLAGS
+  -a, --account string   Account ID
+  -j, --json             Output as JSON
+  -m, --md               Output as Markdown (portable)
+  -p, --project string   Project ID or name
+  -q, --quiet            Output data only, no envelope
+
+LEARN MORE
+  basecamp projects --help

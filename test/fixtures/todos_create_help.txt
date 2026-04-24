@@ -1,0 +1,28 @@
+Create a new todo in a project.
+
+USAGE
+  basecamp todos create <content> [flags]
+
+ARGUMENTS
+  <content>  Content
+
+FLAGS
+      --assignee string      Assignee ID
+      --attach stringArray   Attach file (repeatable)
+      --description string   Extended description (Markdown)
+  -d, --due string           Due date (YYYY-MM-DD)
+  -h, --help                 help for create
+      --in string            Project ID (alias for --project)
+  -l, --list string          Todolist ID
+  -p, --project string       Project ID or name
+      --to string            Assignee ID (alias for --assignee)
+  -t, --todoset string       Todoset ID (for projects with multiple todosets)
+
+INHERITED FLAGS
+  -a, --account string   Account ID
+  -j, --json             Output as JSON
+  -m, --md               Output as Markdown (portable)
+  -q, --quiet            Output data only, no envelope
+
+LEARN MORE
+  basecamp todos --help

@@ -1,0 +1,31 @@
+Create a new card in a project's card table.
+
+USAGE
+  basecamp cards create <title> [body] [flags]
+
+ARGUMENTS
+  <title>  Title
+  [body]   Body (optional)
+
+FLAGS
+      --assignee string      Assignee ID or name
+      --attach stringArray   Attach file (repeatable)
+      --card-table string    Card table ID (required if project has multiple)
+  -c, --column string        Column ID or name (defaults to first column)
+  -h, --help                 help for create
+      --in string            Project ID (alias for --project)
+  -p, --project string       Project ID or name
+      --to string            Assignee (alias for --assignee)
+
+INHERITED FLAGS
+  -a, --account string   Account ID
+  -j, --json             Output as JSON
+  -m, --md               Output as Markdown (portable)
+  -q, --quiet            Output data only, no envelope
+
+EXAMPLES
+  basecamp cards create "My card" --in myproject
+  basecamp cards create --in myproject -- "--title with dashes"
+
+LEARN MORE
+  basecamp cards --help
