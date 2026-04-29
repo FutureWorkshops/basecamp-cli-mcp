@@ -56,6 +56,22 @@ def test_summary_extracted(fixtures: Path) -> None:
     assert parsed["summary"]
 
 
+def test_inherited_project_flag_exposed(fixtures: Path) -> None:
+    parsed = parse(fixtures, "todos_create")
+    project = next(f for f in parsed["flags"] if f["name"] == "project")
+    assert project["type"] == "string"
+    assert project["short"] == "p"
+
+
+def test_inherited_output_flags_excluded(fixtures: Path) -> None:
+    # --json, --md, --quiet are owned by the runner; should never appear in the schema.
+    parsed = parse(fixtures, "todos_create")
+    names = {f["name"] for f in parsed["flags"]}
+    assert "json" not in names
+    assert "md" not in names
+    assert "quiet" not in names
+
+
 def test_summary_stops_at_first_blank_line(fixtures: Path) -> None:
     # todos_complete help has a short description, blank line, then a block of
     # shell-syntax examples. The summary should keep only the first paragraph.

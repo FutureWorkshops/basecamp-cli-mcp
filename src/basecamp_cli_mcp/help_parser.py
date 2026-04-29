@@ -35,12 +35,38 @@ _FLAG_LINE = re.compile(r"\A\s+(?:-(\w),\s+)?--([\w-]+)(?:\s+(\S+))?\s{2,}(.*)")
 _HEADER = re.compile(r"\A[A-Z][A-Z ]+\Z")
 
 
+# Inherited flags worth exposing on every tool. Output/formatting flags
+# (--json, --md, --quiet, --jq, etc.) are excluded — they're owned by the
+# runner. Project scope is mandatory for most commands, so without --project
+# in the schema the agent has no way to pass it.
+_INHERITED_FLAG_ALLOWLIST = {"account", "project", "todolist"}
+
+
 def parse(help_text: str) -> Parsed:
     return {
         "summary": _summary(help_text),
         "positional": _positional(help_text),
-        "flags": _flags(help_text),
+        "flags": _flags(help_text) + _inherited_flags(help_text),
     }
+
+
+def _inherited_flags(text: str) -> list[Flag]:
+    section = _section(text, "INHERITED FLAGS")
+    if section is None:
+        return []
+    out: list[Flag] = []
+    for line in section.splitlines(keepends=True):
+        m = _FLAG_LINE.match(line)
+        if not m:
+            continue
+        short, name, type_hint, desc = m.group(1), m.group(2), m.group(3), m.group(4).strip()
+        if name not in _INHERITED_FLAG_ALLOWLIST:
+            continue
+        flag: Flag = {"name": name, "type": _map_type(type_hint), "description": desc}
+        if short:
+            flag["short"] = short
+        out.append(flag)
+    return out
 
 
 def _summary(text: str) -> str:

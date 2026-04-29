@@ -34,6 +34,23 @@ class Generator:
 
     def _tool_for(self, group: str, action: str) -> dict[str, Any]:
         parsed = help_parser.parse(self._help_text(group, action))
+        # `--project` is mandatory for most basecamp commands but only some
+        # subcommands list it in their INHERITED FLAGS section (e.g. `todos
+        # update` infers it from the URL, which we no longer pass). Ensure
+        # every tool exposes it so agents can always supply project scope.
+        flags = list(parsed["flags"])
+        if not any(f["name"] == "project" for f in flags):
+            flags.append({
+                "name": "project",
+                "short": "p",
+                "type": "string",
+                "description": "Project ID",
+            })
+        parsed_with_project: help_parser.Parsed = {
+            "summary": parsed["summary"],
+            "positional": parsed["positional"],
+            "flags": flags,
+        }
         summary = parsed["summary"] or f"{action} {group}"
         return {
             "name": f"{group}_{action}",
@@ -41,8 +58,8 @@ class Generator:
             "action": action,
             "description": summary,
             "positional": parsed["positional"],
-            "flags": parsed["flags"],
-            "input_schema": self._build_schema(parsed),
+            "flags": flags,
+            "input_schema": self._build_schema(parsed_with_project),
         }
 
     @staticmethod
