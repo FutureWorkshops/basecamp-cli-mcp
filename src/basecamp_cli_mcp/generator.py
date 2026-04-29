@@ -51,7 +51,14 @@ class Generator:
         required: list[str] = []
 
         for pos in parsed["positional"]:
-            properties[pos["name"]] = {"type": "string", "description": pos["description"]}
+            if pos.get("variadic"):
+                properties[pos["name"]] = {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": pos["description"],
+                }
+            else:
+                properties[pos["name"]] = {"type": "string", "description": pos["description"]}
             if pos["required"]:
                 required.append(pos["name"])
 

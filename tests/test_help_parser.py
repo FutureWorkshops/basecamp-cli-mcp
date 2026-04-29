@@ -40,6 +40,15 @@ def test_cards_create_optional_positional(fixtures: Path) -> None:
     assert not body["required"]
 
 
+def test_todos_complete_variadic_positional(fixtures: Path) -> None:
+    parsed = parse(fixtures, "todos_complete")
+    pos = parsed["positional"]
+    assert len(pos) == 1
+    assert pos[0]["name"] == "id_or_url"
+    assert pos[0]["required"]
+    assert pos[0].get("variadic") is True
+
+
 def test_summary_extracted(fixtures: Path) -> None:
     parsed = parse(fixtures, "projects_list")
     assert parsed["summary"]

@@ -1,0 +1,25 @@
+Mark one or more todos as completed.
+
+You can pass todo IDs, Basecamp URLs, or comma-separated IDs:
+  basecamp todos complete 789
+  basecamp todos complete 789 012 345
+  basecamp todos complete 789,012,345
+  basecamp todos complete https://3.basecamp.com/123/buckets/456/todos/789
+
+USAGE
+  basecamp todos complete <id|url>... [flags]
+
+ARGUMENTS
+  <id|url>...  ID or URL (one or more)
+
+FLAGS
+  -h, --help   help for complete
+
+INHERITED FLAGS
+  -a, --account string   Account ID
+  -j, --json             Output as JSON
+  -m, --md               Output as Markdown (portable)
+  -q, --quiet            Output data only, no envelope
+
+LEARN MORE
+  basecamp todos --help

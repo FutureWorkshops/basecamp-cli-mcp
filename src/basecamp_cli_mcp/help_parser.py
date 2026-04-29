@@ -9,10 +9,11 @@ import re
 from typing import TypedDict
 
 
-class Positional(TypedDict):
+class Positional(TypedDict, total=False):
     name: str
     required: bool
     description: str
+    variadic: bool
 
 
 class Flag(TypedDict, total=False):
@@ -28,8 +29,8 @@ class Parsed(TypedDict):
     flags: list[Flag]
 
 
-_REQUIRED_POS = re.compile(r"\A\s+<(\w[\w-]*)>\s+(.*)")
-_OPTIONAL_POS = re.compile(r"\A\s+\[(\w[\w-]*)]\s+(.*)")
+_REQUIRED_POS = re.compile(r"\A\s+<([\w|-]+)>(\.\.\.)?\s+(.*)")
+_OPTIONAL_POS = re.compile(r"\A\s+\[([\w|-]+)](\.\.\.)?\s+(.*)")
 _FLAG_LINE = re.compile(r"\A\s+(?:-(\w),\s+)?--([\w-]+)(?:\s+(\S+))?\s{2,}(.*)")
 _HEADER = re.compile(r"\A[A-Z][A-Z ]+\Z")
 
@@ -60,12 +61,23 @@ def _positional(text: str) -> list[Positional]:
     for line in section.splitlines(keepends=True):
         m = _REQUIRED_POS.match(line)
         if m:
-            out.append({"name": m.group(1), "required": True, "description": m.group(2).strip()})
+            out.append(_make_positional(m.group(1), m.group(2), m.group(3), required=True))
             continue
         m = _OPTIONAL_POS.match(line)
         if m:
-            out.append({"name": m.group(1), "required": False, "description": m.group(2).strip()})
+            out.append(_make_positional(m.group(1), m.group(2), m.group(3), required=False))
     return out
+
+
+def _make_positional(raw_name: str, variadic_marker: str | None, description: str, *, required: bool) -> Positional:
+    pos: Positional = {
+        "name": raw_name.replace("|", "_or_"),
+        "required": required,
+        "description": description.strip(),
+    }
+    if variadic_marker:
+        pos["variadic"] = True
+    return pos
 
 
 def _flags(text: str) -> list[Flag]:

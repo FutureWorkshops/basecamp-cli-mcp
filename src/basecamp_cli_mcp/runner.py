@@ -57,7 +57,7 @@ class Runner:
         raise BasecampError(message, stderr=result.stderr, data=payload)
 
     def _todos_update_via_api(self, params: dict[str, Any]) -> Any:
-        todo_id = params.get("id") or params.get("todo_id")
+        todo_id = params.get("id") or params.get("id_or_url") or params.get("todo_id")
         project_id = params.get("project") or params.get("in")
         if not todo_id or not project_id:
             raise ValueError(
@@ -130,11 +130,18 @@ class Runner:
 
         for pos in tool_spec.get("positional") or []:
             value = params.get(pos["name"])
-            if value is None or str(value) == "":
+            if value is None or (not isinstance(value, list) and str(value) == ""):
                 if pos.get("required"):
                     raise ValueError(f"Missing required argument: {pos['name']}")
                 continue
-            argv.append(str(value))
+            if pos.get("variadic"):
+                values = value if isinstance(value, list) else [value]
+                if not values and pos.get("required"):
+                    raise ValueError(f"Missing required argument: {pos['name']}")
+                for v in values:
+                    argv.append(str(v))
+            else:
+                argv.append(str(value))
 
         for flag in tool_spec.get("flags") or []:
             value = params.get(flag["name"])

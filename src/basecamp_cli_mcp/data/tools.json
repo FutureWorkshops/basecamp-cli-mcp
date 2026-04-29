@@ -146,7 +146,13 @@
     "group": "attachments",
     "action": "download",
     "description": "Download file attachments from any Basecamp recording. Fetches the recording's rich text content, extracts <bc-attachment> elements, and downloads the referenced files in parallel. You can pass a recording ID or URL: basecamp attachments download 789 basecamp attachments download https://3.basecamp.com/123/buckets/456/messages/789 Options: --out <dir>     Output directory (default: current directory) --out -         Stream a single file to stdout (requires single selection) --file <name>   Download only the named file --index <n>     Select attachment by 1-based index (disambiguates duplicate names) --type <type>   Recording type hint (todo, todolist, message, comment, card, card-table, document, schedule-entry, checkin, answer, forward, upload)",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "file",
@@ -160,20 +166,24 @@
       },
       {
         "name": "out",
-        "short": "o",
         "type": "string",
-        "description": "Output directory (default: current directory), use - for stdout"
+        "description": "Output directory (default: current directory), use - for stdout",
+        "short": "o"
       },
       {
         "name": "type",
-        "short": "t",
         "type": "string",
-        "description": "Recording type hint (todo, todolist, message, comment, card, card-table, document, schedule-entry, checkin, answer, forward, upload)"
+        "description": "Recording type hint (todo, todolist, message, comment, card, card-table, document, schedule-entry, checkin, answer, forward, upload)",
+        "short": "t"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "file": {
           "type": "string",
           "description": "Download only the named file"
@@ -190,7 +200,10 @@
           "type": "string",
           "description": "Recording type hint (todo, todolist, message, comment, card, card-table, document, schedule-entry, checkin, answer, forward, upload)"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -198,23 +211,36 @@
     "group": "attachments",
     "action": "list",
     "description": "List all file attachments embedded in an item's content. Attachments are extracted from the item's rich text content (HTML). This works on any item type: todos, messages, cards, comments, documents, etc. You can pass either an ID or a Basecamp URL: basecamp attachments list 789 basecamp attachments list https://3.basecamp.com/123/buckets/456/todos/789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "type",
-        "short": "t",
         "type": "string",
-        "description": "Item type hint (todo, todolist, message, comment, card, card-table, document, schedule-entry, checkin, answer, forward, upload)"
+        "description": "Item type hint (todo, todolist, message, comment, card, card-table, document, schedule-entry, checkin, answer, forward, upload)",
+        "short": "t"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "type": {
           "type": "string",
           "description": "Item type hint (todo, todolist, message, comment, card, card-table, document, schedule-entry, checkin, answer, forward, upload)"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -354,8 +380,13 @@
     "name": "boost_create",
     "group": "boost",
     "action": "create",
-    "description": "Boost an item with a short note or emoji. You can pass either an ID or a Basecamp URL: basecamp boost create 789 \"🎉\" --project my-project basecamp boost create https://3.basecamp.com/123/buckets/456/todos/789 \"👍\" Use --event to boost a specific event within the item.",
+    "description": "Boost an item with a short note or emoji. You can pass either an ID or a Basecamp URL: basecamp boost create 789 \"\ud83c\udf89\" --project my-project basecamp boost create https://3.basecamp.com/123/buckets/456/todos/789 \"\ud83d\udc4d\" Use --event to boost a specific event within the item.",
     "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      },
       {
         "name": "content",
         "required": true,
@@ -375,14 +406,18 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "content": {
           "type": "string",
           "description": "Content"
@@ -401,6 +436,7 @@
         }
       },
       "required": [
+        "id_or_url",
         "content"
       ]
     }
@@ -410,7 +446,13 @@
     "group": "boost",
     "action": "delete",
     "description": "Delete a boost. You can pass either a boost ID or a Basecamp URL: basecamp boost delete 789 basecamp boost delete https://3.basecamp.com/123/buckets/456/boosts/789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "boost-id_or_url",
+        "required": true,
+        "description": "Boost ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "in",
@@ -419,14 +461,18 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "boost-id_or_url": {
+          "type": "string",
+          "description": "Boost ID or URL"
+        },
         "in": {
           "type": "string",
           "description": "Project ID (alias for --project)"
@@ -435,7 +481,10 @@
           "type": "string",
           "description": "Project ID or name"
         }
-      }
+      },
+      "required": [
+        "boost-id_or_url"
+      ]
     }
   },
   {
@@ -443,7 +492,13 @@
     "group": "boost",
     "action": "list",
     "description": "List boosts on an item. You can pass either an ID or a Basecamp URL: basecamp boost list 789 --project my-project basecamp boost list https://3.basecamp.com/123/buckets/456/todos/789 Use --event to list boosts on a specific event within the item.",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "event",
@@ -457,14 +512,18 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "event": {
           "type": "string",
           "description": "Event ID (for event-specific boosts)"
@@ -477,7 +536,10 @@
           "type": "string",
           "description": "Project ID or name"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -485,7 +547,13 @@
     "group": "boost",
     "action": "show",
     "description": "Show details of a specific boost. You can pass either a boost ID or a Basecamp URL: basecamp boost show 789 --project my-project basecamp boost show https://3.basecamp.com/123/buckets/456/boosts/789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "boost-id_or_url",
+        "required": true,
+        "description": "Boost ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "in",
@@ -494,14 +562,18 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "boost-id_or_url": {
+          "type": "string",
+          "description": "Boost ID or URL"
+        },
         "in": {
           "type": "string",
           "description": "Project ID (alias for --project)"
@@ -510,7 +582,10 @@
           "type": "string",
           "description": "Project ID or name"
         }
-      }
+      },
+      "required": [
+        "boost-id_or_url"
+      ]
     }
   },
   {
@@ -518,7 +593,13 @@
     "group": "cards",
     "action": "archive",
     "description": "Archive a card to remove it from active view. You can pass either an ID or a Basecamp URL: basecamp cards archive 789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "card-table",
@@ -532,14 +613,18 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "card-table": {
           "type": "string",
           "description": "Card table ID (required if project has multiple)"
@@ -552,7 +637,10 @@
           "type": "string",
           "description": "Project ID or name"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -574,9 +662,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
@@ -632,9 +720,9 @@
       },
       {
         "name": "column",
-        "short": "c",
         "type": "string",
-        "description": "Column ID or name (defaults to first column)"
+        "description": "Column ID or name (defaults to first column)",
+        "short": "c"
       },
       {
         "name": "in",
@@ -643,9 +731,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "to",
@@ -720,9 +808,9 @@
       },
       {
         "name": "column",
-        "short": "c",
         "type": "string",
-        "description": "Filter by column ID or name"
+        "description": "Filter by column ID or name",
+        "short": "c"
       },
       {
         "name": "in",
@@ -731,9 +819,9 @@
       },
       {
         "name": "limit",
-        "short": "n",
         "type": "integer",
-        "description": "Maximum number of cards to fetch (0 = all)"
+        "description": "Maximum number of cards to fetch (0 = all)",
+        "short": "n"
       },
       {
         "name": "page",
@@ -742,9 +830,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "reverse",
@@ -804,7 +892,13 @@
     "group": "cards",
     "action": "move",
     "description": "Move a card to a different column in the card table. You can pass either a card ID or a Basecamp URL: basecamp cards move 789 --to \"Done\" --in my-project basecamp cards move https://3.basecamp.com/123/buckets/456/card_tables/cards/789 --to \"Done\" basecamp cards move 789 --to \"Done\" --position 1 --in my-project basecamp cards move 789 --on-hold --in my-project basecamp cards move 789 --to 456 --on-hold --in my-project",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "card-table",
@@ -833,20 +927,24 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "to",
-        "short": "t",
         "type": "string",
-        "description": "Target column ID or name (optional with --on-hold)"
+        "description": "Target column ID or name (optional with --on-hold)",
+        "short": "t"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "card-table": {
           "type": "string",
           "description": "Card table ID (required if project has multiple)"
@@ -875,7 +973,10 @@
           "type": "string",
           "description": "Target column ID or name (optional with --on-hold)"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -883,7 +984,13 @@
     "group": "cards",
     "action": "restore",
     "description": "Restore a card from trash or archive to active status. You can pass either an ID or a Basecamp URL: basecamp cards restore 789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "card-table",
@@ -897,14 +1004,18 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "card-table": {
           "type": "string",
           "description": "Card table ID (required if project has multiple)"
@@ -917,7 +1028,10 @@
           "type": "string",
           "description": "Project ID or name"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -925,7 +1039,13 @@
     "group": "cards",
     "action": "show",
     "description": "Display detailed information about a card. You can pass either a card ID or a Basecamp URL: basecamp cards show 789 basecamp cards show https://3.basecamp.com/123/buckets/456/card_tables/cards/789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "card-table",
@@ -944,14 +1064,18 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "card-table": {
           "type": "string",
           "description": "Card table ID (required if project has multiple)"
@@ -968,7 +1092,10 @@
           "type": "string",
           "description": "Project ID or name"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -976,13 +1103,19 @@
     "group": "cards",
     "action": "steps",
     "description": "Display all steps (checklist items) on a card.",
-    "positional": [],
+    "positional": [
+      {
+        "name": "card-id_or_url",
+        "required": true,
+        "description": "Card ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "card",
-        "short": "c",
         "type": "string",
-        "description": "Card ID"
+        "description": "Card ID",
+        "short": "c"
       },
       {
         "name": "card-table",
@@ -996,14 +1129,18 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "card-id_or_url": {
+          "type": "string",
+          "description": "Card ID or URL"
+        },
         "card": {
           "type": "string",
           "description": "Card ID"
@@ -1020,7 +1157,10 @@
           "type": "string",
           "description": "Project ID or name"
         }
-      }
+      },
+      "required": [
+        "card-id_or_url"
+      ]
     }
   },
   {
@@ -1028,7 +1168,13 @@
     "group": "cards",
     "action": "trash",
     "description": "Move a card to the trash. You can pass either an ID or a Basecamp URL: basecamp cards trash 789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "card-table",
@@ -1042,14 +1188,18 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "card-table": {
           "type": "string",
           "description": "Card table ID (required if project has multiple)"
@@ -1062,7 +1212,10 @@
           "type": "string",
           "description": "Project ID or name"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -1070,7 +1223,13 @@
     "group": "cards",
     "action": "update",
     "description": "Update an existing card. You can pass either a card ID or a Basecamp URL: basecamp cards update 789 --title \"new title\" basecamp cards update 789 --body \"new body\"",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "assignee",
@@ -1084,9 +1243,9 @@
       },
       {
         "name": "body",
-        "short": "b",
         "type": "string",
-        "description": "New body content"
+        "description": "New body content",
+        "short": "b"
       },
       {
         "name": "card-table",
@@ -1095,9 +1254,9 @@
       },
       {
         "name": "due",
-        "short": "d",
         "type": "string",
-        "description": "Due date (natural language or YYYY-MM-DD)"
+        "description": "Due date (natural language or YYYY-MM-DD)",
+        "short": "d"
       },
       {
         "name": "in",
@@ -1106,20 +1265,24 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "title",
-        "short": "t",
         "type": "string",
-        "description": "New title"
+        "description": "New title",
+        "short": "t"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "assignee": {
           "type": "string",
           "description": "Assignee ID or name"
@@ -1155,21 +1318,30 @@
           "type": "string",
           "description": "New title"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
     "name": "chat_delete",
     "group": "chat",
     "action": "delete",
-    "description": "Delete a message line from a chat. This permanently deletes the message — it is not moved to trash. You can pass either a line ID or a Basecamp line URL: basecamp chat delete 789 --in my-project basecamp chat delete https://3.basecamp.com/123/buckets/456/chats/789/lines/111",
-    "positional": [],
+    "description": "Delete a message line from a chat. This permanently deletes the message \u2014 it is not moved to trash. You can pass either a line ID or a Basecamp line URL: basecamp chat delete 789 --in my-project basecamp chat delete https://3.basecamp.com/123/buckets/456/chats/789/lines/111",
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "force",
-        "short": "f",
         "type": "boolean",
-        "description": "Skip confirmation prompt"
+        "description": "Skip confirmation prompt",
+        "short": "f"
       },
       {
         "name": "in",
@@ -1178,20 +1350,24 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "room",
-        "short": "r",
         "type": "string",
-        "description": "Campfire room ID (for projects with multiple rooms)"
+        "description": "Campfire room ID (for projects with multiple rooms)",
+        "short": "r"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "force": {
           "type": "boolean",
           "description": "Skip confirmation prompt"
@@ -1208,7 +1384,10 @@
           "type": "string",
           "description": "Campfire room ID (for projects with multiple rooms)"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -1216,7 +1395,13 @@
     "group": "chat",
     "action": "line",
     "description": "Show details of a specific message line. You can pass either a line ID or a Basecamp line URL: basecamp chat line 789 --in my-project basecamp chat line https://3.basecamp.com/123/buckets/456/chats/789/lines/111",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "in",
@@ -1225,20 +1410,24 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "room",
-        "short": "r",
         "type": "string",
-        "description": "Campfire room ID (for projects with multiple rooms)"
+        "description": "Campfire room ID (for projects with multiple rooms)",
+        "short": "r"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "in": {
           "type": "string",
           "description": "Project ID (alias for --project)"
@@ -1251,7 +1440,10 @@
           "type": "string",
           "description": "Campfire room ID (for projects with multiple rooms)"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -1263,9 +1455,9 @@
     "flags": [
       {
         "name": "all",
-        "short": "A",
         "type": "boolean",
-        "description": "List all chats across account"
+        "description": "List all chats across account",
+        "short": "A"
       },
       {
         "name": "in",
@@ -1274,15 +1466,15 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "room",
-        "short": "r",
         "type": "string",
-        "description": "Campfire room ID (for projects with multiple rooms)"
+        "description": "Campfire room ID (for projects with multiple rooms)",
+        "short": "r"
       }
     ],
     "input_schema": {
@@ -1321,21 +1513,21 @@
       },
       {
         "name": "limit",
-        "short": "n",
         "type": "integer",
-        "description": "Number of messages to show (default 25)"
+        "description": "Number of messages to show (default 25)",
+        "short": "n"
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "room",
-        "short": "r",
         "type": "string",
-        "description": "Campfire room ID (for projects with multiple rooms)"
+        "description": "Campfire room ID (for projects with multiple rooms)",
+        "short": "r"
       }
     ],
     "input_schema": {
@@ -1395,15 +1587,15 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "room",
-        "short": "r",
         "type": "string",
-        "description": "Campfire room ID (for projects with multiple rooms)"
+        "description": "Campfire room ID (for projects with multiple rooms)",
+        "short": "r"
       }
     ],
     "input_schema": {
@@ -1466,15 +1658,15 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "room",
-        "short": "r",
         "type": "string",
-        "description": "Campfire room ID (for projects with multiple rooms)"
+        "description": "Campfire room ID (for projects with multiple rooms)",
+        "short": "r"
       }
     ],
     "input_schema": {
@@ -1507,7 +1699,13 @@
     "group": "checkins",
     "action": "answer",
     "description": "Show or manage an answer",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "in",
@@ -1516,9 +1714,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "questionnaire",
@@ -1529,6 +1727,10 @@
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "in": {
           "type": "string",
           "description": "Project ID (alias for --project)"
@@ -1541,7 +1743,10 @@
           "type": "string",
           "description": "Questionnaire ID (auto-detected)"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -1549,7 +1754,13 @@
     "group": "checkins",
     "action": "answers",
     "description": "List answers for a check-in question. You can pass either a question ID or a Basecamp URL: basecamp checkins answers 789 --in my-project basecamp checkins answers https://3.basecamp.com/123/buckets/456/questions/789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "question_id_or_url",
+        "required": true,
+        "description": "Question ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "all",
@@ -1563,9 +1774,9 @@
       },
       {
         "name": "limit",
-        "short": "n",
         "type": "integer",
-        "description": "Maximum number of answers to fetch (0 = all)"
+        "description": "Maximum number of answers to fetch (0 = all)",
+        "short": "n"
       },
       {
         "name": "page",
@@ -1574,9 +1785,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "questionnaire",
@@ -1587,6 +1798,10 @@
     "input_schema": {
       "type": "object",
       "properties": {
+        "question_id_or_url": {
+          "type": "string",
+          "description": "Question ID or URL"
+        },
         "all": {
           "type": "boolean",
           "description": "Fetch all answers (no limit)"
@@ -1611,7 +1826,10 @@
           "type": "string",
           "description": "Questionnaire ID (auto-detected)"
         }
-      }
+      },
+      "required": [
+        "question_id_or_url"
+      ]
     }
   },
   {
@@ -1619,7 +1837,13 @@
     "group": "checkins",
     "action": "question",
     "description": "Show or manage a question",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "in",
@@ -1628,9 +1852,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "questionnaire",
@@ -1641,6 +1865,10 @@
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "in": {
           "type": "string",
           "description": "Project ID (alias for --project)"
@@ -1653,7 +1881,10 @@
           "type": "string",
           "description": "Questionnaire ID (auto-detected)"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -1675,9 +1906,9 @@
       },
       {
         "name": "limit",
-        "short": "n",
         "type": "integer",
-        "description": "Maximum number of questions to fetch (0 = all)"
+        "description": "Maximum number of questions to fetch (0 = all)",
+        "short": "n"
       },
       {
         "name": "page",
@@ -1686,9 +1917,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "questionnaire",
@@ -1731,7 +1962,13 @@
     "group": "comments",
     "action": "archive",
     "description": "Archive a comment to remove it from active view. You can pass either an ID or a Basecamp URL: basecamp comments archive 789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "in",
@@ -1740,14 +1977,18 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "in": {
           "type": "string",
           "description": "Project ID (alias for --project)"
@@ -1756,7 +1997,10 @@
           "type": "string",
           "description": "Project ID or name"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -1765,6 +2009,11 @@
     "action": "create",
     "description": "Add a comment to a Basecamp item (todo, message, card, etc.) The first argument is the item ID or URL to comment on. Comma-separated IDs add the same comment to multiple items: basecamp comment 789 \"Looks good!\" basecamp comment 789,012,345 \"Looks good!\" basecamp comment https://3.basecamp.com/123/buckets/456/todos/789 \"Looks good!\" Content supports Markdown and @mentions (@Name or @First.Last): basecamp comment 789 \"Hey @Jane.Smith, **please review**\"",
     "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      },
       {
         "name": "content",
         "required": true,
@@ -1789,14 +2038,18 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "content": {
           "type": "string",
           "description": "Content"
@@ -1822,6 +2075,7 @@
         }
       },
       "required": [
+        "id_or_url",
         "content"
       ]
     }
@@ -1831,7 +2085,13 @@
     "group": "comments",
     "action": "list",
     "description": "List all comments on an item.",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "all",
@@ -1845,9 +2105,9 @@
       },
       {
         "name": "limit",
-        "short": "n",
         "type": "integer",
-        "description": "Maximum number of comments to fetch (0 = default 100)"
+        "description": "Maximum number of comments to fetch (0 = default 100)",
+        "short": "n"
       },
       {
         "name": "page",
@@ -1856,14 +2116,18 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "all": {
           "type": "boolean",
           "description": "Fetch all comments (no limit)"
@@ -1884,7 +2148,10 @@
           "type": "string",
           "description": "Project ID or name"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -1892,7 +2159,13 @@
     "group": "comments",
     "action": "restore",
     "description": "Restore a comment from trash or archive to active status. You can pass either an ID or a Basecamp URL: basecamp comments restore 789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "in",
@@ -1901,14 +2174,18 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "in": {
           "type": "string",
           "description": "Project ID (alias for --project)"
@@ -1917,7 +2194,10 @@
           "type": "string",
           "description": "Project ID or name"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -1925,7 +2205,13 @@
     "group": "comments",
     "action": "show",
     "description": "Display detailed information about a comment. You can pass either a comment ID or a Basecamp URL: basecamp comments show 789 basecamp comments show https://3.basecamp.com/123/buckets/456/todos/111#__recording_789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "in",
@@ -1934,14 +2220,18 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "in": {
           "type": "string",
           "description": "Project ID (alias for --project)"
@@ -1950,7 +2240,10 @@
           "type": "string",
           "description": "Project ID or name"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -1958,7 +2251,13 @@
     "group": "comments",
     "action": "trash",
     "description": "Move a comment to the trash. You can pass either an ID or a Basecamp URL: basecamp comments trash 789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "in",
@@ -1967,14 +2266,18 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "in": {
           "type": "string",
           "description": "Project ID (alias for --project)"
@@ -1983,7 +2286,10 @@
           "type": "string",
           "description": "Project ID or name"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -1992,6 +2298,11 @@
     "action": "update",
     "description": "Update an existing comment's content. You can pass either a comment ID or a Basecamp URL: basecamp comments update 789 \"new text\" basecamp comments update https://3.basecamp.com/123/buckets/456/todos/111#__recording_789 \"new text\"",
     "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      },
       {
         "name": "content",
         "required": true,
@@ -2006,14 +2317,18 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "content": {
           "type": "string",
           "description": "Content"
@@ -2028,6 +2343,7 @@
         }
       },
       "required": [
+        "id_or_url",
         "content"
       ]
     }
@@ -2283,7 +2599,13 @@
     "group": "docs",
     "action": "archive",
     "description": "Archive a file to remove it from active view. You can pass either an ID or a Basecamp URL: basecamp files archive 789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "folder",
@@ -2297,9 +2619,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "vault",
@@ -2310,6 +2632,10 @@
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "folder": {
           "type": "string",
           "description": "Folder ID (alias for --vault)"
@@ -2326,7 +2652,10 @@
           "type": "string",
           "description": "Folder ID (default: root)"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -2334,7 +2663,13 @@
     "group": "docs",
     "action": "download",
     "description": "Download an uploaded file to the local filesystem. You can pass either an upload ID, a Basecamp URL, or a storage URL: basecamp files download 789 --in my-project basecamp files download https://3.basecamp.com/123/buckets/456/uploads/789 basecamp files download \"https://storage.3.basecamp.com/123/blobs/abc/download/report.pdf\" basecamp files download 789 --out ./downloads --in my-project basecamp files download 789 --out - --in my-project  # stream to stdout Storage URLs (from attachments in rich text) are downloaded directly via the API. No --in flag is needed for storage URLs. Use --out - to stream the file to stdout (for piping to other commands).",
-    "positional": [],
+    "positional": [
+      {
+        "name": "upload-id_or_url",
+        "required": true,
+        "description": "Upload ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "folder",
@@ -2348,15 +2683,15 @@
       },
       {
         "name": "out",
-        "short": "o",
         "type": "string",
-        "description": "Output directory (default: current directory)"
+        "description": "Output directory (default: current directory)",
+        "short": "o"
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "vault",
@@ -2367,6 +2702,10 @@
     "input_schema": {
       "type": "object",
       "properties": {
+        "upload-id_or_url": {
+          "type": "string",
+          "description": "Upload ID or URL"
+        },
         "folder": {
           "type": "string",
           "description": "Folder ID (alias for --vault)"
@@ -2387,7 +2726,10 @@
           "type": "string",
           "description": "Folder ID (default: root)"
         }
-      }
+      },
+      "required": [
+        "upload-id_or_url"
+      ]
     }
   },
   {
@@ -2409,9 +2751,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "vault",
@@ -2446,7 +2788,13 @@
     "group": "docs",
     "action": "restore",
     "description": "Restore a file from trash or archive to active status. You can pass either an ID or a Basecamp URL: basecamp files restore 789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "folder",
@@ -2460,9 +2808,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "vault",
@@ -2473,6 +2821,10 @@
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "folder": {
           "type": "string",
           "description": "Folder ID (alias for --vault)"
@@ -2489,7 +2841,10 @@
           "type": "string",
           "description": "Folder ID (default: root)"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -2497,7 +2852,13 @@
     "group": "docs",
     "action": "show",
     "description": "Show details for a vault, document, or upload. You can pass either an item ID or a Basecamp URL: basecamp files show 789 --in my-project basecamp files show https://3.basecamp.com/123/buckets/456/documents/789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "download-attachments",
@@ -2516,15 +2877,15 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "type",
-        "short": "t",
         "type": "string",
-        "description": "Item type (vault, upload, document)"
+        "description": "Item type (vault, upload, document)",
+        "short": "t"
       },
       {
         "name": "vault",
@@ -2535,6 +2896,10 @@
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "download-attachments": {
           "type": "string",
           "description": "Download attachments to dir (default: OS temp dir)"
@@ -2559,7 +2924,10 @@
           "type": "string",
           "description": "Folder ID (default: root)"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -2567,7 +2935,13 @@
     "group": "docs",
     "action": "trash",
     "description": "Move a file to the trash. You can pass either an ID or a Basecamp URL: basecamp files trash 789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "folder",
@@ -2581,9 +2955,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "vault",
@@ -2594,6 +2968,10 @@
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "folder": {
           "type": "string",
           "description": "Folder ID (alias for --vault)"
@@ -2610,7 +2988,10 @@
           "type": "string",
           "description": "Folder ID (default: root)"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -2618,13 +2999,19 @@
     "group": "docs",
     "action": "update",
     "description": "Update a document, vault, or upload. You can pass either an item ID or a Basecamp URL: basecamp files update 789 --title \"new title\" --in my-project basecamp files update 789 --content \"new content\" --in my-project",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "content",
-        "short": "c",
         "type": "string",
-        "description": "New content"
+        "description": "New content",
+        "short": "c"
       },
       {
         "name": "folder",
@@ -2638,15 +3025,15 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "title",
-        "short": "t",
         "type": "string",
-        "description": "New title"
+        "description": "New title",
+        "short": "t"
       },
       {
         "name": "type",
@@ -2662,6 +3049,10 @@
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "content": {
           "type": "string",
           "description": "New content"
@@ -2690,7 +3081,10 @@
           "type": "string",
           "description": "Folder ID (default: root)"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -2698,7 +3092,13 @@
     "group": "files",
     "action": "archive",
     "description": "Archive a file to remove it from active view. You can pass either an ID or a Basecamp URL: basecamp files archive 789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "folder",
@@ -2712,9 +3112,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "vault",
@@ -2725,6 +3125,10 @@
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "folder": {
           "type": "string",
           "description": "Folder ID (alias for --vault)"
@@ -2741,7 +3145,10 @@
           "type": "string",
           "description": "Folder ID (default: root)"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -2749,7 +3156,13 @@
     "group": "files",
     "action": "download",
     "description": "Download an uploaded file to the local filesystem. You can pass either an upload ID, a Basecamp URL, or a storage URL: basecamp files download 789 --in my-project basecamp files download https://3.basecamp.com/123/buckets/456/uploads/789 basecamp files download \"https://storage.3.basecamp.com/123/blobs/abc/download/report.pdf\" basecamp files download 789 --out ./downloads --in my-project basecamp files download 789 --out - --in my-project  # stream to stdout Storage URLs (from attachments in rich text) are downloaded directly via the API. No --in flag is needed for storage URLs. Use --out - to stream the file to stdout (for piping to other commands).",
-    "positional": [],
+    "positional": [
+      {
+        "name": "upload-id_or_url",
+        "required": true,
+        "description": "Upload ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "folder",
@@ -2763,15 +3176,15 @@
       },
       {
         "name": "out",
-        "short": "o",
         "type": "string",
-        "description": "Output directory (default: current directory)"
+        "description": "Output directory (default: current directory)",
+        "short": "o"
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "vault",
@@ -2782,6 +3195,10 @@
     "input_schema": {
       "type": "object",
       "properties": {
+        "upload-id_or_url": {
+          "type": "string",
+          "description": "Upload ID or URL"
+        },
         "folder": {
           "type": "string",
           "description": "Folder ID (alias for --vault)"
@@ -2802,7 +3219,10 @@
           "type": "string",
           "description": "Folder ID (default: root)"
         }
-      }
+      },
+      "required": [
+        "upload-id_or_url"
+      ]
     }
   },
   {
@@ -2824,9 +3244,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "vault",
@@ -2861,7 +3281,13 @@
     "group": "files",
     "action": "restore",
     "description": "Restore a file from trash or archive to active status. You can pass either an ID or a Basecamp URL: basecamp files restore 789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "folder",
@@ -2875,9 +3301,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "vault",
@@ -2888,6 +3314,10 @@
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "folder": {
           "type": "string",
           "description": "Folder ID (alias for --vault)"
@@ -2904,7 +3334,10 @@
           "type": "string",
           "description": "Folder ID (default: root)"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -2912,7 +3345,13 @@
     "group": "files",
     "action": "show",
     "description": "Show details for a vault, document, or upload. You can pass either an item ID or a Basecamp URL: basecamp files show 789 --in my-project basecamp files show https://3.basecamp.com/123/buckets/456/documents/789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "download-attachments",
@@ -2931,15 +3370,15 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "type",
-        "short": "t",
         "type": "string",
-        "description": "Item type (vault, upload, document)"
+        "description": "Item type (vault, upload, document)",
+        "short": "t"
       },
       {
         "name": "vault",
@@ -2950,6 +3389,10 @@
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "download-attachments": {
           "type": "string",
           "description": "Download attachments to dir (default: OS temp dir)"
@@ -2974,7 +3417,10 @@
           "type": "string",
           "description": "Folder ID (default: root)"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -2982,7 +3428,13 @@
     "group": "files",
     "action": "trash",
     "description": "Move a file to the trash. You can pass either an ID or a Basecamp URL: basecamp files trash 789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "folder",
@@ -2996,9 +3448,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "vault",
@@ -3009,6 +3461,10 @@
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "folder": {
           "type": "string",
           "description": "Folder ID (alias for --vault)"
@@ -3025,7 +3481,10 @@
           "type": "string",
           "description": "Folder ID (default: root)"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -3033,13 +3492,19 @@
     "group": "files",
     "action": "update",
     "description": "Update a document, vault, or upload. You can pass either an item ID or a Basecamp URL: basecamp files update 789 --title \"new title\" --in my-project basecamp files update 789 --content \"new content\" --in my-project",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "content",
-        "short": "c",
         "type": "string",
-        "description": "New content"
+        "description": "New content",
+        "short": "c"
       },
       {
         "name": "folder",
@@ -3053,15 +3518,15 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "title",
-        "short": "t",
         "type": "string",
-        "description": "New title"
+        "description": "New title",
+        "short": "t"
       },
       {
         "name": "type",
@@ -3077,6 +3542,10 @@
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "content": {
           "type": "string",
           "description": "New content"
@@ -3105,7 +3574,10 @@
           "type": "string",
           "description": "Folder ID (default: root)"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -3127,9 +3599,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
@@ -3174,9 +3646,9 @@
       },
       {
         "name": "limit",
-        "short": "n",
         "type": "integer",
-        "description": "Maximum number of forwards to fetch (0 = all)"
+        "description": "Maximum number of forwards to fetch (0 = all)",
+        "short": "n"
       },
       {
         "name": "page",
@@ -3185,9 +3657,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
@@ -3225,7 +3697,13 @@
     "group": "forwards",
     "action": "replies",
     "description": "List all replies to an email forward. You can pass either a forward ID or a Basecamp URL: basecamp forwards replies 789 --in my-project basecamp forwards replies https://3.basecamp.com/123/buckets/456/inbox_forwards/789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "forward_id_or_url",
+        "required": true,
+        "description": "Forward ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "all",
@@ -3244,9 +3722,9 @@
       },
       {
         "name": "limit",
-        "short": "n",
         "type": "integer",
-        "description": "Maximum number of replies to fetch (0 = all)"
+        "description": "Maximum number of replies to fetch (0 = all)",
+        "short": "n"
       },
       {
         "name": "page",
@@ -3255,14 +3733,18 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "forward_id_or_url": {
+          "type": "string",
+          "description": "Forward ID or URL"
+        },
         "all": {
           "type": "boolean",
           "description": "Fetch all replies (no limit)"
@@ -3287,7 +3769,10 @@
           "type": "string",
           "description": "Project ID or name"
         }
-      }
+      },
+      "required": [
+        "forward_id_or_url"
+      ]
     }
   },
   {
@@ -3295,7 +3780,18 @@
     "group": "forwards",
     "action": "reply",
     "description": "Display detailed information about a reply to an email forward. You can pass either IDs or Basecamp URLs: basecamp forwards reply 789 456 --in my-project basecamp forwards reply https://3.basecamp.com/123/buckets/456/inbox_forwards/789 456",
-    "positional": [],
+    "positional": [
+      {
+        "name": "forward_id_or_url",
+        "required": true,
+        "description": "Forward ID or URL"
+      },
+      {
+        "name": "reply_id_or_url",
+        "required": true,
+        "description": "Reply ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "in",
@@ -3309,14 +3805,22 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "forward_id_or_url": {
+          "type": "string",
+          "description": "Forward ID or URL"
+        },
+        "reply_id_or_url": {
+          "type": "string",
+          "description": "Reply ID or URL"
+        },
         "in": {
           "type": "string",
           "description": "Project ID (alias for --project)"
@@ -3329,7 +3833,11 @@
           "type": "string",
           "description": "Project ID or name"
         }
-      }
+      },
+      "required": [
+        "forward_id_or_url",
+        "reply_id_or_url"
+      ]
     }
   },
   {
@@ -3337,7 +3845,13 @@
     "group": "forwards",
     "action": "show",
     "description": "Display detailed information about an email forward. You can pass either a forward ID or a Basecamp URL: basecamp forwards show 789 --in my-project basecamp forwards show https://3.basecamp.com/123/buckets/456/inbox_forwards/789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "in",
@@ -3351,14 +3865,18 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "in": {
           "type": "string",
           "description": "Project ID (alias for --project)"
@@ -3371,7 +3889,10 @@
           "type": "string",
           "description": "Project ID or name"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -3408,9 +3929,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "subscriptions",
@@ -3472,9 +3993,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
@@ -3502,7 +4023,7 @@
     "name": "gauges_disable",
     "group": "gauges",
     "action": "disable",
-    "description": "Disable the gauge tool on a project. The gauge is not deleted — just hidden. Use 'basecamp gauges enable' to restore.",
+    "description": "Disable the gauge tool on a project. The gauge is not deleted \u2014 just hidden. Use 'basecamp gauges enable' to restore.",
     "positional": [],
     "flags": [
       {
@@ -3512,9 +4033,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
@@ -3545,9 +4066,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
@@ -3578,9 +4099,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
@@ -3617,9 +4138,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
@@ -3657,9 +4178,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
@@ -3701,9 +4222,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
@@ -3745,15 +4266,15 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "todoset",
-        "short": "t",
         "type": "string",
-        "description": "Todoset ID (auto-detected from project)"
+        "description": "Todoset ID (auto-detected from project)",
+        "short": "t"
       }
     ],
     "input_schema": {
@@ -3794,15 +4315,15 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "todoset",
-        "short": "t",
         "type": "string",
-        "description": "Todoset ID (auto-detected from project)"
+        "description": "Todoset ID (auto-detected from project)",
+        "short": "t"
       }
     ],
     "input_schema": {
@@ -3850,15 +4371,15 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "todoset",
-        "short": "t",
         "type": "string",
-        "description": "Todoset ID (auto-detected from project)"
+        "description": "Todoset ID (auto-detected from project)",
+        "short": "t"
       }
     ],
     "input_schema": {
@@ -3927,11 +4448,25 @@
     "group": "lineup",
     "action": "delete",
     "description": "Delete an existing lineup marker. You can pass either a marker ID or a Basecamp URL: basecamp lineup delete 789 basecamp lineup delete https://3.basecamp.com/123/my/lineup/markers/789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [],
     "input_schema": {
       "type": "object",
-      "properties": {}
+      "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -3953,6 +4488,11 @@
     "description": "Update an existing lineup marker's name or date. You can pass either a marker ID or a Basecamp URL: basecamp lineup update 789 \"new name\" basecamp lineup update 789 \"new name\" 2024-03-15",
     "positional": [
       {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      },
+      {
         "name": "name",
         "required": false,
         "description": "Name (optional)"
@@ -3967,6 +4507,10 @@
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "name": {
           "type": "string",
           "description": "Name (optional)"
@@ -3975,7 +4519,10 @@
           "type": "string",
           "description": "Date (optional)"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -3993,9 +4540,9 @@
     "flags": [
       {
         "name": "board",
-        "short": "b",
         "type": "string",
-        "description": "Message board ID (auto-detected from project)"
+        "description": "Message board ID (auto-detected from project)",
+        "short": "b"
       },
       {
         "name": "in",
@@ -4004,9 +4551,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
@@ -4036,7 +4583,13 @@
     "group": "messages",
     "action": "archive",
     "description": "Archive a message to remove it from active view. You can pass either an ID or a Basecamp URL: basecamp messages archive 789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "in",
@@ -4050,14 +4603,18 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "in": {
           "type": "string",
           "description": "Project ID (alias for --project)"
@@ -4070,7 +4627,10 @@
           "type": "string",
           "description": "Project ID or name"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -4123,9 +4683,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "subscribe",
@@ -4204,9 +4764,9 @@
       },
       {
         "name": "limit",
-        "short": "n",
         "type": "integer",
-        "description": "Maximum number of messages to fetch (0 = default 100)"
+        "description": "Maximum number of messages to fetch (0 = default 100)",
+        "short": "n"
       },
       {
         "name": "message-board",
@@ -4220,9 +4780,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "reverse",
@@ -4278,7 +4838,13 @@
     "group": "messages",
     "action": "pin",
     "description": "Pin a message to the top of the message board. You can pass either a message ID or a Basecamp URL: basecamp messages pin 789 basecamp messages pin https://3.basecamp.com/123/buckets/456/messages/789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "in",
@@ -4292,14 +4858,18 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "in": {
           "type": "string",
           "description": "Project ID (alias for --project)"
@@ -4312,7 +4882,10 @@
           "type": "string",
           "description": "Project ID or name"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -4320,7 +4893,13 @@
     "group": "messages",
     "action": "publish",
     "description": "Publish a draft message, making it visible on the message board. You can pass either a message ID or a Basecamp URL: basecamp messages publish 789 basecamp messages publish https://3.basecamp.com/123/buckets/456/messages/789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "in",
@@ -4334,14 +4913,18 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "in": {
           "type": "string",
           "description": "Project ID (alias for --project)"
@@ -4354,7 +4937,10 @@
           "type": "string",
           "description": "Project ID or name"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -4362,7 +4948,13 @@
     "group": "messages",
     "action": "restore",
     "description": "Restore a message from trash or archive to active status. You can pass either an ID or a Basecamp URL: basecamp messages restore 789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "in",
@@ -4376,14 +4968,18 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "in": {
           "type": "string",
           "description": "Project ID (alias for --project)"
@@ -4396,7 +4992,10 @@
           "type": "string",
           "description": "Project ID or name"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -4404,7 +5003,13 @@
     "group": "messages",
     "action": "show",
     "description": "Display detailed information about a message. You can pass either a message ID or a Basecamp URL: basecamp messages show 789 basecamp messages show https://3.basecamp.com/123/buckets/456/messages/789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "download-attachments",
@@ -4423,14 +5028,18 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "download-attachments": {
           "type": "string",
           "description": "Download attachments to dir (default: OS temp dir)"
@@ -4447,7 +5056,10 @@
           "type": "string",
           "description": "Project ID or name"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -4455,7 +5067,13 @@
     "group": "messages",
     "action": "trash",
     "description": "Move a message to the trash. You can pass either an ID or a Basecamp URL: basecamp messages trash 789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "in",
@@ -4469,14 +5087,18 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "in": {
           "type": "string",
           "description": "Project ID (alias for --project)"
@@ -4489,7 +5111,10 @@
           "type": "string",
           "description": "Project ID or name"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -4497,7 +5122,13 @@
     "group": "messages",
     "action": "unpin",
     "description": "Remove a message from the pinned position. You can pass either a message ID or a Basecamp URL: basecamp messages unpin 789 basecamp messages unpin https://3.basecamp.com/123/buckets/456/messages/789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "in",
@@ -4511,14 +5142,18 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "in": {
           "type": "string",
           "description": "Project ID (alias for --project)"
@@ -4531,7 +5166,10 @@
           "type": "string",
           "description": "Project ID or name"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -4539,13 +5177,19 @@
     "group": "messages",
     "action": "update",
     "description": "Update an existing message's title or body. You can pass either a message ID or a Basecamp URL: basecamp messages update 789 --title \"new title\" basecamp messages update 789 --body \"new body\"",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "body",
-        "short": "b",
         "type": "string",
-        "description": "New body content"
+        "description": "New body content",
+        "short": "b"
       },
       {
         "name": "in",
@@ -4559,20 +5203,24 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "title",
-        "short": "t",
         "type": "string",
-        "description": "New title"
+        "description": "New title",
+        "short": "t"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "body": {
           "type": "string",
           "description": "New body content"
@@ -4593,7 +5241,10 @@
           "type": "string",
           "description": "New title"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -4774,7 +5425,14 @@
     "group": "notifications",
     "action": "read",
     "description": "Mark one or more notifications as read. Accepts notification IDs from the page you were viewing. Use --page to match the page you listed (defaults to first page). basecamp notifications read 12345 basecamp notifications read 12345 67890 --page 2",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id",
+        "required": true,
+        "description": "ID (one or more)",
+        "variadic": true
+      }
+    ],
     "flags": [
       {
         "name": "page",
@@ -4785,11 +5443,21 @@
     "input_schema": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "ID (one or more)"
+        },
         "page": {
           "type": "string",
           "description": "Page to resolve IDs from (match the page you listed)"
         }
-      }
+      },
+      "required": [
+        "id"
+      ]
     }
   },
   {
@@ -4797,7 +5465,14 @@
     "group": "people",
     "action": "add",
     "description": "Grant people access to a project.",
-    "positional": [],
+    "positional": [
+      {
+        "name": "person-id",
+        "required": true,
+        "description": "Person ID (one or more)",
+        "variadic": true
+      }
+    ],
     "flags": [
       {
         "name": "in",
@@ -4806,14 +5481,21 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project to add people to (required)"
+        "description": "Project to add people to (required)",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "person-id": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Person ID (one or more)"
+        },
         "in": {
           "type": "string",
           "description": "Project to add people to (alias for --project)"
@@ -4822,7 +5504,10 @@
           "type": "string",
           "description": "Project to add people to (required)"
         }
-      }
+      },
+      "required": [
+        "person-id"
+      ]
     }
   },
   {
@@ -4844,9 +5529,9 @@
       },
       {
         "name": "limit",
-        "short": "n",
         "type": "integer",
-        "description": "Maximum number of people to fetch (0 = all)"
+        "description": "Maximum number of people to fetch (0 = all)",
+        "short": "n"
       },
       {
         "name": "page",
@@ -4855,9 +5540,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "List people in a specific project"
+        "description": "List people in a specific project",
+        "short": "p"
       },
       {
         "name": "reverse",
@@ -4921,7 +5606,14 @@
     "group": "people",
     "action": "remove",
     "description": "Revoke people's access to a project.",
-    "positional": [],
+    "positional": [
+      {
+        "name": "person-id",
+        "required": true,
+        "description": "Person ID (one or more)",
+        "variadic": true
+      }
+    ],
     "flags": [
       {
         "name": "in",
@@ -4930,14 +5622,21 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project to remove people from (required)"
+        "description": "Project to remove people from (required)",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "person-id": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Person ID (one or more)"
+        },
         "in": {
           "type": "string",
           "description": "Project to remove people from (alias for --project)"
@@ -4946,7 +5645,10 @@
           "type": "string",
           "description": "Project to remove people from (required)"
         }
-      }
+      },
+      "required": [
+        "person-id"
+      ]
     }
   },
   {
@@ -4954,11 +5656,25 @@
     "group": "people",
     "action": "show",
     "description": "Display detailed information about a specific person.",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_name",
+        "required": true,
+        "description": "ID or Name"
+      }
+    ],
     "flags": [],
     "input_schema": {
       "type": "object",
-      "properties": {}
+      "properties": {
+        "id_or_name": {
+          "type": "string",
+          "description": "ID or Name"
+        }
+      },
+      "required": [
+        "id_or_name"
+      ]
     }
   },
   {
@@ -5153,9 +5869,9 @@
     "flags": [
       {
         "name": "description",
-        "short": "d",
         "type": "string",
-        "description": "Project description"
+        "description": "Project description",
+        "short": "d"
       }
     ],
     "input_schema": {
@@ -5215,9 +5931,9 @@
       },
       {
         "name": "limit",
-        "short": "n",
         "type": "integer",
-        "description": "Maximum number of projects to fetch (0 = all)"
+        "description": "Maximum number of projects to fetch (0 = all)",
+        "short": "n"
       },
       {
         "name": "page",
@@ -5321,15 +6037,15 @@
     "flags": [
       {
         "name": "description",
-        "short": "d",
         "type": "string",
-        "description": "New description"
+        "description": "New description",
+        "short": "d"
       },
       {
         "name": "name",
-        "short": "n",
         "type": "string",
-        "description": "New name"
+        "description": "New name",
+        "short": "n"
       }
     ],
     "input_schema": {
@@ -5358,7 +6074,13 @@
     "group": "recordings",
     "action": "archive",
     "description": "Archive an item to remove it from active view. You can pass either an ID or a Basecamp URL: basecamp recordings archive 789 basecamp recordings archive https://3.basecamp.com/123/buckets/456/recordings/789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "in",
@@ -5367,14 +6089,18 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Filter by project ID or name"
+        "description": "Filter by project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "in": {
           "type": "string",
           "description": "Project ID (alias for --project)"
@@ -5383,7 +6109,10 @@
           "type": "string",
           "description": "Filter by project ID or name"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -5416,9 +6145,9 @@
       },
       {
         "name": "limit",
-        "short": "n",
         "type": "integer",
-        "description": "Maximum number of items to fetch (0 = default 100)"
+        "description": "Maximum number of items to fetch (0 = default 100)",
+        "short": "n"
       },
       {
         "name": "page",
@@ -5427,9 +6156,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Filter by project ID or name"
+        "description": "Filter by project ID or name",
+        "short": "p"
       },
       {
         "name": "sort",
@@ -5438,15 +6167,15 @@
       },
       {
         "name": "status",
-        "short": "s",
         "type": "string",
-        "description": "Status filter (active, trashed, archived) (default \"active\")"
+        "description": "Status filter (active, trashed, archived) (default \"active\")",
+        "short": "s"
       },
       {
         "name": "type",
-        "short": "t",
         "type": "string",
-        "description": "Content type"
+        "description": "Content type",
+        "short": "t"
       }
     ],
     "input_schema": {
@@ -5496,7 +6225,13 @@
     "group": "recordings",
     "action": "restore",
     "description": "Restore an item from trash or archive to active status. You can pass either an ID or a Basecamp URL: basecamp recordings restore 789 basecamp recordings restore https://3.basecamp.com/123/buckets/456/recordings/789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "in",
@@ -5505,14 +6240,18 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Filter by project ID or name"
+        "description": "Filter by project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "in": {
           "type": "string",
           "description": "Project ID (alias for --project)"
@@ -5521,7 +6260,10 @@
           "type": "string",
           "description": "Filter by project ID or name"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -5529,7 +6271,13 @@
     "group": "recordings",
     "action": "trash",
     "description": "Move an item to the trash. You can pass either an ID or a Basecamp URL: basecamp recordings trash 789 basecamp recordings trash https://3.basecamp.com/123/buckets/456/recordings/789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "in",
@@ -5538,14 +6286,18 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Filter by project ID or name"
+        "description": "Filter by project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "in": {
           "type": "string",
           "description": "Project ID (alias for --project)"
@@ -5554,7 +6306,10 @@
           "type": "string",
           "description": "Filter by project ID or name"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -5562,7 +6317,13 @@
     "group": "recordings",
     "action": "visibility",
     "description": "Set whether an item is visible to clients. You can pass either an ID or a Basecamp URL: basecamp recordings visibility 789 --visible basecamp recordings visibility https://3.basecamp.com/123/buckets/456/recordings/789 --visible",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "hidden",
@@ -5581,9 +6342,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Filter by project ID or name"
+        "description": "Filter by project ID or name",
+        "short": "p"
       },
       {
         "name": "show",
@@ -5599,6 +6360,10 @@
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "hidden": {
           "type": "boolean",
           "description": "Hide from clients"
@@ -5623,7 +6388,10 @@
           "type": "boolean",
           "description": "Make visible to clients"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -5785,15 +6553,15 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "schedule",
-        "short": "s",
         "type": "string",
-        "description": "Schedule ID (auto-detected)"
+        "description": "Schedule ID (auto-detected)",
+        "short": "s"
       },
       {
         "name": "start",
@@ -5924,9 +6692,9 @@
       },
       {
         "name": "limit",
-        "short": "n",
         "type": "integer",
-        "description": "Maximum number of entries to fetch (0 = all)"
+        "description": "Maximum number of entries to fetch (0 = all)",
+        "short": "n"
       },
       {
         "name": "page",
@@ -5935,9 +6703,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "reverse",
@@ -5946,9 +6714,9 @@
       },
       {
         "name": "schedule",
-        "short": "s",
         "type": "string",
-        "description": "Schedule ID (auto-detected)"
+        "description": "Schedule ID (auto-detected)",
+        "short": "s"
       },
       {
         "name": "sort",
@@ -6008,7 +6776,13 @@
     "group": "schedule",
     "action": "show",
     "description": "Display details of a schedule entry. You can pass either an entry ID or a Basecamp URL: basecamp schedule show 789 --in my-project basecamp schedule show https://3.basecamp.com/123/buckets/456/schedule_entries/789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "date",
@@ -6027,20 +6801,24 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "schedule",
-        "short": "s",
         "type": "string",
-        "description": "Schedule ID (auto-detected)"
+        "description": "Schedule ID (auto-detected)",
+        "short": "s"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "date": {
           "type": "string",
           "description": "Access specific occurrence of recurring entry (YYYYMMDD)"
@@ -6061,7 +6839,10 @@
           "type": "string",
           "description": "Schedule ID (auto-detected)"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -6069,7 +6850,13 @@
     "group": "schedule",
     "action": "update",
     "description": "Update an existing schedule entry. You can pass either an entry ID or a Basecamp URL: basecamp schedule update 789 --summary \"new title\" --in my-project basecamp schedule update https://3.basecamp.com/123/buckets/456/schedule_entries/789 --summary \"new title\"",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "all-day",
@@ -6123,15 +6910,15 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "schedule",
-        "short": "s",
         "type": "string",
-        "description": "Schedule ID (auto-detected)"
+        "description": "Schedule ID (auto-detected)",
+        "short": "s"
       },
       {
         "name": "start",
@@ -6157,6 +6944,10 @@
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "all-day": {
           "type": "boolean",
           "description": "Mark as all-day event"
@@ -6224,7 +7015,10 @@
           "type": "string",
           "description": "Event title (alias)"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -6246,6 +7040,11 @@
     "description": "Add people to the subscribers list for an item. You can pass either an ID or a Basecamp URL: basecamp subscriptions add 789 --people 1,2,3 basecamp subscriptions add https://3.basecamp.com/123/buckets/456/recordings/789 --people 1,2,3",
     "positional": [
       {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      },
+      {
         "name": "person_ids",
         "required": false,
         "description": "Person Ids (optional)"
@@ -6261,6 +7060,10 @@
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "person_ids": {
           "type": "string",
           "description": "Person Ids (optional)"
@@ -6269,7 +7072,10 @@
           "type": "string",
           "description": "Comma-separated person IDs"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -6279,6 +7085,11 @@
     "description": "Remove people from the subscribers list for an item. You can pass either an ID or a Basecamp URL: basecamp subscriptions remove 789 --people 1,2,3 basecamp subscriptions remove https://3.basecamp.com/123/buckets/456/recordings/789 --people 1,2,3",
     "positional": [
       {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      },
+      {
         "name": "person_ids",
         "required": false,
         "description": "Person Ids (optional)"
@@ -6294,6 +7105,10 @@
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "person_ids": {
           "type": "string",
           "description": "Person Ids (optional)"
@@ -6302,7 +7117,10 @@
           "type": "string",
           "description": "Comma-separated person IDs"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -6310,11 +7128,25 @@
     "group": "subscriptions",
     "action": "show",
     "description": "Display all current subscribers for an item. You can pass either an ID or a Basecamp URL: basecamp subscriptions show 789 basecamp subscriptions show https://3.basecamp.com/123/buckets/456/recordings/789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [],
     "input_schema": {
       "type": "object",
-      "properties": {}
+      "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -6322,11 +7154,25 @@
     "group": "subscriptions",
     "action": "subscribe",
     "description": "Subscribe yourself to receive notifications for an item. You can pass either an ID or a Basecamp URL: basecamp subscriptions subscribe 789 basecamp subscriptions subscribe https://3.basecamp.com/123/buckets/456/recordings/789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [],
     "input_schema": {
       "type": "object",
-      "properties": {}
+      "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -6334,11 +7180,25 @@
     "group": "subscriptions",
     "action": "unsubscribe",
     "description": "Unsubscribe yourself from notifications for an item. You can pass either an ID or a Basecamp URL: basecamp subscriptions unsubscribe 789 basecamp subscriptions unsubscribe https://3.basecamp.com/123/buckets/456/recordings/789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [],
     "input_schema": {
       "type": "object",
-      "properties": {}
+      "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -6656,9 +7516,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project name, URL, or ID"
+        "description": "Project name, URL, or ID",
+        "short": "p"
       },
       {
         "name": "start",
@@ -6741,9 +7601,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project name, URL, or ID"
+        "description": "Project name, URL, or ID",
+        "short": "p"
       },
       {
         "name": "start",
@@ -6819,9 +7679,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project name, URL, or ID"
+        "description": "Project name, URL, or ID",
+        "short": "p"
       },
       {
         "name": "start",
@@ -6888,15 +7748,15 @@
       },
       {
         "name": "list",
-        "short": "l",
         "type": "string",
-        "description": "Todolist ID"
+        "description": "Todolist ID",
+        "short": "l"
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
@@ -6938,15 +7798,15 @@
       },
       {
         "name": "list",
-        "short": "l",
         "type": "string",
-        "description": "Todolist ID"
+        "description": "Todolist ID",
+        "short": "l"
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
@@ -6987,9 +7847,9 @@
       },
       {
         "name": "list",
-        "short": "l",
         "type": "string",
-        "description": "Todolist ID"
+        "description": "Todolist ID",
+        "short": "l"
       },
       {
         "name": "pos",
@@ -7003,9 +7863,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
@@ -7061,15 +7921,15 @@
       },
       {
         "name": "list",
-        "short": "l",
         "type": "string",
-        "description": "Todolist ID"
+        "description": "Todolist ID",
+        "short": "l"
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
@@ -7122,15 +7982,15 @@
       },
       {
         "name": "list",
-        "short": "l",
         "type": "string",
-        "description": "Todolist ID"
+        "description": "Todolist ID",
+        "short": "l"
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
@@ -7168,7 +8028,13 @@
     "group": "todolists",
     "action": "archive",
     "description": "Archive a todolist to remove it from active view. You can pass either an ID or a Basecamp URL: basecamp todolists archive 789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "in",
@@ -7177,14 +8043,18 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "in": {
           "type": "string",
           "description": "Project ID (alias for --project)"
@@ -7193,7 +8063,10 @@
           "type": "string",
           "description": "Project ID or name"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -7211,9 +8084,9 @@
     "flags": [
       {
         "name": "description",
-        "short": "d",
         "type": "string",
-        "description": "Todolist description"
+        "description": "Todolist description",
+        "short": "d"
       },
       {
         "name": "in",
@@ -7222,15 +8095,15 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "todoset",
-        "short": "t",
         "type": "string",
-        "description": "Todoset ID (for projects with multiple todosets)"
+        "description": "Todoset ID (for projects with multiple todosets)",
+        "short": "t"
       }
     ],
     "input_schema": {
@@ -7286,9 +8159,9 @@
       },
       {
         "name": "limit",
-        "short": "n",
         "type": "integer",
-        "description": "Maximum number of todolists to fetch (0 = all)"
+        "description": "Maximum number of todolists to fetch (0 = all)",
+        "short": "n"
       },
       {
         "name": "page",
@@ -7297,9 +8170,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "reverse",
@@ -7313,9 +8186,9 @@
       },
       {
         "name": "todoset",
-        "short": "t",
         "type": "string",
-        "description": "Todoset ID (for projects with multiple todosets)"
+        "description": "Todoset ID (for projects with multiple todosets)",
+        "short": "t"
       }
     ],
     "input_schema": {
@@ -7365,7 +8238,13 @@
     "group": "todolists",
     "action": "restore",
     "description": "Restore a todolist from trash or archive to active status. You can pass either an ID or a Basecamp URL: basecamp todolists restore 789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "in",
@@ -7374,14 +8253,18 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "in": {
           "type": "string",
           "description": "Project ID (alias for --project)"
@@ -7390,7 +8273,10 @@
           "type": "string",
           "description": "Project ID or name"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -7398,7 +8284,13 @@
     "group": "todolists",
     "action": "show",
     "description": "Display detailed information about a todolist. You can pass either a todolist ID or a Basecamp URL: basecamp todolists show 789 --in my-project basecamp todolists show https://3.basecamp.com/123/buckets/456/todolists/789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "in",
@@ -7407,14 +8299,18 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "in": {
           "type": "string",
           "description": "Project ID (alias for --project)"
@@ -7423,7 +8319,10 @@
           "type": "string",
           "description": "Project ID or name"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -7431,7 +8330,13 @@
     "group": "todolists",
     "action": "trash",
     "description": "Move a todolist to the trash. You can pass either an ID or a Basecamp URL: basecamp todolists trash 789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "in",
@@ -7440,14 +8345,18 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "in": {
           "type": "string",
           "description": "Project ID (alias for --project)"
@@ -7456,7 +8365,10 @@
           "type": "string",
           "description": "Project ID or name"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -7464,13 +8376,19 @@
     "group": "todolists",
     "action": "update",
     "description": "Update an existing todolist's name or description. You can pass either a todolist ID or a Basecamp URL: basecamp todolists update 789 --name \"new name\" --in my-project basecamp todolists update 789 --description \"new desc\" --in my-project",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "description",
-        "short": "d",
         "type": "string",
-        "description": "New description"
+        "description": "New description",
+        "short": "d"
       },
       {
         "name": "in",
@@ -7479,20 +8397,24 @@
       },
       {
         "name": "name",
-        "short": "n",
         "type": "string",
-        "description": "New name"
+        "description": "New name",
+        "short": "n"
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "description": {
           "type": "string",
           "description": "New description"
@@ -7509,7 +8431,10 @@
           "type": "string",
           "description": "Project ID or name"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -7517,11 +8442,25 @@
     "group": "todos",
     "action": "archive",
     "description": "Archive a todo to remove it from active view. You can pass either an ID or a Basecamp URL: basecamp todos archive 789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [],
     "input_schema": {
       "type": "object",
-      "properties": {}
+      "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -7529,11 +8468,29 @@
     "group": "todos",
     "action": "complete",
     "description": "Mark one or more todos as completed. You can pass todo IDs, Basecamp URLs, or comma-separated IDs: basecamp todos complete 789 basecamp todos complete 789 012 345 basecamp todos complete 789,012,345 basecamp todos complete https://3.basecamp.com/123/buckets/456/todos/789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL (one or more)",
+        "variadic": true
+      }
+    ],
     "flags": [],
     "input_schema": {
       "type": "object",
-      "properties": {}
+      "properties": {
+        "id_or_url": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "ID or URL (one or more)"
+        }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -7566,9 +8523,9 @@
       },
       {
         "name": "due",
-        "short": "d",
         "type": "string",
-        "description": "Due date (YYYY-MM-DD)"
+        "description": "Due date (YYYY-MM-DD)",
+        "short": "d"
       },
       {
         "name": "in",
@@ -7577,15 +8534,15 @@
       },
       {
         "name": "list",
-        "short": "l",
         "type": "string",
-        "description": "Todolist ID"
+        "description": "Todolist ID",
+        "short": "l"
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "to",
@@ -7594,9 +8551,9 @@
       },
       {
         "name": "todoset",
-        "short": "t",
         "type": "string",
-        "description": "Todoset ID (for projects with multiple todosets)"
+        "description": "Todoset ID (for projects with multiple todosets)",
+        "short": "t"
       }
     ],
     "input_schema": {
@@ -7680,15 +8637,15 @@
       },
       {
         "name": "limit",
-        "short": "n",
         "type": "integer",
-        "description": "Maximum number of todos to fetch (0 = default 100)"
+        "description": "Maximum number of todos to fetch (0 = default 100)",
+        "short": "n"
       },
       {
         "name": "list",
-        "short": "l",
         "type": "string",
-        "description": "Todolist ID"
+        "description": "Todolist ID",
+        "short": "l"
       },
       {
         "name": "overdue",
@@ -7712,15 +8669,15 @@
       },
       {
         "name": "status",
-        "short": "s",
         "type": "string",
-        "description": "Filter by status (completed, incomplete)"
+        "description": "Filter by status (completed, incomplete)",
+        "short": "s"
       },
       {
         "name": "todoset",
-        "short": "t",
         "type": "string",
-        "description": "Todoset ID (for projects with multiple todosets)"
+        "description": "Todoset ID (for projects with multiple todosets)",
+        "short": "t"
       }
     ],
     "input_schema": {
@@ -7782,13 +8739,19 @@
     "group": "todos",
     "action": "position",
     "description": "Reorder a todo within its todolist, or move it to a different list in the same project. Position is 1-based (1 = top). You can pass either a todo ID or a Basecamp URL: basecamp todos position 789 --to 1 basecamp todos position https://3.basecamp.com/123/buckets/456/todos/789 --to 1 Move to a different todolist in the same project: basecamp todos position 789 --to 1 --list \"Sprint 1\" --in myproject basecamp todos position 789 --to 1 --list 321 basecamp todos position <todo-url> --to 1 --list <todolist-url>",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "list",
-        "short": "l",
         "type": "string",
-        "description": "Destination todolist ID, name, or URL (move to a different list)"
+        "description": "Destination todolist ID, name, or URL (move to a different list)",
+        "short": "l"
       },
       {
         "name": "position",
@@ -7804,6 +8767,10 @@
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "list": {
           "type": "string",
           "description": "Destination todolist ID, name, or URL (move to a different list)"
@@ -7816,7 +8783,10 @@
           "type": "integer",
           "description": "Target position, 1-based (1 = top)"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -7824,11 +8794,25 @@
     "group": "todos",
     "action": "restore",
     "description": "Restore a todo from trash or archive to active status. You can pass either an ID or a Basecamp URL: basecamp todos restore 789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [],
     "input_schema": {
       "type": "object",
-      "properties": {}
+      "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -7836,7 +8820,13 @@
     "group": "todos",
     "action": "show",
     "description": "Display detailed information about a todo. You can pass either a todo ID or a Basecamp URL: basecamp todos show 789 basecamp todos show https://3.basecamp.com/123/buckets/456/todos/789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "download-attachments",
@@ -7847,11 +8837,18 @@
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "download-attachments": {
           "type": "string",
           "description": "Download attachments to dir (default: OS temp dir)"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -7859,11 +8856,25 @@
     "group": "todos",
     "action": "trash",
     "description": "Move a todo to the trash. You can pass either an ID or a Basecamp URL: basecamp todos trash 789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [],
     "input_schema": {
       "type": "object",
-      "properties": {}
+      "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -7871,11 +8882,29 @@
     "group": "todos",
     "action": "uncomplete",
     "description": "Reopen one or more completed todos. You can pass todo IDs, Basecamp URLs, or comma-separated IDs: basecamp todos uncomplete 789 basecamp todos uncomplete 789 012 345 basecamp todos uncomplete 789,012,345 basecamp todos uncomplete https://3.basecamp.com/123/buckets/456/todos/789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL (one or more)",
+        "variadic": true
+      }
+    ],
     "flags": [],
     "input_schema": {
       "type": "object",
-      "properties": {}
+      "properties": {
+        "id_or_url": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "ID or URL (one or more)"
+        }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -7884,6 +8913,11 @@
     "action": "update",
     "description": "Update an existing todo. You can pass either a todo ID or a Basecamp URL: basecamp todos update 789 \"New title\" basecamp todos update 789 --title \"New title\" basecamp todos update 789 --due \"next friday\" basecamp todos update https://3.basecamp.com/123/buckets/456/todos/789 --description \"Details\" Clear a field by passing its --no- flag or an empty value: basecamp todos update 789 --no-due basecamp todos update 789 --due \"\" basecamp todos update 789 --no-description",
     "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      },
       {
         "name": "title",
         "required": false,
@@ -7903,9 +8937,9 @@
       },
       {
         "name": "due",
-        "short": "d",
         "type": "string",
-        "description": "Due date (natural language or YYYY-MM-DD)"
+        "description": "Due date (natural language or YYYY-MM-DD)",
+        "short": "d"
       },
       {
         "name": "no-description",
@@ -7934,9 +8968,9 @@
       },
       {
         "name": "title",
-        "short": "t",
         "type": "string",
-        "description": "Todo title (plain text)"
+        "description": "Todo title (plain text)",
+        "short": "t"
       },
       {
         "name": "to",
@@ -7947,6 +8981,10 @@
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "title": {
           "type": "string",
           "description": "Todo title (plain text)"
@@ -7987,7 +9025,10 @@
           "type": "string",
           "description": "Assignees (alias for --assignee)"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -8004,9 +9045,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       }
     ],
     "input_schema": {
@@ -8043,15 +9084,15 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "todoset",
-        "short": "t",
         "type": "string",
-        "description": "Todoset ID (auto-detected from project)"
+        "description": "Todoset ID (auto-detected from project)",
+        "short": "t"
       }
     ],
     "input_schema": {
@@ -8101,15 +9142,15 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name (for breadcrumbs)"
+        "description": "Project ID or name (for breadcrumbs)",
+        "short": "p"
       },
       {
         "name": "source",
-        "short": "s",
         "type": "string",
-        "description": "Source tool ID to clone (required)"
+        "description": "Source tool ID to clone (required)",
+        "short": "s"
       }
     ],
     "input_schema": {
@@ -8158,9 +9199,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name (for breadcrumbs)"
+        "description": "Project ID or name (for breadcrumbs)",
+        "short": "p"
       }
     ],
     "input_schema": {
@@ -8204,9 +9245,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name (for breadcrumbs)"
+        "description": "Project ID or name (for breadcrumbs)",
+        "short": "p"
       }
     ],
     "input_schema": {
@@ -8260,9 +9301,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name (for breadcrumbs)"
+        "description": "Project ID or name (for breadcrumbs)",
+        "short": "p"
       }
     ],
     "input_schema": {
@@ -8314,9 +9355,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name (for breadcrumbs)"
+        "description": "Project ID or name (for breadcrumbs)",
+        "short": "p"
       }
     ],
     "input_schema": {
@@ -8360,9 +9401,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name (for breadcrumbs)"
+        "description": "Project ID or name (for breadcrumbs)",
+        "short": "p"
       }
     ],
     "input_schema": {
@@ -8411,9 +9452,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name (for breadcrumbs)"
+        "description": "Project ID or name (for breadcrumbs)",
+        "short": "p"
       }
     ],
     "input_schema": {
@@ -8461,9 +9502,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "vault",
@@ -8512,9 +9553,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "vault",
@@ -8568,9 +9609,9 @@
       },
       {
         "name": "limit",
-        "short": "n",
         "type": "integer",
-        "description": "Maximum number of files to fetch (0 = all)"
+        "description": "Maximum number of files to fetch (0 = all)",
+        "short": "n"
       },
       {
         "name": "page",
@@ -8579,9 +9620,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "vault",
@@ -8642,9 +9683,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "vault",
@@ -8679,7 +9720,13 @@
     "group": "uploads",
     "action": "show",
     "description": "Show details for a vault, document, or upload. You can pass either an item ID or a Basecamp URL: basecamp files show 789 --in my-project basecamp files show https://3.basecamp.com/123/buckets/456/documents/789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "download-attachments",
@@ -8698,15 +9745,15 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "type",
-        "short": "t",
         "type": "string",
-        "description": "Item type (vault, upload, document)"
+        "description": "Item type (vault, upload, document)",
+        "short": "t"
       },
       {
         "name": "vault",
@@ -8717,6 +9764,10 @@
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "download-attachments": {
           "type": "string",
           "description": "Download attachments to dir (default: OS temp dir)"
@@ -8741,7 +9792,10 @@
           "type": "string",
           "description": "Folder ID (default: root)"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -8763,9 +9817,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "vault",
@@ -8814,9 +9868,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "vault",
@@ -8851,7 +9905,13 @@
     "group": "vaults",
     "action": "archive",
     "description": "Archive a file to remove it from active view. You can pass either an ID or a Basecamp URL: basecamp files archive 789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "folder",
@@ -8865,9 +9925,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "vault",
@@ -8878,6 +9938,10 @@
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "folder": {
           "type": "string",
           "description": "Folder ID (alias for --vault)"
@@ -8894,7 +9958,10 @@
           "type": "string",
           "description": "Folder ID (default: root)"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -8902,7 +9969,13 @@
     "group": "vaults",
     "action": "download",
     "description": "Download an uploaded file to the local filesystem. You can pass either an upload ID, a Basecamp URL, or a storage URL: basecamp files download 789 --in my-project basecamp files download https://3.basecamp.com/123/buckets/456/uploads/789 basecamp files download \"https://storage.3.basecamp.com/123/blobs/abc/download/report.pdf\" basecamp files download 789 --out ./downloads --in my-project basecamp files download 789 --out - --in my-project  # stream to stdout Storage URLs (from attachments in rich text) are downloaded directly via the API. No --in flag is needed for storage URLs. Use --out - to stream the file to stdout (for piping to other commands).",
-    "positional": [],
+    "positional": [
+      {
+        "name": "upload-id_or_url",
+        "required": true,
+        "description": "Upload ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "folder",
@@ -8916,15 +9989,15 @@
       },
       {
         "name": "out",
-        "short": "o",
         "type": "string",
-        "description": "Output directory (default: current directory)"
+        "description": "Output directory (default: current directory)",
+        "short": "o"
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "vault",
@@ -8935,6 +10008,10 @@
     "input_schema": {
       "type": "object",
       "properties": {
+        "upload-id_or_url": {
+          "type": "string",
+          "description": "Upload ID or URL"
+        },
         "folder": {
           "type": "string",
           "description": "Folder ID (alias for --vault)"
@@ -8955,7 +10032,10 @@
           "type": "string",
           "description": "Folder ID (default: root)"
         }
-      }
+      },
+      "required": [
+        "upload-id_or_url"
+      ]
     }
   },
   {
@@ -8977,9 +10057,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "vault",
@@ -9014,7 +10094,13 @@
     "group": "vaults",
     "action": "restore",
     "description": "Restore a file from trash or archive to active status. You can pass either an ID or a Basecamp URL: basecamp files restore 789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "folder",
@@ -9028,9 +10114,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "vault",
@@ -9041,6 +10127,10 @@
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "folder": {
           "type": "string",
           "description": "Folder ID (alias for --vault)"
@@ -9057,7 +10147,10 @@
           "type": "string",
           "description": "Folder ID (default: root)"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -9065,7 +10158,13 @@
     "group": "vaults",
     "action": "show",
     "description": "Show details for a vault, document, or upload. You can pass either an item ID or a Basecamp URL: basecamp files show 789 --in my-project basecamp files show https://3.basecamp.com/123/buckets/456/documents/789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "download-attachments",
@@ -9084,15 +10183,15 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "type",
-        "short": "t",
         "type": "string",
-        "description": "Item type (vault, upload, document)"
+        "description": "Item type (vault, upload, document)",
+        "short": "t"
       },
       {
         "name": "vault",
@@ -9103,6 +10202,10 @@
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "download-attachments": {
           "type": "string",
           "description": "Download attachments to dir (default: OS temp dir)"
@@ -9127,7 +10230,10 @@
           "type": "string",
           "description": "Folder ID (default: root)"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -9135,7 +10241,13 @@
     "group": "vaults",
     "action": "trash",
     "description": "Move a file to the trash. You can pass either an ID or a Basecamp URL: basecamp files trash 789",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "folder",
@@ -9149,9 +10261,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "vault",
@@ -9162,6 +10274,10 @@
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "folder": {
           "type": "string",
           "description": "Folder ID (alias for --vault)"
@@ -9178,7 +10294,10 @@
           "type": "string",
           "description": "Folder ID (default: root)"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -9186,13 +10305,19 @@
     "group": "vaults",
     "action": "update",
     "description": "Update a document, vault, or upload. You can pass either an item ID or a Basecamp URL: basecamp files update 789 --title \"new title\" --in my-project basecamp files update 789 --content \"new content\" --in my-project",
-    "positional": [],
+    "positional": [
+      {
+        "name": "id_or_url",
+        "required": true,
+        "description": "ID or URL"
+      }
+    ],
     "flags": [
       {
         "name": "content",
-        "short": "c",
         "type": "string",
-        "description": "New content"
+        "description": "New content",
+        "short": "c"
       },
       {
         "name": "folder",
@@ -9206,15 +10331,15 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project ID or name"
+        "description": "Project ID or name",
+        "short": "p"
       },
       {
         "name": "title",
-        "short": "t",
         "type": "string",
-        "description": "New title"
+        "description": "New title",
+        "short": "t"
       },
       {
         "name": "type",
@@ -9230,6 +10355,10 @@
     "input_schema": {
       "type": "object",
       "properties": {
+        "id_or_url": {
+          "type": "string",
+          "description": "ID or URL"
+        },
         "content": {
           "type": "string",
           "description": "New content"
@@ -9258,7 +10387,10 @@
           "type": "string",
           "description": "Folder ID (default: root)"
         }
-      }
+      },
+      "required": [
+        "id_or_url"
+      ]
     }
   },
   {
@@ -9281,9 +10413,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project name, URL, or ID"
+        "description": "Project name, URL, or ID",
+        "short": "p"
       },
       {
         "name": "types",
@@ -9336,9 +10468,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project name, URL, or ID"
+        "description": "Project name, URL, or ID",
+        "short": "p"
       }
     ],
     "input_schema": {
@@ -9376,9 +10508,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project name, URL, or ID"
+        "description": "Project name, URL, or ID",
+        "short": "p"
       }
     ],
     "input_schema": {
@@ -9415,9 +10547,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project name, URL, or ID"
+        "description": "Project name, URL, or ID",
+        "short": "p"
       }
     ],
     "input_schema": {
@@ -9471,9 +10603,9 @@
       },
       {
         "name": "project",
-        "short": "p",
         "type": "string",
-        "description": "Project name, URL, or ID"
+        "description": "Project name, URL, or ID",
+        "short": "p"
       },
       {
         "name": "types",
