@@ -1,6 +1,10 @@
 [
   {
     "name": "accounts_list",
+    "argv_prefix": [
+      "accounts",
+      "list"
+    ],
     "group": "accounts",
     "action": "list",
     "description": "List all Basecamp accounts you have access to.",
@@ -34,10 +38,15 @@
     }
   },
   {
-    "name": "accounts_logo",
+    "name": "accounts_logo_remove",
+    "argv_prefix": [
+      "accounts",
+      "logo",
+      "remove"
+    ],
     "group": "accounts",
-    "action": "logo",
-    "description": "Upload or remove the account logo.",
+    "action": "logo_remove",
+    "description": "Remove the account logo.",
     "positional": [],
     "flags": [
       {
@@ -68,7 +77,63 @@
     }
   },
   {
+    "name": "accounts_logo_upload",
+    "argv_prefix": [
+      "accounts",
+      "logo",
+      "upload"
+    ],
+    "group": "accounts",
+    "action": "logo_upload",
+    "description": "Upload or replace the account logo.",
+    "positional": [
+      {
+        "name": "file",
+        "required": true,
+        "description": "File"
+      }
+    ],
+    "flags": [
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "file": {
+          "type": "string",
+          "description": "File"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        }
+      },
+      "required": [
+        "file"
+      ]
+    }
+  },
+  {
     "name": "accounts_show",
+    "argv_prefix": [
+      "accounts",
+      "show"
+    ],
     "group": "accounts",
     "action": "show",
     "description": "Show details for the current account including limits, settings, and subscription.",
@@ -103,6 +168,10 @@
   },
   {
     "name": "accounts_update",
+    "argv_prefix": [
+      "accounts",
+      "update"
+    ],
     "group": "accounts",
     "action": "update",
     "description": "Update account settings.",
@@ -146,6 +215,10 @@
   },
   {
     "name": "accounts_use",
+    "argv_prefix": [
+      "accounts",
+      "use"
+    ],
     "group": "accounts",
     "action": "use",
     "description": "Set the default Basecamp account for CLI commands.",
@@ -201,7 +274,235 @@
     }
   },
   {
+    "name": "api_delete",
+    "argv_prefix": [
+      "api",
+      "delete"
+    ],
+    "group": "api",
+    "action": "delete",
+    "description": "Make a raw DELETE request to any Basecamp API endpoint.",
+    "positional": [
+      {
+        "name": "path",
+        "required": true,
+        "description": "Path"
+      }
+    ],
+    "flags": [
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Path"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        }
+      },
+      "required": [
+        "path"
+      ]
+    }
+  },
+  {
+    "name": "api_get",
+    "argv_prefix": [
+      "api",
+      "get"
+    ],
+    "group": "api",
+    "action": "get",
+    "description": "Make a raw GET request to any Basecamp API endpoint.",
+    "positional": [
+      {
+        "name": "path",
+        "required": true,
+        "description": "Path"
+      }
+    ],
+    "flags": [
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Path"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        }
+      },
+      "required": [
+        "path"
+      ]
+    }
+  },
+  {
+    "name": "api_post",
+    "argv_prefix": [
+      "api",
+      "post"
+    ],
+    "group": "api",
+    "action": "post",
+    "description": "Make a raw POST request to any Basecamp API endpoint.",
+    "positional": [
+      {
+        "name": "path",
+        "required": true,
+        "description": "Path"
+      }
+    ],
+    "flags": [
+      {
+        "name": "data",
+        "type": "string",
+        "description": "JSON request body (required)",
+        "short": "d"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Path"
+        },
+        "data": {
+          "type": "string",
+          "description": "JSON request body (required)"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        }
+      },
+      "required": [
+        "path"
+      ]
+    }
+  },
+  {
+    "name": "api_put",
+    "argv_prefix": [
+      "api",
+      "put"
+    ],
+    "group": "api",
+    "action": "put",
+    "description": "Make a raw PUT request to any Basecamp API endpoint.",
+    "positional": [
+      {
+        "name": "path",
+        "required": true,
+        "description": "Path"
+      }
+    ],
+    "flags": [
+      {
+        "name": "data",
+        "type": "string",
+        "description": "JSON request body (required)",
+        "short": "d"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Path"
+        },
+        "data": {
+          "type": "string",
+          "description": "JSON request body (required)"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        }
+      },
+      "required": [
+        "path"
+      ]
+    }
+  },
+  {
     "name": "assignments_completed",
+    "argv_prefix": [
+      "assignments",
+      "completed"
+    ],
     "group": "assignments",
     "action": "completed",
     "description": "View your recently completed assignments.",
@@ -236,6 +537,10 @@
   },
   {
     "name": "assignments_due",
+    "argv_prefix": [
+      "assignments",
+      "due"
+    ],
     "group": "assignments",
     "action": "due",
     "description": "View assignments filtered by due date scope.",
@@ -280,6 +585,10 @@
   },
   {
     "name": "assignments_list",
+    "argv_prefix": [
+      "assignments",
+      "list"
+    ],
     "group": "assignments",
     "action": "list",
     "description": "List all current assignments (same as bare 'assignments').",
@@ -314,6 +623,10 @@
   },
   {
     "name": "attachments_download",
+    "argv_prefix": [
+      "attachments",
+      "download"
+    ],
     "group": "attachments",
     "action": "download",
     "description": "Download file attachments from any Basecamp recording.",
@@ -399,6 +712,10 @@
   },
   {
     "name": "attachments_list",
+    "argv_prefix": [
+      "attachments",
+      "list"
+    ],
     "group": "attachments",
     "action": "list",
     "description": "List all file attachments embedded in an item's content.",
@@ -456,6 +773,10 @@
   },
   {
     "name": "auth_login",
+    "argv_prefix": [
+      "auth",
+      "login"
+    ],
     "group": "auth",
     "action": "login",
     "description": "Start the OAuth flow to authenticate with Basecamp.",
@@ -535,6 +856,10 @@
   },
   {
     "name": "auth_logout",
+    "argv_prefix": [
+      "auth",
+      "logout"
+    ],
     "group": "auth",
     "action": "logout",
     "description": "Remove stored authentication credentials for the current origin.",
@@ -569,6 +894,10 @@
   },
   {
     "name": "auth_refresh",
+    "argv_prefix": [
+      "auth",
+      "refresh"
+    ],
     "group": "auth",
     "action": "refresh",
     "description": "Force a refresh of the OAuth access token.",
@@ -603,6 +932,10 @@
   },
   {
     "name": "auth_status",
+    "argv_prefix": [
+      "auth",
+      "status"
+    ],
     "group": "auth",
     "action": "status",
     "description": "Display the current authentication status and token information.",
@@ -636,10 +969,62 @@
     }
   },
   {
-    "name": "bonfire_layout",
+    "name": "auth_token",
+    "argv_prefix": [
+      "auth",
+      "token"
+    ],
+    "group": "auth",
+    "action": "token",
+    "description": "Print the current access token to stdout for use with other tools.",
+    "positional": [],
+    "flags": [
+      {
+        "name": "stored",
+        "type": "boolean",
+        "description": "Use stored OAuth token, ignoring BASECAMP_TOKEN env var"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "stored": {
+          "type": "boolean",
+          "description": "Use stored OAuth token, ignoring BASECAMP_TOKEN env var"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        }
+      }
+    }
+  },
+  {
+    "name": "bonfire_layout_list",
+    "argv_prefix": [
+      "bonfire",
+      "layout",
+      "list"
+    ],
     "group": "bonfire",
-    "action": "layout",
-    "description": "Save and restore multi-chat layouts.",
+    "action": "layout_list",
+    "description": "List saved bonfire layouts",
     "positional": [],
     "flags": [
       {
@@ -670,7 +1055,129 @@
     }
   },
   {
+    "name": "bonfire_layout_load",
+    "argv_prefix": [
+      "bonfire",
+      "layout",
+      "load"
+    ],
+    "group": "bonfire",
+    "action": "layout_load",
+    "description": "Open multiplexer panes for each chat in the named layout.",
+    "positional": [
+      {
+        "name": "name",
+        "required": true,
+        "description": "Name"
+      }
+    ],
+    "flags": [
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    }
+  },
+  {
+    "name": "bonfire_layout_save",
+    "argv_prefix": [
+      "bonfire",
+      "layout",
+      "save"
+    ],
+    "group": "bonfire",
+    "action": "layout_save",
+    "description": "Save a named layout with the given chat URLs.",
+    "positional": [
+      {
+        "name": "name",
+        "required": true,
+        "description": "Name"
+      },
+      {
+        "name": "url",
+        "required": true,
+        "description": "URL (one or more)",
+        "variadic": true
+      }
+    ],
+    "flags": [
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name"
+        },
+        "url": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "URL (one or more)"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        }
+      },
+      "required": [
+        "name",
+        "url"
+      ]
+    }
+  },
+  {
     "name": "bonfire_split",
+    "argv_prefix": [
+      "bonfire",
+      "split"
+    ],
     "group": "bonfire",
     "action": "split",
     "description": "Split the current terminal and open a chat room in the new pane.",
@@ -718,6 +1225,10 @@
   },
   {
     "name": "boost_create",
+    "argv_prefix": [
+      "boost",
+      "create"
+    ],
     "group": "boost",
     "action": "create",
     "description": "Boost an item with a short note or emoji.",
@@ -793,6 +1304,10 @@
   },
   {
     "name": "boost_delete",
+    "argv_prefix": [
+      "boost",
+      "delete"
+    ],
     "group": "boost",
     "action": "delete",
     "description": "Delete a boost.",
@@ -849,6 +1364,10 @@
   },
   {
     "name": "boost_list",
+    "argv_prefix": [
+      "boost",
+      "list"
+    ],
     "group": "boost",
     "action": "list",
     "description": "List boosts on an item.",
@@ -914,6 +1433,10 @@
   },
   {
     "name": "boost_show",
+    "argv_prefix": [
+      "boost",
+      "show"
+    ],
     "group": "boost",
     "action": "show",
     "description": "Show details of a specific boost.",
@@ -969,7 +1492,237 @@
     }
   },
   {
+    "name": "card_move",
+    "argv_prefix": [
+      "card",
+      "move"
+    ],
+    "group": "card",
+    "action": "move",
+    "description": "Move a card to a different column in the card table.",
+    "positional": [
+      {
+        "name": "id",
+        "required": true,
+        "description": "ID"
+      }
+    ],
+    "flags": [
+      {
+        "name": "card-table",
+        "type": "string",
+        "description": "Card table ID (required if project has multiple)"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "on-hold",
+        "type": "boolean",
+        "description": "Move card to the on-hold section of its current (or target) column"
+      },
+      {
+        "name": "pos",
+        "type": "integer",
+        "description": "Position in column (alias for --position)"
+      },
+      {
+        "name": "position",
+        "type": "integer",
+        "description": "Position in column (1-indexed)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "to",
+        "type": "string",
+        "description": "Target column ID or name (optional with --on-hold)",
+        "short": "t"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID"
+        },
+        "card-table": {
+          "type": "string",
+          "description": "Card table ID (required if project has multiple)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "on-hold": {
+          "type": "boolean",
+          "description": "Move card to the on-hold section of its current (or target) column"
+        },
+        "pos": {
+          "type": "integer",
+          "description": "Position in column (alias for --position)"
+        },
+        "position": {
+          "type": "integer",
+          "description": "Position in column (1-indexed)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "to": {
+          "type": "string",
+          "description": "Target column ID or name (optional with --on-hold)"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    }
+  },
+  {
+    "name": "card_update",
+    "argv_prefix": [
+      "card",
+      "update"
+    ],
+    "group": "card",
+    "action": "update",
+    "description": "Update an existing card.",
+    "positional": [
+      {
+        "name": "id",
+        "required": true,
+        "description": "ID"
+      }
+    ],
+    "flags": [
+      {
+        "name": "assignee",
+        "type": "string",
+        "description": "Assignee ID or name"
+      },
+      {
+        "name": "attach",
+        "type": "array",
+        "description": "Attach file (repeatable)"
+      },
+      {
+        "name": "body",
+        "type": "string",
+        "description": "New body content",
+        "short": "b"
+      },
+      {
+        "name": "card-table",
+        "type": "string",
+        "description": "Card table ID (required if project has multiple)"
+      },
+      {
+        "name": "due",
+        "type": "string",
+        "description": "Due date (natural language or YYYY-MM-DD)",
+        "short": "d"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "description": "New title",
+        "short": "t"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID"
+        },
+        "assignee": {
+          "type": "string",
+          "description": "Assignee ID or name"
+        },
+        "attach": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Attach file (repeatable)"
+        },
+        "body": {
+          "type": "string",
+          "description": "New body content"
+        },
+        "card-table": {
+          "type": "string",
+          "description": "Card table ID (required if project has multiple)"
+        },
+        "due": {
+          "type": "string",
+          "description": "Due date (natural language or YYYY-MM-DD)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "title": {
+          "type": "string",
+          "description": "New title"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    }
+  },
+  {
     "name": "cards_archive",
+    "argv_prefix": [
+      "cards",
+      "archive"
+    ],
     "group": "cards",
     "action": "archive",
     "description": "Archive a card to remove it from active view.",
@@ -1034,7 +1787,699 @@
     }
   },
   {
+    "name": "cards_column_color",
+    "argv_prefix": [
+      "cards",
+      "column",
+      "color"
+    ],
+    "group": "cards",
+    "action": "column_color",
+    "description": "Set the color for a column.",
+    "positional": [
+      {
+        "name": "id",
+        "required": true,
+        "description": "ID"
+      }
+    ],
+    "flags": [
+      {
+        "name": "card-table",
+        "type": "string",
+        "description": "Card table ID (required if project has multiple)"
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "description": "Column color",
+        "short": "c"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID"
+        },
+        "card-table": {
+          "type": "string",
+          "description": "Card table ID (required if project has multiple)"
+        },
+        "color": {
+          "type": "string",
+          "description": "Column color"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    }
+  },
+  {
+    "name": "cards_column_create",
+    "argv_prefix": [
+      "cards",
+      "column",
+      "create"
+    ],
+    "group": "cards",
+    "action": "column_create",
+    "description": "Create a new column in the card table.",
+    "positional": [
+      {
+        "name": "title",
+        "required": true,
+        "description": "Title"
+      }
+    ],
+    "flags": [
+      {
+        "name": "card-table",
+        "type": "string",
+        "description": "Card table ID (required if project has multiple)"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": "Column description",
+        "short": "d"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Title"
+        },
+        "card-table": {
+          "type": "string",
+          "description": "Card table ID (required if project has multiple)"
+        },
+        "description": {
+          "type": "string",
+          "description": "Column description"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      },
+      "required": [
+        "title"
+      ]
+    }
+  },
+  {
+    "name": "cards_column_move",
+    "argv_prefix": [
+      "cards",
+      "column",
+      "move"
+    ],
+    "group": "cards",
+    "action": "column_move",
+    "description": "Reposition a column within the card table.",
+    "positional": [
+      {
+        "name": "id",
+        "required": true,
+        "description": "ID"
+      }
+    ],
+    "flags": [
+      {
+        "name": "card-table",
+        "type": "string",
+        "description": "Card table ID (required if project has multiple)"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "pos",
+        "type": "integer",
+        "description": "Target position (alias for --position)"
+      },
+      {
+        "name": "position",
+        "type": "integer",
+        "description": "Target position (1-indexed)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID"
+        },
+        "card-table": {
+          "type": "string",
+          "description": "Card table ID (required if project has multiple)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "pos": {
+          "type": "integer",
+          "description": "Target position (alias for --position)"
+        },
+        "position": {
+          "type": "integer",
+          "description": "Target position (1-indexed)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    }
+  },
+  {
+    "name": "cards_column_no-on-hold",
+    "argv_prefix": [
+      "cards",
+      "column",
+      "no-on-hold"
+    ],
+    "group": "cards",
+    "action": "column_no-on-hold",
+    "description": "Disable on-hold section for a column.",
+    "positional": [
+      {
+        "name": "id",
+        "required": true,
+        "description": "ID"
+      }
+    ],
+    "flags": [
+      {
+        "name": "card-table",
+        "type": "string",
+        "description": "Card table ID (required if project has multiple)"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID"
+        },
+        "card-table": {
+          "type": "string",
+          "description": "Card table ID (required if project has multiple)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    }
+  },
+  {
+    "name": "cards_column_on-hold",
+    "argv_prefix": [
+      "cards",
+      "column",
+      "on-hold"
+    ],
+    "group": "cards",
+    "action": "column_on-hold",
+    "description": "Enable on-hold section for a column.",
+    "positional": [
+      {
+        "name": "id",
+        "required": true,
+        "description": "ID"
+      }
+    ],
+    "flags": [
+      {
+        "name": "card-table",
+        "type": "string",
+        "description": "Card table ID (required if project has multiple)"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID"
+        },
+        "card-table": {
+          "type": "string",
+          "description": "Card table ID (required if project has multiple)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    }
+  },
+  {
+    "name": "cards_column_show",
+    "argv_prefix": [
+      "cards",
+      "column",
+      "show"
+    ],
+    "group": "cards",
+    "action": "column_show",
+    "description": "Display detailed information about a column.",
+    "positional": [
+      {
+        "name": "id",
+        "required": true,
+        "description": "ID"
+      }
+    ],
+    "flags": [
+      {
+        "name": "card-table",
+        "type": "string",
+        "description": "Card table ID (required if project has multiple)"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID"
+        },
+        "card-table": {
+          "type": "string",
+          "description": "Card table ID (required if project has multiple)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    }
+  },
+  {
+    "name": "cards_column_unwatch",
+    "argv_prefix": [
+      "cards",
+      "column",
+      "unwatch"
+    ],
+    "group": "cards",
+    "action": "column_unwatch",
+    "description": "Unsubscribe from updates for a column.",
+    "positional": [
+      {
+        "name": "id",
+        "required": true,
+        "description": "ID"
+      }
+    ],
+    "flags": [
+      {
+        "name": "card-table",
+        "type": "string",
+        "description": "Card table ID (required if project has multiple)"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID"
+        },
+        "card-table": {
+          "type": "string",
+          "description": "Card table ID (required if project has multiple)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    }
+  },
+  {
+    "name": "cards_column_update",
+    "argv_prefix": [
+      "cards",
+      "column",
+      "update"
+    ],
+    "group": "cards",
+    "action": "column_update",
+    "description": "Update an existing card table column.",
+    "positional": [
+      {
+        "name": "id",
+        "required": true,
+        "description": "ID"
+      }
+    ],
+    "flags": [
+      {
+        "name": "card-table",
+        "type": "string",
+        "description": "Card table ID (required if project has multiple)"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": "New description",
+        "short": "d"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "description": "New title",
+        "short": "t"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID"
+        },
+        "card-table": {
+          "type": "string",
+          "description": "Card table ID (required if project has multiple)"
+        },
+        "description": {
+          "type": "string",
+          "description": "New description"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "title": {
+          "type": "string",
+          "description": "New title"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    }
+  },
+  {
+    "name": "cards_column_watch",
+    "argv_prefix": [
+      "cards",
+      "column",
+      "watch"
+    ],
+    "group": "cards",
+    "action": "column_watch",
+    "description": "Subscribe to updates for a column.",
+    "positional": [
+      {
+        "name": "id",
+        "required": true,
+        "description": "ID"
+      }
+    ],
+    "flags": [
+      {
+        "name": "card-table",
+        "type": "string",
+        "description": "Card table ID (required if project has multiple)"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID"
+        },
+        "card-table": {
+          "type": "string",
+          "description": "Card table ID (required if project has multiple)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    }
+  },
+  {
     "name": "cards_columns",
+    "argv_prefix": [
+      "cards",
+      "columns"
+    ],
     "group": "cards",
     "action": "columns",
     "description": "List all columns in a project's card table with their IDs.",
@@ -1087,6 +2532,10 @@
   },
   {
     "name": "cards_create",
+    "argv_prefix": [
+      "cards",
+      "create"
+    ],
     "group": "cards",
     "action": "create",
     "description": "Create a new card in a project's card table.",
@@ -1201,6 +2650,10 @@
   },
   {
     "name": "cards_list",
+    "argv_prefix": [
+      "cards",
+      "list"
+    ],
     "group": "cards",
     "action": "list",
     "description": "List all cards in a project's card table.",
@@ -1309,6 +2762,10 @@
   },
   {
     "name": "cards_move",
+    "argv_prefix": [
+      "cards",
+      "move"
+    ],
     "group": "cards",
     "action": "move",
     "description": "Move a card to a different column in the card table.",
@@ -1411,6 +2868,10 @@
   },
   {
     "name": "cards_restore",
+    "argv_prefix": [
+      "cards",
+      "restore"
+    ],
     "group": "cards",
     "action": "restore",
     "description": "Restore a card from trash or archive to active status.",
@@ -1476,6 +2937,10 @@
   },
   {
     "name": "cards_show",
+    "argv_prefix": [
+      "cards",
+      "show"
+    ],
     "group": "cards",
     "action": "show",
     "description": "Display detailed information about a card.",
@@ -1549,7 +3014,516 @@
     }
   },
   {
+    "name": "cards_step_complete",
+    "argv_prefix": [
+      "cards",
+      "step",
+      "complete"
+    ],
+    "group": "cards",
+    "action": "step_complete",
+    "description": "Mark a step as completed.",
+    "positional": [
+      {
+        "name": "step_id",
+        "required": true,
+        "description": "Step ID"
+      }
+    ],
+    "flags": [
+      {
+        "name": "card-table",
+        "type": "string",
+        "description": "Card table ID (required if project has multiple)"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "step_id": {
+          "type": "string",
+          "description": "Step ID"
+        },
+        "card-table": {
+          "type": "string",
+          "description": "Card table ID (required if project has multiple)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      },
+      "required": [
+        "step_id"
+      ]
+    }
+  },
+  {
+    "name": "cards_step_create",
+    "argv_prefix": [
+      "cards",
+      "step",
+      "create"
+    ],
+    "group": "cards",
+    "action": "step_create",
+    "description": "Add a new step (checklist item) to a card.",
+    "positional": [
+      {
+        "name": "title",
+        "required": true,
+        "description": "Title"
+      }
+    ],
+    "flags": [
+      {
+        "name": "assignees",
+        "type": "string",
+        "description": "Assignees (IDs or names, comma-separated)"
+      },
+      {
+        "name": "card",
+        "type": "string",
+        "description": "Card ID (required)",
+        "short": "c"
+      },
+      {
+        "name": "card-table",
+        "type": "string",
+        "description": "Card table ID (required if project has multiple)"
+      },
+      {
+        "name": "due",
+        "type": "string",
+        "description": "Due date (natural language or YYYY-MM-DD)",
+        "short": "d"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Title"
+        },
+        "assignees": {
+          "type": "string",
+          "description": "Assignees (IDs or names, comma-separated)"
+        },
+        "card": {
+          "type": "string",
+          "description": "Card ID (required)"
+        },
+        "card-table": {
+          "type": "string",
+          "description": "Card table ID (required if project has multiple)"
+        },
+        "due": {
+          "type": "string",
+          "description": "Due date (natural language or YYYY-MM-DD)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      },
+      "required": [
+        "title"
+      ]
+    }
+  },
+  {
+    "name": "cards_step_delete",
+    "argv_prefix": [
+      "cards",
+      "step",
+      "delete"
+    ],
+    "group": "cards",
+    "action": "step_delete",
+    "description": "Permanently delete a step from a card.",
+    "positional": [
+      {
+        "name": "step_id",
+        "required": true,
+        "description": "Step ID"
+      }
+    ],
+    "flags": [
+      {
+        "name": "card-table",
+        "type": "string",
+        "description": "Card table ID (required if project has multiple)"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "step_id": {
+          "type": "string",
+          "description": "Step ID"
+        },
+        "card-table": {
+          "type": "string",
+          "description": "Card table ID (required if project has multiple)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      },
+      "required": [
+        "step_id"
+      ]
+    }
+  },
+  {
+    "name": "cards_step_move",
+    "argv_prefix": [
+      "cards",
+      "step",
+      "move"
+    ],
+    "group": "cards",
+    "action": "step_move",
+    "description": "Reposition a step within a card (0-indexed).",
+    "positional": [
+      {
+        "name": "step_id",
+        "required": true,
+        "description": "Step ID"
+      }
+    ],
+    "flags": [
+      {
+        "name": "card",
+        "type": "string",
+        "description": "Card ID (required)",
+        "short": "c"
+      },
+      {
+        "name": "card-table",
+        "type": "string",
+        "description": "Card table ID (required if project has multiple)"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "pos",
+        "type": "integer",
+        "description": "Target position (alias for --position) (default -1)"
+      },
+      {
+        "name": "position",
+        "type": "integer",
+        "description": "Target position (0-indexed) (default -1)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "step_id": {
+          "type": "string",
+          "description": "Step ID"
+        },
+        "card": {
+          "type": "string",
+          "description": "Card ID (required)"
+        },
+        "card-table": {
+          "type": "string",
+          "description": "Card table ID (required if project has multiple)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "pos": {
+          "type": "integer",
+          "description": "Target position (alias for --position) (default -1)"
+        },
+        "position": {
+          "type": "integer",
+          "description": "Target position (0-indexed) (default -1)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      },
+      "required": [
+        "step_id"
+      ]
+    }
+  },
+  {
+    "name": "cards_step_uncomplete",
+    "argv_prefix": [
+      "cards",
+      "step",
+      "uncomplete"
+    ],
+    "group": "cards",
+    "action": "step_uncomplete",
+    "description": "Mark a step as not completed.",
+    "positional": [
+      {
+        "name": "step_id",
+        "required": true,
+        "description": "Step ID"
+      }
+    ],
+    "flags": [
+      {
+        "name": "card-table",
+        "type": "string",
+        "description": "Card table ID (required if project has multiple)"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "step_id": {
+          "type": "string",
+          "description": "Step ID"
+        },
+        "card-table": {
+          "type": "string",
+          "description": "Card table ID (required if project has multiple)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      },
+      "required": [
+        "step_id"
+      ]
+    }
+  },
+  {
+    "name": "cards_step_update",
+    "argv_prefix": [
+      "cards",
+      "step",
+      "update"
+    ],
+    "group": "cards",
+    "action": "step_update",
+    "description": "Update an existing step on a card.",
+    "positional": [
+      {
+        "name": "step_id",
+        "required": true,
+        "description": "Step ID"
+      },
+      {
+        "name": "title",
+        "required": false,
+        "description": "Title (optional)"
+      }
+    ],
+    "flags": [
+      {
+        "name": "assignees",
+        "type": "string",
+        "description": "Assignees (IDs or names, comma-separated)"
+      },
+      {
+        "name": "card-table",
+        "type": "string",
+        "description": "Card table ID (required if project has multiple)"
+      },
+      {
+        "name": "due",
+        "type": "string",
+        "description": "Due date (natural language or YYYY-MM-DD)",
+        "short": "d"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "step_id": {
+          "type": "string",
+          "description": "Step ID"
+        },
+        "title": {
+          "type": "string",
+          "description": "Title (optional)"
+        },
+        "assignees": {
+          "type": "string",
+          "description": "Assignees (IDs or names, comma-separated)"
+        },
+        "card-table": {
+          "type": "string",
+          "description": "Card table ID (required if project has multiple)"
+        },
+        "due": {
+          "type": "string",
+          "description": "Due date (natural language or YYYY-MM-DD)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      },
+      "required": [
+        "step_id"
+      ]
+    }
+  },
+  {
     "name": "cards_steps",
+    "argv_prefix": [
+      "cards",
+      "steps"
+    ],
     "group": "cards",
     "action": "steps",
     "description": "Display all steps (checklist items) on a card.",
@@ -1625,6 +3599,10 @@
   },
   {
     "name": "cards_trash",
+    "argv_prefix": [
+      "cards",
+      "trash"
+    ],
     "group": "cards",
     "action": "trash",
     "description": "Move a card to the trash.",
@@ -1690,6 +3668,10 @@
   },
   {
     "name": "cards_update",
+    "argv_prefix": [
+      "cards",
+      "update"
+    ],
     "group": "cards",
     "action": "update",
     "description": "Update an existing card.",
@@ -1806,6 +3788,10 @@
   },
   {
     "name": "chat_delete",
+    "argv_prefix": [
+      "chat",
+      "delete"
+    ],
     "group": "chat",
     "action": "delete",
     "description": "Delete a message line from a chat.",
@@ -1882,6 +3868,10 @@
   },
   {
     "name": "chat_line",
+    "argv_prefix": [
+      "chat",
+      "line"
+    ],
     "group": "chat",
     "action": "line",
     "description": "Show details of a specific message line.",
@@ -1948,6 +3938,10 @@
   },
   {
     "name": "chat_list",
+    "argv_prefix": [
+      "chat",
+      "list"
+    ],
     "group": "chat",
     "action": "list",
     "description": "List chats in a project or account-wide with --all.",
@@ -2011,6 +4005,10 @@
   },
   {
     "name": "chat_messages",
+    "argv_prefix": [
+      "chat",
+      "messages"
+    ],
     "group": "chat",
     "action": "messages",
     "description": "View recent messages from a chat.",
@@ -2074,6 +4072,10 @@
   },
   {
     "name": "chat_post",
+    "argv_prefix": [
+      "chat",
+      "post"
+    ],
     "group": "chat",
     "action": "post",
     "description": "Post a message to a chat.",
@@ -2170,6 +4172,10 @@
   },
   {
     "name": "chat_upload",
+    "argv_prefix": [
+      "chat",
+      "upload"
+    ],
     "group": "chat",
     "action": "upload",
     "description": "Upload a file directly to a chat room.",
@@ -2235,10 +4241,116 @@
     }
   },
   {
-    "name": "checkins_answer",
+    "name": "checkins_answer_create",
+    "argv_prefix": [
+      "checkins",
+      "answer",
+      "create"
+    ],
     "group": "checkins",
-    "action": "answer",
-    "description": "Show or manage an answer",
+    "action": "answer_create",
+    "description": "Create an answer to a question",
+    "positional": [
+      {
+        "name": "question-id",
+        "required": true,
+        "description": "Question ID"
+      },
+      {
+        "name": "content",
+        "required": true,
+        "description": "Content"
+      }
+    ],
+    "flags": [
+      {
+        "name": "attach",
+        "type": "array",
+        "description": "Attach file (repeatable)"
+      },
+      {
+        "name": "date",
+        "type": "string",
+        "description": "Date to group answer (ISO 8601, e.g., 2024-01-22; defaults to today)"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "questionnaire",
+        "type": "string",
+        "description": "Questionnaire ID (auto-detected)"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "question-id": {
+          "type": "string",
+          "description": "Question ID"
+        },
+        "content": {
+          "type": "string",
+          "description": "Content"
+        },
+        "attach": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Attach file (repeatable)"
+        },
+        "date": {
+          "type": "string",
+          "description": "Date to group answer (ISO 8601, e.g., 2024-01-22; defaults to today)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "questionnaire": {
+          "type": "string",
+          "description": "Questionnaire ID (auto-detected)"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      },
+      "required": [
+        "question-id",
+        "content"
+      ]
+    }
+  },
+  {
+    "name": "checkins_answer_show",
+    "argv_prefix": [
+      "checkins",
+      "answer",
+      "show"
+    ],
+    "group": "checkins",
+    "action": "answer_show",
+    "description": "Display details of a check-in answer.",
     "positional": [
       {
         "name": "id",
@@ -2300,7 +4412,91 @@
     }
   },
   {
+    "name": "checkins_answer_update",
+    "argv_prefix": [
+      "checkins",
+      "answer",
+      "update"
+    ],
+    "group": "checkins",
+    "action": "answer_update",
+    "description": "Update an existing check-in answer.",
+    "positional": [
+      {
+        "name": "id",
+        "required": true,
+        "description": "ID"
+      },
+      {
+        "name": "content",
+        "required": true,
+        "description": "Content"
+      }
+    ],
+    "flags": [
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "questionnaire",
+        "type": "string",
+        "description": "Questionnaire ID (auto-detected)"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID"
+        },
+        "content": {
+          "type": "string",
+          "description": "Content"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "questionnaire": {
+          "type": "string",
+          "description": "Questionnaire ID (auto-detected)"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      },
+      "required": [
+        "id",
+        "content"
+      ]
+    }
+  },
+  {
     "name": "checkins_answers",
+    "argv_prefix": [
+      "checkins",
+      "answers"
+    ],
     "group": "checkins",
     "action": "answers",
     "description": "List answers for a check-in question.",
@@ -2393,10 +4589,114 @@
     }
   },
   {
-    "name": "checkins_question",
+    "name": "checkins_question_create",
+    "argv_prefix": [
+      "checkins",
+      "question",
+      "create"
+    ],
     "group": "checkins",
-    "action": "question",
-    "description": "Show or manage a question",
+    "action": "question_create",
+    "description": "Create a new check-in question.",
+    "positional": [
+      {
+        "name": "title",
+        "required": true,
+        "description": "Title"
+      }
+    ],
+    "flags": [
+      {
+        "name": "days",
+        "type": "string",
+        "description": "Days to ask, comma-separated (default: 1,2,3,4,5)",
+        "short": "d"
+      },
+      {
+        "name": "frequency",
+        "type": "string",
+        "description": "Schedule frequency (default: every_day)",
+        "short": "f"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "questionnaire",
+        "type": "string",
+        "description": "Questionnaire ID (auto-detected)"
+      },
+      {
+        "name": "time",
+        "type": "string",
+        "description": "Time to ask (default: 5:00pm)"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Title"
+        },
+        "days": {
+          "type": "string",
+          "description": "Days to ask, comma-separated (default: 1,2,3,4,5)"
+        },
+        "frequency": {
+          "type": "string",
+          "description": "Schedule frequency (default: every_day)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "questionnaire": {
+          "type": "string",
+          "description": "Questionnaire ID (auto-detected)"
+        },
+        "time": {
+          "type": "string",
+          "description": "Time to ask (default: 5:00pm)"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      },
+      "required": [
+        "title"
+      ]
+    }
+  },
+  {
+    "name": "checkins_question_show",
+    "argv_prefix": [
+      "checkins",
+      "question",
+      "show"
+    ],
+    "group": "checkins",
+    "action": "question_show",
+    "description": "Display details of a check-in question.",
     "positional": [
       {
         "name": "id",
@@ -2458,7 +4758,119 @@
     }
   },
   {
+    "name": "checkins_question_update",
+    "argv_prefix": [
+      "checkins",
+      "question",
+      "update"
+    ],
+    "group": "checkins",
+    "action": "question_update",
+    "description": "Update a check-in question's title or schedule.",
+    "positional": [
+      {
+        "name": "id",
+        "required": true,
+        "description": "ID"
+      },
+      {
+        "name": "title",
+        "required": false,
+        "description": "Title (optional)"
+      }
+    ],
+    "flags": [
+      {
+        "name": "days",
+        "type": "string",
+        "description": "New days to ask",
+        "short": "d"
+      },
+      {
+        "name": "frequency",
+        "type": "string",
+        "description": "New schedule frequency",
+        "short": "f"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "questionnaire",
+        "type": "string",
+        "description": "Questionnaire ID (auto-detected)"
+      },
+      {
+        "name": "time",
+        "type": "string",
+        "description": "New time to ask"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID"
+        },
+        "title": {
+          "type": "string",
+          "description": "Title (optional)"
+        },
+        "days": {
+          "type": "string",
+          "description": "New days to ask"
+        },
+        "frequency": {
+          "type": "string",
+          "description": "New schedule frequency"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "questionnaire": {
+          "type": "string",
+          "description": "Questionnaire ID (auto-detected)"
+        },
+        "time": {
+          "type": "string",
+          "description": "New time to ask"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    }
+  },
+  {
     "name": "checkins_questions",
+    "argv_prefix": [
+      "checkins",
+      "questions"
+    ],
     "group": "checkins",
     "action": "questions",
     "description": "List check-in questions",
@@ -2539,6 +4951,10 @@
   },
   {
     "name": "comments_archive",
+    "argv_prefix": [
+      "comments",
+      "archive"
+    ],
     "group": "comments",
     "action": "archive",
     "description": "Archive a comment to remove it from active view.",
@@ -2595,6 +5011,10 @@
   },
   {
     "name": "comments_create",
+    "argv_prefix": [
+      "comments",
+      "create"
+    ],
     "group": "comments",
     "action": "create",
     "description": "Add a comment to a Basecamp item (todo, message, card, etc.)",
@@ -2682,6 +5102,10 @@
   },
   {
     "name": "comments_list",
+    "argv_prefix": [
+      "comments",
+      "list"
+    ],
     "group": "comments",
     "action": "list",
     "description": "List all comments on an item.",
@@ -2766,6 +5190,10 @@
   },
   {
     "name": "comments_restore",
+    "argv_prefix": [
+      "comments",
+      "restore"
+    ],
     "group": "comments",
     "action": "restore",
     "description": "Restore a comment from trash or archive to active status.",
@@ -2822,6 +5250,10 @@
   },
   {
     "name": "comments_show",
+    "argv_prefix": [
+      "comments",
+      "show"
+    ],
     "group": "comments",
     "action": "show",
     "description": "Display detailed information about a comment.",
@@ -2878,6 +5310,10 @@
   },
   {
     "name": "comments_trash",
+    "argv_prefix": [
+      "comments",
+      "trash"
+    ],
     "group": "comments",
     "action": "trash",
     "description": "Move a comment to the trash.",
@@ -2934,6 +5370,10 @@
   },
   {
     "name": "comments_update",
+    "argv_prefix": [
+      "comments",
+      "update"
+    ],
     "group": "comments",
     "action": "update",
     "description": "Update an existing comment's content.",
@@ -3000,6 +5440,10 @@
   },
   {
     "name": "completion_bash",
+    "argv_prefix": [
+      "completion",
+      "bash"
+    ],
     "group": "completion",
     "action": "bash",
     "description": "Generate the autocompletion script for bash.",
@@ -3034,6 +5478,10 @@
   },
   {
     "name": "completion_fish",
+    "argv_prefix": [
+      "completion",
+      "fish"
+    ],
     "group": "completion",
     "action": "fish",
     "description": "Generate the autocompletion script for fish.",
@@ -3068,6 +5516,10 @@
   },
   {
     "name": "completion_powershell",
+    "argv_prefix": [
+      "completion",
+      "powershell"
+    ],
     "group": "completion",
     "action": "powershell",
     "description": "Generate the autocompletion script for powershell.",
@@ -3102,6 +5554,10 @@
   },
   {
     "name": "completion_refresh",
+    "argv_prefix": [
+      "completion",
+      "refresh"
+    ],
     "group": "completion",
     "action": "refresh",
     "description": "Refresh the completion cache by fetching fresh data from Basecamp.",
@@ -3136,6 +5592,10 @@
   },
   {
     "name": "completion_status",
+    "argv_prefix": [
+      "completion",
+      "status"
+    ],
     "group": "completion",
     "action": "status",
     "description": "Show the status of the completion cache.",
@@ -3170,6 +5630,10 @@
   },
   {
     "name": "completion_zsh",
+    "argv_prefix": [
+      "completion",
+      "zsh"
+    ],
     "group": "completion",
     "action": "zsh",
     "description": "Generate the autocompletion script for zsh.",
@@ -3204,6 +5668,10 @@
   },
   {
     "name": "config_init",
+    "argv_prefix": [
+      "config",
+      "init"
+    ],
     "group": "config",
     "action": "init",
     "description": "Create a local .basecamp/config.json file in the current directory.",
@@ -3238,6 +5706,10 @@
   },
   {
     "name": "config_project",
+    "argv_prefix": [
+      "config",
+      "project"
+    ],
     "group": "config",
     "action": "project",
     "description": "Select a project and set it as the default in local config.",
@@ -3272,6 +5744,10 @@
   },
   {
     "name": "config_set",
+    "argv_prefix": [
+      "config",
+      "set"
+    ],
     "group": "config",
     "action": "set",
     "description": "Set a configuration value in the local or global config file.",
@@ -3338,6 +5814,10 @@
   },
   {
     "name": "config_show",
+    "argv_prefix": [
+      "config",
+      "show"
+    ],
     "group": "config",
     "action": "show",
     "description": "Display the current effective configuration with source information.",
@@ -3372,6 +5852,10 @@
   },
   {
     "name": "config_trust",
+    "argv_prefix": [
+      "config",
+      "trust"
+    ],
     "group": "config",
     "action": "trust",
     "description": "Trust a local or repo .basecamp/config.json to allow authority keys (base_url, default_profile, profiles).",
@@ -3425,6 +5909,10 @@
   },
   {
     "name": "config_unset",
+    "argv_prefix": [
+      "config",
+      "unset"
+    ],
     "group": "config",
     "action": "unset",
     "description": "Remove a configuration value from the local or global config file.",
@@ -3481,6 +5969,10 @@
   },
   {
     "name": "config_untrust",
+    "argv_prefix": [
+      "config",
+      "untrust"
+    ],
     "group": "config",
     "action": "untrust",
     "description": "Revoke trust from a local or repo .basecamp/config.json. Authority keys (base_url, default_profile, profiles) will be rejected again.",
@@ -3525,6 +6017,10 @@
   },
   {
     "name": "docs_archive",
+    "argv_prefix": [
+      "docs",
+      "archive"
+    ],
     "group": "docs",
     "action": "archive",
     "description": "Archive a file to remove it from active view.",
@@ -3598,7 +6094,232 @@
     }
   },
   {
+    "name": "docs_documents_create",
+    "argv_prefix": [
+      "docs",
+      "documents",
+      "create"
+    ],
+    "group": "docs",
+    "action": "documents_create",
+    "description": "Create a new document",
+    "positional": [
+      {
+        "name": "title",
+        "required": true,
+        "description": "Title"
+      },
+      {
+        "name": "content",
+        "required": false,
+        "description": "Content (optional)"
+      }
+    ],
+    "flags": [
+      {
+        "name": "attach",
+        "type": "array",
+        "description": "Attach file (repeatable)"
+      },
+      {
+        "name": "draft",
+        "type": "boolean",
+        "description": "Create as draft (default: published)"
+      },
+      {
+        "name": "folder",
+        "type": "string",
+        "description": "Folder ID (alias for --vault)"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "no-subscribe",
+        "type": "boolean",
+        "description": "Don't subscribe anyone else (silent, no notifications)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "subscribe",
+        "type": "string",
+        "description": "Subscribe specific people (comma-separated names, emails, IDs, or \"me\")"
+      },
+      {
+        "name": "vault",
+        "type": "string",
+        "description": "Folder ID (default: root)"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Title"
+        },
+        "content": {
+          "type": "string",
+          "description": "Content (optional)"
+        },
+        "attach": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Attach file (repeatable)"
+        },
+        "draft": {
+          "type": "boolean",
+          "description": "Create as draft (default: published)"
+        },
+        "folder": {
+          "type": "string",
+          "description": "Folder ID (alias for --vault)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "no-subscribe": {
+          "type": "boolean",
+          "description": "Don't subscribe anyone else (silent, no notifications)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "subscribe": {
+          "type": "string",
+          "description": "Subscribe specific people (comma-separated names, emails, IDs, or \"me\")"
+        },
+        "vault": {
+          "type": "string",
+          "description": "Folder ID (default: root)"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      },
+      "required": [
+        "title"
+      ]
+    }
+  },
+  {
+    "name": "docs_documents_list",
+    "argv_prefix": [
+      "docs",
+      "documents",
+      "list"
+    ],
+    "group": "docs",
+    "action": "documents_list",
+    "description": "List documents in a folder",
+    "positional": [],
+    "flags": [
+      {
+        "name": "all",
+        "type": "boolean",
+        "description": "Fetch all documents (no limit)"
+      },
+      {
+        "name": "folder",
+        "type": "string",
+        "description": "Folder ID (alias for --vault)"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "limit",
+        "type": "integer",
+        "description": "Maximum number of documents to fetch (0 = all)",
+        "short": "n"
+      },
+      {
+        "name": "page",
+        "type": "integer",
+        "description": "Fetch a single page (use --all for everything)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "vault",
+        "type": "string",
+        "description": "Folder ID (default: root)"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "all": {
+          "type": "boolean",
+          "description": "Fetch all documents (no limit)"
+        },
+        "folder": {
+          "type": "string",
+          "description": "Folder ID (alias for --vault)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Maximum number of documents to fetch (0 = all)"
+        },
+        "page": {
+          "type": "integer",
+          "description": "Fetch a single page (use --all for everything)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "vault": {
+          "type": "string",
+          "description": "Folder ID (default: root)"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      }
+    }
+  },
+  {
     "name": "docs_download",
+    "argv_prefix": [
+      "docs",
+      "download"
+    ],
     "group": "docs",
     "action": "download",
     "description": "Download an uploaded file to the local filesystem.",
@@ -3682,7 +6403,184 @@
     }
   },
   {
+    "name": "docs_folders_create",
+    "argv_prefix": [
+      "docs",
+      "folders",
+      "create"
+    ],
+    "group": "docs",
+    "action": "folders_create",
+    "description": "Create a new folder",
+    "positional": [
+      {
+        "name": "name",
+        "required": true,
+        "description": "Name"
+      }
+    ],
+    "flags": [
+      {
+        "name": "folder",
+        "type": "string",
+        "description": "Folder ID (alias for --vault)"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "vault",
+        "type": "string",
+        "description": "Folder ID (default: root)"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name"
+        },
+        "folder": {
+          "type": "string",
+          "description": "Folder ID (alias for --vault)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "vault": {
+          "type": "string",
+          "description": "Folder ID (default: root)"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    }
+  },
+  {
+    "name": "docs_folders_list",
+    "argv_prefix": [
+      "docs",
+      "folders",
+      "list"
+    ],
+    "group": "docs",
+    "action": "folders_list",
+    "description": "List folders in a folder",
+    "positional": [],
+    "flags": [
+      {
+        "name": "all",
+        "type": "boolean",
+        "description": "Fetch all folders (no limit)"
+      },
+      {
+        "name": "folder",
+        "type": "string",
+        "description": "Folder ID (alias for --vault)"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "limit",
+        "type": "integer",
+        "description": "Maximum number of folders to fetch (0 = all)",
+        "short": "n"
+      },
+      {
+        "name": "page",
+        "type": "integer",
+        "description": "Fetch a single page (use --all for everything)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "vault",
+        "type": "string",
+        "description": "Folder ID (default: root)"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "all": {
+          "type": "boolean",
+          "description": "Fetch all folders (no limit)"
+        },
+        "folder": {
+          "type": "string",
+          "description": "Folder ID (alias for --vault)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Maximum number of folders to fetch (0 = all)"
+        },
+        "page": {
+          "type": "integer",
+          "description": "Fetch a single page (use --all for everything)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "vault": {
+          "type": "string",
+          "description": "Folder ID (default: root)"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      }
+    }
+  },
+  {
     "name": "docs_list",
+    "argv_prefix": [
+      "docs",
+      "list"
+    ],
     "group": "docs",
     "action": "list",
     "description": "List all folders, documents, and uploads in a folder.",
@@ -3744,6 +6642,10 @@
   },
   {
     "name": "docs_restore",
+    "argv_prefix": [
+      "docs",
+      "restore"
+    ],
     "group": "docs",
     "action": "restore",
     "description": "Restore a file from trash or archive to active status.",
@@ -3818,6 +6720,10 @@
   },
   {
     "name": "docs_show",
+    "argv_prefix": [
+      "docs",
+      "show"
+    ],
     "group": "docs",
     "action": "show",
     "description": "Show details for a vault, document, or upload.",
@@ -3911,6 +6817,10 @@
   },
   {
     "name": "docs_trash",
+    "argv_prefix": [
+      "docs",
+      "trash"
+    ],
     "group": "docs",
     "action": "trash",
     "description": "Move a file to the trash.",
@@ -3985,6 +6895,10 @@
   },
   {
     "name": "docs_update",
+    "argv_prefix": [
+      "docs",
+      "update"
+    ],
     "group": "docs",
     "action": "update",
     "description": "Update a document, vault, or upload.",
@@ -4087,7 +7001,193 @@
     }
   },
   {
+    "name": "docs_uploads_create",
+    "argv_prefix": [
+      "docs",
+      "uploads",
+      "create"
+    ],
+    "group": "docs",
+    "action": "uploads_create",
+    "description": "Upload a file to a project's Docs & Files area.",
+    "positional": [
+      {
+        "name": "file",
+        "required": true,
+        "description": "File"
+      }
+    ],
+    "flags": [
+      {
+        "name": "description",
+        "type": "string",
+        "description": "Upload description (Markdown)"
+      },
+      {
+        "name": "folder",
+        "type": "string",
+        "description": "Folder ID (alias for --vault)"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "vault",
+        "type": "string",
+        "description": "Folder ID (default: root)"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "file": {
+          "type": "string",
+          "description": "File"
+        },
+        "description": {
+          "type": "string",
+          "description": "Upload description (Markdown)"
+        },
+        "folder": {
+          "type": "string",
+          "description": "Folder ID (alias for --vault)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "vault": {
+          "type": "string",
+          "description": "Folder ID (default: root)"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      },
+      "required": [
+        "file"
+      ]
+    }
+  },
+  {
+    "name": "docs_uploads_list",
+    "argv_prefix": [
+      "docs",
+      "uploads",
+      "list"
+    ],
+    "group": "docs",
+    "action": "uploads_list",
+    "description": "List uploaded files in a folder",
+    "positional": [],
+    "flags": [
+      {
+        "name": "all",
+        "type": "boolean",
+        "description": "Fetch all files (no limit)"
+      },
+      {
+        "name": "folder",
+        "type": "string",
+        "description": "Folder ID (alias for --vault)"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "limit",
+        "type": "integer",
+        "description": "Maximum number of files to fetch (0 = all)",
+        "short": "n"
+      },
+      {
+        "name": "page",
+        "type": "integer",
+        "description": "Fetch a single page (use --all for everything)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "vault",
+        "type": "string",
+        "description": "Folder ID (default: root)"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "all": {
+          "type": "boolean",
+          "description": "Fetch all files (no limit)"
+        },
+        "folder": {
+          "type": "string",
+          "description": "Folder ID (alias for --vault)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Maximum number of files to fetch (0 = all)"
+        },
+        "page": {
+          "type": "integer",
+          "description": "Fetch a single page (use --all for everything)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "vault": {
+          "type": "string",
+          "description": "Folder ID (default: root)"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      }
+    }
+  },
+  {
     "name": "files_archive",
+    "argv_prefix": [
+      "files",
+      "archive"
+    ],
     "group": "files",
     "action": "archive",
     "description": "Archive a file to remove it from active view.",
@@ -4161,7 +7261,232 @@
     }
   },
   {
+    "name": "files_documents_create",
+    "argv_prefix": [
+      "files",
+      "documents",
+      "create"
+    ],
+    "group": "files",
+    "action": "documents_create",
+    "description": "Create a new document",
+    "positional": [
+      {
+        "name": "title",
+        "required": true,
+        "description": "Title"
+      },
+      {
+        "name": "content",
+        "required": false,
+        "description": "Content (optional)"
+      }
+    ],
+    "flags": [
+      {
+        "name": "attach",
+        "type": "array",
+        "description": "Attach file (repeatable)"
+      },
+      {
+        "name": "draft",
+        "type": "boolean",
+        "description": "Create as draft (default: published)"
+      },
+      {
+        "name": "folder",
+        "type": "string",
+        "description": "Folder ID (alias for --vault)"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "no-subscribe",
+        "type": "boolean",
+        "description": "Don't subscribe anyone else (silent, no notifications)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "subscribe",
+        "type": "string",
+        "description": "Subscribe specific people (comma-separated names, emails, IDs, or \"me\")"
+      },
+      {
+        "name": "vault",
+        "type": "string",
+        "description": "Folder ID (default: root)"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Title"
+        },
+        "content": {
+          "type": "string",
+          "description": "Content (optional)"
+        },
+        "attach": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Attach file (repeatable)"
+        },
+        "draft": {
+          "type": "boolean",
+          "description": "Create as draft (default: published)"
+        },
+        "folder": {
+          "type": "string",
+          "description": "Folder ID (alias for --vault)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "no-subscribe": {
+          "type": "boolean",
+          "description": "Don't subscribe anyone else (silent, no notifications)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "subscribe": {
+          "type": "string",
+          "description": "Subscribe specific people (comma-separated names, emails, IDs, or \"me\")"
+        },
+        "vault": {
+          "type": "string",
+          "description": "Folder ID (default: root)"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      },
+      "required": [
+        "title"
+      ]
+    }
+  },
+  {
+    "name": "files_documents_list",
+    "argv_prefix": [
+      "files",
+      "documents",
+      "list"
+    ],
+    "group": "files",
+    "action": "documents_list",
+    "description": "List documents in a folder",
+    "positional": [],
+    "flags": [
+      {
+        "name": "all",
+        "type": "boolean",
+        "description": "Fetch all documents (no limit)"
+      },
+      {
+        "name": "folder",
+        "type": "string",
+        "description": "Folder ID (alias for --vault)"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "limit",
+        "type": "integer",
+        "description": "Maximum number of documents to fetch (0 = all)",
+        "short": "n"
+      },
+      {
+        "name": "page",
+        "type": "integer",
+        "description": "Fetch a single page (use --all for everything)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "vault",
+        "type": "string",
+        "description": "Folder ID (default: root)"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "all": {
+          "type": "boolean",
+          "description": "Fetch all documents (no limit)"
+        },
+        "folder": {
+          "type": "string",
+          "description": "Folder ID (alias for --vault)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Maximum number of documents to fetch (0 = all)"
+        },
+        "page": {
+          "type": "integer",
+          "description": "Fetch a single page (use --all for everything)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "vault": {
+          "type": "string",
+          "description": "Folder ID (default: root)"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      }
+    }
+  },
+  {
     "name": "files_download",
+    "argv_prefix": [
+      "files",
+      "download"
+    ],
     "group": "files",
     "action": "download",
     "description": "Download an uploaded file to the local filesystem.",
@@ -4245,7 +7570,184 @@
     }
   },
   {
+    "name": "files_folders_create",
+    "argv_prefix": [
+      "files",
+      "folders",
+      "create"
+    ],
+    "group": "files",
+    "action": "folders_create",
+    "description": "Create a new folder",
+    "positional": [
+      {
+        "name": "name",
+        "required": true,
+        "description": "Name"
+      }
+    ],
+    "flags": [
+      {
+        "name": "folder",
+        "type": "string",
+        "description": "Folder ID (alias for --vault)"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "vault",
+        "type": "string",
+        "description": "Folder ID (default: root)"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name"
+        },
+        "folder": {
+          "type": "string",
+          "description": "Folder ID (alias for --vault)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "vault": {
+          "type": "string",
+          "description": "Folder ID (default: root)"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    }
+  },
+  {
+    "name": "files_folders_list",
+    "argv_prefix": [
+      "files",
+      "folders",
+      "list"
+    ],
+    "group": "files",
+    "action": "folders_list",
+    "description": "List folders in a folder",
+    "positional": [],
+    "flags": [
+      {
+        "name": "all",
+        "type": "boolean",
+        "description": "Fetch all folders (no limit)"
+      },
+      {
+        "name": "folder",
+        "type": "string",
+        "description": "Folder ID (alias for --vault)"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "limit",
+        "type": "integer",
+        "description": "Maximum number of folders to fetch (0 = all)",
+        "short": "n"
+      },
+      {
+        "name": "page",
+        "type": "integer",
+        "description": "Fetch a single page (use --all for everything)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "vault",
+        "type": "string",
+        "description": "Folder ID (default: root)"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "all": {
+          "type": "boolean",
+          "description": "Fetch all folders (no limit)"
+        },
+        "folder": {
+          "type": "string",
+          "description": "Folder ID (alias for --vault)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Maximum number of folders to fetch (0 = all)"
+        },
+        "page": {
+          "type": "integer",
+          "description": "Fetch a single page (use --all for everything)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "vault": {
+          "type": "string",
+          "description": "Folder ID (default: root)"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      }
+    }
+  },
+  {
     "name": "files_list",
+    "argv_prefix": [
+      "files",
+      "list"
+    ],
     "group": "files",
     "action": "list",
     "description": "List all folders, documents, and uploads in a folder.",
@@ -4307,6 +7809,10 @@
   },
   {
     "name": "files_restore",
+    "argv_prefix": [
+      "files",
+      "restore"
+    ],
     "group": "files",
     "action": "restore",
     "description": "Restore a file from trash or archive to active status.",
@@ -4381,6 +7887,10 @@
   },
   {
     "name": "files_show",
+    "argv_prefix": [
+      "files",
+      "show"
+    ],
     "group": "files",
     "action": "show",
     "description": "Show details for a vault, document, or upload.",
@@ -4474,6 +7984,10 @@
   },
   {
     "name": "files_trash",
+    "argv_prefix": [
+      "files",
+      "trash"
+    ],
     "group": "files",
     "action": "trash",
     "description": "Move a file to the trash.",
@@ -4548,6 +8062,10 @@
   },
   {
     "name": "files_update",
+    "argv_prefix": [
+      "files",
+      "update"
+    ],
     "group": "files",
     "action": "update",
     "description": "Update a document, vault, or upload.",
@@ -4650,7 +8168,193 @@
     }
   },
   {
+    "name": "files_uploads_create",
+    "argv_prefix": [
+      "files",
+      "uploads",
+      "create"
+    ],
+    "group": "files",
+    "action": "uploads_create",
+    "description": "Upload a file to a project's Docs & Files area.",
+    "positional": [
+      {
+        "name": "file",
+        "required": true,
+        "description": "File"
+      }
+    ],
+    "flags": [
+      {
+        "name": "description",
+        "type": "string",
+        "description": "Upload description (Markdown)"
+      },
+      {
+        "name": "folder",
+        "type": "string",
+        "description": "Folder ID (alias for --vault)"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "vault",
+        "type": "string",
+        "description": "Folder ID (default: root)"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "file": {
+          "type": "string",
+          "description": "File"
+        },
+        "description": {
+          "type": "string",
+          "description": "Upload description (Markdown)"
+        },
+        "folder": {
+          "type": "string",
+          "description": "Folder ID (alias for --vault)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "vault": {
+          "type": "string",
+          "description": "Folder ID (default: root)"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      },
+      "required": [
+        "file"
+      ]
+    }
+  },
+  {
+    "name": "files_uploads_list",
+    "argv_prefix": [
+      "files",
+      "uploads",
+      "list"
+    ],
+    "group": "files",
+    "action": "uploads_list",
+    "description": "List uploaded files in a folder",
+    "positional": [],
+    "flags": [
+      {
+        "name": "all",
+        "type": "boolean",
+        "description": "Fetch all files (no limit)"
+      },
+      {
+        "name": "folder",
+        "type": "string",
+        "description": "Folder ID (alias for --vault)"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "limit",
+        "type": "integer",
+        "description": "Maximum number of files to fetch (0 = all)",
+        "short": "n"
+      },
+      {
+        "name": "page",
+        "type": "integer",
+        "description": "Fetch a single page (use --all for everything)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "vault",
+        "type": "string",
+        "description": "Folder ID (default: root)"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "all": {
+          "type": "boolean",
+          "description": "Fetch all files (no limit)"
+        },
+        "folder": {
+          "type": "string",
+          "description": "Folder ID (alias for --vault)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Maximum number of files to fetch (0 = all)"
+        },
+        "page": {
+          "type": "integer",
+          "description": "Fetch a single page (use --all for everything)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "vault": {
+          "type": "string",
+          "description": "Folder ID (default: root)"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      }
+    }
+  },
+  {
     "name": "forwards_inbox",
+    "argv_prefix": [
+      "forwards",
+      "inbox"
+    ],
     "group": "forwards",
     "action": "inbox",
     "description": "Display detailed information about the project inbox.",
@@ -4703,6 +8407,10 @@
   },
   {
     "name": "forwards_list",
+    "argv_prefix": [
+      "forwards",
+      "list"
+    ],
     "group": "forwards",
     "action": "list",
     "description": "List all email forwards in the project inbox.",
@@ -4783,6 +8491,10 @@
   },
   {
     "name": "forwards_replies",
+    "argv_prefix": [
+      "forwards",
+      "replies"
+    ],
     "group": "forwards",
     "action": "replies",
     "description": "List all replies to an email forward.",
@@ -4876,6 +8588,10 @@
   },
   {
     "name": "forwards_reply",
+    "argv_prefix": [
+      "forwards",
+      "reply"
+    ],
     "group": "forwards",
     "action": "reply",
     "description": "Display detailed information about a reply to an email forward.",
@@ -4951,6 +8667,10 @@
   },
   {
     "name": "forwards_show",
+    "argv_prefix": [
+      "forwards",
+      "show"
+    ],
     "group": "forwards",
     "action": "show",
     "description": "Display detailed information about an email forward.",
@@ -5016,6 +8736,10 @@
   },
   {
     "name": "gauges_create",
+    "argv_prefix": [
+      "gauges",
+      "create"
+    ],
     "group": "gauges",
     "action": "create",
     "description": "Create a new needle on a project's gauge.",
@@ -5104,6 +8828,10 @@
   },
   {
     "name": "gauges_delete",
+    "argv_prefix": [
+      "gauges",
+      "delete"
+    ],
     "group": "gauges",
     "action": "delete",
     "description": "Delete a needle from a project's gauge.",
@@ -5160,6 +8888,10 @@
   },
   {
     "name": "gauges_disable",
+    "argv_prefix": [
+      "gauges",
+      "disable"
+    ],
     "group": "gauges",
     "action": "disable",
     "description": "Disable the gauge tool on a project.",
@@ -5203,6 +8935,10 @@
   },
   {
     "name": "gauges_enable",
+    "argv_prefix": [
+      "gauges",
+      "enable"
+    ],
     "group": "gauges",
     "action": "enable",
     "description": "Enable the gauge tool on a project.",
@@ -5246,6 +8982,10 @@
   },
   {
     "name": "gauges_list",
+    "argv_prefix": [
+      "gauges",
+      "list"
+    ],
     "group": "gauges",
     "action": "list",
     "description": "List all gauges across every project in the account.",
@@ -5289,6 +9029,10 @@
   },
   {
     "name": "gauges_needle",
+    "argv_prefix": [
+      "gauges",
+      "needle"
+    ],
     "group": "gauges",
     "action": "needle",
     "description": "Show details for a specific gauge needle.",
@@ -5345,6 +9089,10 @@
   },
   {
     "name": "gauges_needles",
+    "argv_prefix": [
+      "gauges",
+      "needles"
+    ],
     "group": "gauges",
     "action": "needles",
     "description": "List all needles on a project's gauge.",
@@ -5388,6 +9136,10 @@
   },
   {
     "name": "gauges_update",
+    "argv_prefix": [
+      "gauges",
+      "update"
+    ],
     "group": "gauges",
     "action": "update",
     "description": "Update a needle's description.",
@@ -5453,6 +9205,10 @@
   },
   {
     "name": "hillcharts_show",
+    "argv_prefix": [
+      "hillcharts",
+      "show"
+    ],
     "group": "hillcharts",
     "action": "show",
     "description": "Show the hill chart state for a todoset, including all tracked todolists.",
@@ -5506,6 +9262,10 @@
   },
   {
     "name": "hillcharts_track",
+    "argv_prefix": [
+      "hillcharts",
+      "track"
+    ],
     "group": "hillcharts",
     "action": "track",
     "description": "Track one or more todolists on a project's hill chart.",
@@ -5572,6 +9332,10 @@
   },
   {
     "name": "hillcharts_untrack",
+    "argv_prefix": [
+      "hillcharts",
+      "untrack"
+    ],
     "group": "hillcharts",
     "action": "untrack",
     "description": "Remove one or more todolists from a project's hill chart.",
@@ -5638,6 +9402,10 @@
   },
   {
     "name": "lineup_create",
+    "argv_prefix": [
+      "lineup",
+      "create"
+    ],
     "group": "lineup",
     "action": "create",
     "description": "Create a new lineup marker with a name and date.",
@@ -5695,6 +9463,10 @@
   },
   {
     "name": "lineup_delete",
+    "argv_prefix": [
+      "lineup",
+      "delete"
+    ],
     "group": "lineup",
     "action": "delete",
     "description": "Delete an existing lineup marker.",
@@ -5742,6 +9514,10 @@
   },
   {
     "name": "lineup_list",
+    "argv_prefix": [
+      "lineup",
+      "list"
+    ],
     "group": "lineup",
     "action": "list",
     "description": "List lineup markers",
@@ -5776,6 +9552,10 @@
   },
   {
     "name": "lineup_update",
+    "argv_prefix": [
+      "lineup",
+      "update"
+    ],
     "group": "lineup",
     "action": "update",
     "description": "Update an existing lineup marker's name or date.",
@@ -5841,6 +9621,10 @@
   },
   {
     "name": "messageboards_show",
+    "argv_prefix": [
+      "messageboards",
+      "show"
+    ],
     "group": "messageboards",
     "action": "show",
     "description": "Display detailed information about a message board.",
@@ -5904,6 +9688,10 @@
   },
   {
     "name": "messages_archive",
+    "argv_prefix": [
+      "messages",
+      "archive"
+    ],
     "group": "messages",
     "action": "archive",
     "description": "Archive a message to remove it from active view.",
@@ -5969,6 +9757,10 @@
   },
   {
     "name": "messages_create",
+    "argv_prefix": [
+      "messages",
+      "create"
+    ],
     "group": "messages",
     "action": "create",
     "description": "Post a new message to a project's message board.",
@@ -6091,6 +9883,10 @@
   },
   {
     "name": "messages_list",
+    "argv_prefix": [
+      "messages",
+      "list"
+    ],
     "group": "messages",
     "action": "list",
     "description": "List all messages in a project's message board.",
@@ -6189,6 +9985,10 @@
   },
   {
     "name": "messages_pin",
+    "argv_prefix": [
+      "messages",
+      "pin"
+    ],
     "group": "messages",
     "action": "pin",
     "description": "Pin a message to the top of the message board.",
@@ -6254,6 +10054,10 @@
   },
   {
     "name": "messages_publish",
+    "argv_prefix": [
+      "messages",
+      "publish"
+    ],
     "group": "messages",
     "action": "publish",
     "description": "Publish a draft message, making it visible on the message board.",
@@ -6319,6 +10123,10 @@
   },
   {
     "name": "messages_restore",
+    "argv_prefix": [
+      "messages",
+      "restore"
+    ],
     "group": "messages",
     "action": "restore",
     "description": "Restore a message from trash or archive to active status.",
@@ -6384,6 +10192,10 @@
   },
   {
     "name": "messages_show",
+    "argv_prefix": [
+      "messages",
+      "show"
+    ],
     "group": "messages",
     "action": "show",
     "description": "Display detailed information about a message.",
@@ -6458,6 +10270,10 @@
   },
   {
     "name": "messages_trash",
+    "argv_prefix": [
+      "messages",
+      "trash"
+    ],
     "group": "messages",
     "action": "trash",
     "description": "Move a message to the trash.",
@@ -6523,6 +10339,10 @@
   },
   {
     "name": "messages_unpin",
+    "argv_prefix": [
+      "messages",
+      "unpin"
+    ],
     "group": "messages",
     "action": "unpin",
     "description": "Remove a message from the pinned position.",
@@ -6588,6 +10408,10 @@
   },
   {
     "name": "messages_update",
+    "argv_prefix": [
+      "messages",
+      "update"
+    ],
     "group": "messages",
     "action": "update",
     "description": "Update an existing message's title or body.",
@@ -6673,6 +10497,10 @@
   },
   {
     "name": "messagetypes_create",
+    "argv_prefix": [
+      "messagetypes",
+      "create"
+    ],
     "group": "messagetypes",
     "action": "create",
     "description": "Create a new message type with a name and emoji icon.",
@@ -6734,6 +10562,10 @@
   },
   {
     "name": "messagetypes_delete",
+    "argv_prefix": [
+      "messagetypes",
+      "delete"
+    ],
     "group": "messagetypes",
     "action": "delete",
     "description": "Delete an existing message type.",
@@ -6781,6 +10613,10 @@
   },
   {
     "name": "messagetypes_list",
+    "argv_prefix": [
+      "messagetypes",
+      "list"
+    ],
     "group": "messagetypes",
     "action": "list",
     "description": "List all message types.",
@@ -6815,6 +10651,10 @@
   },
   {
     "name": "messagetypes_show",
+    "argv_prefix": [
+      "messagetypes",
+      "show"
+    ],
     "group": "messagetypes",
     "action": "show",
     "description": "Display detailed information about a message type.",
@@ -6862,6 +10702,10 @@
   },
   {
     "name": "messagetypes_update",
+    "argv_prefix": [
+      "messagetypes",
+      "update"
+    ],
     "group": "messagetypes",
     "action": "update",
     "description": "Update an existing message type's name or icon.",
@@ -6927,6 +10771,10 @@
   },
   {
     "name": "notifications_list",
+    "argv_prefix": [
+      "notifications",
+      "list"
+    ],
     "group": "notifications",
     "action": "list",
     "description": "List notifications (same as bare 'notifications').",
@@ -6970,6 +10818,10 @@
   },
   {
     "name": "notifications_read",
+    "argv_prefix": [
+      "notifications",
+      "read"
+    ],
     "group": "notifications",
     "action": "read",
     "description": "Mark one or more notifications as read.",
@@ -7030,6 +10882,10 @@
   },
   {
     "name": "people_add",
+    "argv_prefix": [
+      "people",
+      "add"
+    ],
     "group": "people",
     "action": "add",
     "description": "Grant people access to a project.",
@@ -7090,6 +10946,10 @@
   },
   {
     "name": "people_list",
+    "argv_prefix": [
+      "people",
+      "list"
+    ],
     "group": "people",
     "action": "list",
     "description": "List all people in your Basecamp account, or in a specific project.",
@@ -7179,6 +11039,10 @@
   },
   {
     "name": "people_pingable",
+    "argv_prefix": [
+      "people",
+      "pingable"
+    ],
     "group": "people",
     "action": "pingable",
     "description": "List people who can be @mentioned (pinged) in comments and messages.",
@@ -7213,6 +11077,10 @@
   },
   {
     "name": "people_remove",
+    "argv_prefix": [
+      "people",
+      "remove"
+    ],
     "group": "people",
     "action": "remove",
     "description": "Revoke people's access to a project.",
@@ -7273,6 +11141,10 @@
   },
   {
     "name": "people_show",
+    "argv_prefix": [
+      "people",
+      "show"
+    ],
     "group": "people",
     "action": "show",
     "description": "Display detailed information about a specific person.",
@@ -7320,6 +11192,10 @@
   },
   {
     "name": "profile_create",
+    "argv_prefix": [
+      "profile",
+      "create"
+    ],
     "group": "profile",
     "action": "create",
     "description": "Create a new named profile and optionally authenticate.",
@@ -7420,6 +11296,10 @@
   },
   {
     "name": "profile_delete",
+    "argv_prefix": [
+      "profile",
+      "delete"
+    ],
     "group": "profile",
     "action": "delete",
     "description": "Remove a profile configuration and its stored credentials.",
@@ -7467,6 +11347,10 @@
   },
   {
     "name": "profile_list",
+    "argv_prefix": [
+      "profile",
+      "list"
+    ],
     "group": "profile",
     "action": "list",
     "description": "List all configured profiles with their base URL and authentication status.",
@@ -7501,6 +11385,10 @@
   },
   {
     "name": "profile_set-default",
+    "argv_prefix": [
+      "profile",
+      "set-default"
+    ],
     "group": "profile",
     "action": "set-default",
     "description": "Set which profile is used when no --profile flag is specified.",
@@ -7548,6 +11436,10 @@
   },
   {
     "name": "profile_show",
+    "argv_prefix": [
+      "profile",
+      "show"
+    ],
     "group": "profile",
     "action": "show",
     "description": "Show configuration and authentication details for a profile.",
@@ -7592,6 +11484,10 @@
   },
   {
     "name": "projects_create",
+    "argv_prefix": [
+      "projects",
+      "create"
+    ],
     "group": "projects",
     "action": "create",
     "description": "Create a new Basecamp project.",
@@ -7649,6 +11545,10 @@
   },
   {
     "name": "projects_delete",
+    "argv_prefix": [
+      "projects",
+      "delete"
+    ],
     "group": "projects",
     "action": "delete",
     "description": "Move a project to the trash. Can be restored later.",
@@ -7696,6 +11596,10 @@
   },
   {
     "name": "projects_list",
+    "argv_prefix": [
+      "projects",
+      "list"
+    ],
     "group": "projects",
     "action": "list",
     "description": "List all accessible projects in the account.",
@@ -7785,6 +11689,10 @@
   },
   {
     "name": "projects_show",
+    "argv_prefix": [
+      "projects",
+      "show"
+    ],
     "group": "projects",
     "action": "show",
     "description": "Display detailed information about a project including its dock (the set of enabled tools: message board, to-dos, schedule, etc.).",
@@ -7841,6 +11749,10 @@
   },
   {
     "name": "projects_update",
+    "argv_prefix": [
+      "projects",
+      "update"
+    ],
     "group": "projects",
     "action": "update",
     "description": "Update an existing project's name or description.",
@@ -7907,9 +11819,13 @@
     }
   },
   {
-    "name": "recordings_archive",
+    "name": "recordings_archived",
+    "argv_prefix": [
+      "recordings",
+      "archived"
+    ],
     "group": "recordings",
-    "action": "archive",
+    "action": "archived",
     "description": "Archive an item to remove it from active view.",
     "positional": [
       {
@@ -7963,7 +11879,107 @@
     }
   },
   {
+    "name": "recordings_client-visibility",
+    "argv_prefix": [
+      "recordings",
+      "client-visibility"
+    ],
+    "group": "recordings",
+    "action": "client-visibility",
+    "description": "Set whether an item is visible to clients.",
+    "positional": [
+      {
+        "name": "id",
+        "required": true,
+        "description": "ID"
+      }
+    ],
+    "flags": [
+      {
+        "name": "hidden",
+        "type": "boolean",
+        "description": "Hide from clients"
+      },
+      {
+        "name": "hide",
+        "type": "boolean",
+        "description": "Hide from clients (alias)"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Filter by project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "show",
+        "type": "boolean",
+        "description": "Make visible to clients (alias)"
+      },
+      {
+        "name": "visible",
+        "type": "boolean",
+        "description": "Make visible to clients"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID"
+        },
+        "hidden": {
+          "type": "boolean",
+          "description": "Hide from clients"
+        },
+        "hide": {
+          "type": "boolean",
+          "description": "Hide from clients (alias)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Filter by project ID or name"
+        },
+        "show": {
+          "type": "boolean",
+          "description": "Make visible to clients (alias)"
+        },
+        "visible": {
+          "type": "boolean",
+          "description": "Make visible to clients"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    }
+  },
+  {
     "name": "recordings_list",
+    "argv_prefix": [
+      "recordings",
+      "list"
+    ],
     "group": "recordings",
     "action": "list",
     "description": "List all items of a specific type across projects.",
@@ -8079,6 +12095,10 @@
   },
   {
     "name": "recordings_restore",
+    "argv_prefix": [
+      "recordings",
+      "restore"
+    ],
     "group": "recordings",
     "action": "restore",
     "description": "Restore an item from trash or archive to active status.",
@@ -8134,9 +12154,13 @@
     }
   },
   {
-    "name": "recordings_trash",
+    "name": "recordings_trashed",
+    "argv_prefix": [
+      "recordings",
+      "trashed"
+    ],
     "group": "recordings",
-    "action": "trash",
+    "action": "trashed",
     "description": "Move an item to the trash.",
     "positional": [
       {
@@ -8190,99 +12214,11 @@
     }
   },
   {
-    "name": "recordings_visibility",
-    "group": "recordings",
-    "action": "visibility",
-    "description": "Set whether an item is visible to clients.",
-    "positional": [
-      {
-        "name": "id",
-        "required": true,
-        "description": "ID"
-      }
-    ],
-    "flags": [
-      {
-        "name": "hidden",
-        "type": "boolean",
-        "description": "Hide from clients"
-      },
-      {
-        "name": "hide",
-        "type": "boolean",
-        "description": "Hide from clients (alias)"
-      },
-      {
-        "name": "in",
-        "type": "string",
-        "description": "Project ID (alias for --project)"
-      },
-      {
-        "name": "project",
-        "type": "string",
-        "description": "Filter by project ID or name",
-        "short": "p"
-      },
-      {
-        "name": "show",
-        "type": "boolean",
-        "description": "Make visible to clients (alias)"
-      },
-      {
-        "name": "visible",
-        "type": "boolean",
-        "description": "Make visible to clients"
-      },
-      {
-        "name": "account",
-        "type": "string",
-        "description": "Account ID",
-        "short": "a"
-      }
-    ],
-    "input_schema": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "ID"
-        },
-        "hidden": {
-          "type": "boolean",
-          "description": "Hide from clients"
-        },
-        "hide": {
-          "type": "boolean",
-          "description": "Hide from clients (alias)"
-        },
-        "in": {
-          "type": "string",
-          "description": "Project ID (alias for --project)"
-        },
-        "project": {
-          "type": "string",
-          "description": "Filter by project ID or name"
-        },
-        "show": {
-          "type": "boolean",
-          "description": "Make visible to clients (alias)"
-        },
-        "visible": {
-          "type": "boolean",
-          "description": "Make visible to clients"
-        },
-        "account": {
-          "type": "string",
-          "description": "Account ID"
-        }
-      },
-      "required": [
-        "id"
-      ]
-    }
-  },
-  {
     "name": "reports_assignable",
+    "argv_prefix": [
+      "reports",
+      "assignable"
+    ],
     "group": "reports",
     "action": "assignable",
     "description": "List all people in the account who can be assigned to todos.",
@@ -8317,6 +12253,10 @@
   },
   {
     "name": "reports_assigned",
+    "argv_prefix": [
+      "reports",
+      "assigned"
+    ],
     "group": "reports",
     "action": "assigned",
     "description": "View todos assigned to a specific person.",
@@ -8370,6 +12310,10 @@
   },
   {
     "name": "reports_overdue",
+    "argv_prefix": [
+      "reports",
+      "overdue"
+    ],
     "group": "reports",
     "action": "overdue",
     "description": "View all overdue todos grouped by how late they are.",
@@ -8404,6 +12348,10 @@
   },
   {
     "name": "reports_schedule",
+    "argv_prefix": [
+      "reports",
+      "schedule"
+    ],
     "group": "reports",
     "action": "schedule",
     "description": "View upcoming schedule entries and assignables within a date window.",
@@ -8456,6 +12404,10 @@
   },
   {
     "name": "schedule_create",
+    "argv_prefix": [
+      "schedule",
+      "create"
+    ],
     "group": "schedule",
     "action": "create",
     "description": "Create a new entry in the project schedule.",
@@ -8656,6 +12608,10 @@
   },
   {
     "name": "schedule_entries",
+    "argv_prefix": [
+      "schedule",
+      "entries"
+    ],
     "group": "schedule",
     "action": "entries",
     "description": "List all entries in a project schedule.",
@@ -8763,7 +12719,143 @@
     }
   },
   {
+    "name": "schedule_info",
+    "argv_prefix": [
+      "schedule",
+      "info"
+    ],
+    "group": "schedule",
+    "action": "info",
+    "description": "Display project schedule information.",
+    "positional": [],
+    "flags": [
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "schedule",
+        "type": "string",
+        "description": "Schedule ID (auto-detected)",
+        "short": "s"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "schedule": {
+          "type": "string",
+          "description": "Schedule ID (auto-detected)"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      }
+    }
+  },
+  {
+    "name": "schedule_settings",
+    "argv_prefix": [
+      "schedule",
+      "settings"
+    ],
+    "group": "schedule",
+    "action": "settings",
+    "description": "Update schedule settings like including due assignments.",
+    "positional": [],
+    "flags": [
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "include-due",
+        "type": "boolean",
+        "description": "Include due dates from todos/cards"
+      },
+      {
+        "name": "include-due-assignments",
+        "type": "boolean",
+        "description": "Include due assignments (alias)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "schedule",
+        "type": "string",
+        "description": "Schedule ID (auto-detected)",
+        "short": "s"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "include-due": {
+          "type": "boolean",
+          "description": "Include due dates from todos/cards"
+        },
+        "include-due-assignments": {
+          "type": "boolean",
+          "description": "Include due assignments (alias)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "schedule": {
+          "type": "string",
+          "description": "Schedule ID (auto-detected)"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      }
+    }
+  },
+  {
     "name": "schedule_show",
+    "argv_prefix": [
+      "schedule",
+      "show"
+    ],
     "group": "schedule",
     "action": "show",
     "description": "Display details of a schedule entry.",
@@ -8848,6 +12940,10 @@
   },
   {
     "name": "schedule_update",
+    "argv_prefix": [
+      "schedule",
+      "update"
+    ],
     "group": "schedule",
     "action": "update",
     "description": "Update an existing schedule entry.",
@@ -9033,7 +13129,87 @@
     }
   },
   {
+    "name": "search_metadata",
+    "argv_prefix": [
+      "search",
+      "metadata"
+    ],
+    "group": "search",
+    "action": "metadata",
+    "description": "Display available projects for search scope filtering.",
+    "positional": [],
+    "flags": [
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        }
+      }
+    }
+  },
+  {
+    "name": "setup_claude",
+    "argv_prefix": [
+      "setup",
+      "claude"
+    ],
+    "group": "setup",
+    "action": "claude",
+    "description": "Set up the Claude Code integration so Claude Code can access Basecamp.",
+    "positional": [],
+    "flags": [
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        }
+      }
+    }
+  },
+  {
     "name": "skill_install",
+    "argv_prefix": [
+      "skill",
+      "install"
+    ],
     "group": "skill",
     "action": "install",
     "description": "Copies the embedded SKILL.md to ~/.agents/skills/basecamp/ and creates a symlink in ~/.claude/skills/basecamp (if Claude Code is detected).",
@@ -9068,6 +13244,10 @@
   },
   {
     "name": "subscriptions_add",
+    "argv_prefix": [
+      "subscriptions",
+      "add"
+    ],
     "group": "subscriptions",
     "action": "add",
     "description": "Add people to the subscribers list for an item.",
@@ -9133,6 +13313,10 @@
   },
   {
     "name": "subscriptions_remove",
+    "argv_prefix": [
+      "subscriptions",
+      "remove"
+    ],
     "group": "subscriptions",
     "action": "remove",
     "description": "Remove people from the subscribers list for an item.",
@@ -9198,6 +13382,10 @@
   },
   {
     "name": "subscriptions_show",
+    "argv_prefix": [
+      "subscriptions",
+      "show"
+    ],
     "group": "subscriptions",
     "action": "show",
     "description": "Display all current subscribers for an item.",
@@ -9245,6 +13433,10 @@
   },
   {
     "name": "subscriptions_subscribe",
+    "argv_prefix": [
+      "subscriptions",
+      "subscribe"
+    ],
     "group": "subscriptions",
     "action": "subscribe",
     "description": "Subscribe yourself to receive notifications for an item.",
@@ -9292,6 +13484,10 @@
   },
   {
     "name": "subscriptions_unsubscribe",
+    "argv_prefix": [
+      "subscriptions",
+      "unsubscribe"
+    ],
     "group": "subscriptions",
     "action": "unsubscribe",
     "description": "Unsubscribe yourself from notifications for an item.",
@@ -9339,6 +13535,10 @@
   },
   {
     "name": "templates_construct",
+    "argv_prefix": [
+      "templates",
+      "construct"
+    ],
     "group": "templates",
     "action": "construct",
     "description": "Create a new project from a template.",
@@ -9421,7 +13621,81 @@
     }
   },
   {
+    "name": "templates_construction",
+    "argv_prefix": [
+      "templates",
+      "construction"
+    ],
+    "group": "templates",
+    "action": "construction",
+    "description": "Check the status of a project construction.",
+    "positional": [
+      {
+        "name": "template_id",
+        "required": true,
+        "description": "Template ID"
+      },
+      {
+        "name": "construction_id",
+        "required": true,
+        "description": "Construction ID"
+      }
+    ],
+    "flags": [
+      {
+        "name": "status",
+        "type": "string",
+        "description": "Filter: active, archived, trashed (default \"active\")"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "template_id": {
+          "type": "string",
+          "description": "Template ID"
+        },
+        "construction_id": {
+          "type": "string",
+          "description": "Construction ID"
+        },
+        "status": {
+          "type": "string",
+          "description": "Filter: active, archived, trashed (default \"active\")"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        }
+      },
+      "required": [
+        "template_id",
+        "construction_id"
+      ]
+    }
+  },
+  {
     "name": "templates_create",
+    "argv_prefix": [
+      "templates",
+      "create"
+    ],
     "group": "templates",
     "action": "create",
     "description": "Create a new project template.",
@@ -9501,6 +13775,10 @@
   },
   {
     "name": "templates_delete",
+    "argv_prefix": [
+      "templates",
+      "delete"
+    ],
     "group": "templates",
     "action": "delete",
     "description": "Move a template to trash.",
@@ -9557,6 +13835,10 @@
   },
   {
     "name": "templates_list",
+    "argv_prefix": [
+      "templates",
+      "list"
+    ],
     "group": "templates",
     "action": "list",
     "description": "List all project templates.",
@@ -9600,6 +13882,10 @@
   },
   {
     "name": "templates_show",
+    "argv_prefix": [
+      "templates",
+      "show"
+    ],
     "group": "templates",
     "action": "show",
     "description": "Display detailed information about a template.",
@@ -9656,6 +13942,10 @@
   },
   {
     "name": "templates_update",
+    "argv_prefix": [
+      "templates",
+      "update"
+    ],
     "group": "templates",
     "action": "update",
     "description": "Update an existing template's name or description.",
@@ -9738,9 +14028,105 @@
     }
   },
   {
-    "name": "timesheet_item",
+    "name": "timesheet_project",
+    "argv_prefix": [
+      "timesheet",
+      "project"
+    ],
     "group": "timesheet",
-    "action": "item",
+    "action": "project",
+    "description": "View timesheet entries for a project.",
+    "positional": [],
+    "flags": [
+      {
+        "name": "end",
+        "type": "string",
+        "description": "End date (ISO 8601)"
+      },
+      {
+        "name": "from",
+        "type": "string",
+        "description": "Start date (alias for --start)"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project name, URL, or ID (alias for --project)"
+      },
+      {
+        "name": "person",
+        "type": "string",
+        "description": "Filter by person ID"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project name, URL, or ID",
+        "short": "p"
+      },
+      {
+        "name": "start",
+        "type": "string",
+        "description": "Start date (ISO 8601, e.g., 2024-01-01)"
+      },
+      {
+        "name": "to",
+        "type": "string",
+        "description": "End date (alias for --end)"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "end": {
+          "type": "string",
+          "description": "End date (ISO 8601)"
+        },
+        "from": {
+          "type": "string",
+          "description": "Start date (alias for --start)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project name, URL, or ID (alias for --project)"
+        },
+        "person": {
+          "type": "string",
+          "description": "Filter by person ID"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project name, URL, or ID"
+        },
+        "start": {
+          "type": "string",
+          "description": "Start date (ISO 8601, e.g., 2024-01-01)"
+        },
+        "to": {
+          "type": "string",
+          "description": "End date (alias for --end)"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      }
+    }
+  },
+  {
+    "name": "timesheet_recording",
+    "argv_prefix": [
+      "timesheet",
+      "recording"
+    ],
+    "group": "timesheet",
+    "action": "recording",
     "description": "View timesheet entries for a specific item.",
     "positional": [
       {
@@ -9839,95 +14225,11 @@
     }
   },
   {
-    "name": "timesheet_project",
-    "group": "timesheet",
-    "action": "project",
-    "description": "View timesheet entries for a project.",
-    "positional": [],
-    "flags": [
-      {
-        "name": "end",
-        "type": "string",
-        "description": "End date (ISO 8601)"
-      },
-      {
-        "name": "from",
-        "type": "string",
-        "description": "Start date (alias for --start)"
-      },
-      {
-        "name": "in",
-        "type": "string",
-        "description": "Project name, URL, or ID (alias for --project)"
-      },
-      {
-        "name": "person",
-        "type": "string",
-        "description": "Filter by person ID"
-      },
-      {
-        "name": "project",
-        "type": "string",
-        "description": "Project name, URL, or ID",
-        "short": "p"
-      },
-      {
-        "name": "start",
-        "type": "string",
-        "description": "Start date (ISO 8601, e.g., 2024-01-01)"
-      },
-      {
-        "name": "to",
-        "type": "string",
-        "description": "End date (alias for --end)"
-      },
-      {
-        "name": "account",
-        "type": "string",
-        "description": "Account ID",
-        "short": "a"
-      }
-    ],
-    "input_schema": {
-      "type": "object",
-      "properties": {
-        "end": {
-          "type": "string",
-          "description": "End date (ISO 8601)"
-        },
-        "from": {
-          "type": "string",
-          "description": "Start date (alias for --start)"
-        },
-        "in": {
-          "type": "string",
-          "description": "Project name, URL, or ID (alias for --project)"
-        },
-        "person": {
-          "type": "string",
-          "description": "Filter by person ID"
-        },
-        "project": {
-          "type": "string",
-          "description": "Project name, URL, or ID"
-        },
-        "start": {
-          "type": "string",
-          "description": "Start date (ISO 8601, e.g., 2024-01-01)"
-        },
-        "to": {
-          "type": "string",
-          "description": "End date (alias for --end)"
-        },
-        "account": {
-          "type": "string",
-          "description": "Account ID"
-        }
-      }
-    }
-  },
-  {
     "name": "timesheet_report",
+    "argv_prefix": [
+      "timesheet",
+      "report"
+    ],
     "group": "timesheet",
     "action": "report",
     "description": "View account-wide timesheet report with optional filters.",
@@ -10016,6 +14318,10 @@
   },
   {
     "name": "todolistgroups_create",
+    "argv_prefix": [
+      "todolistgroups",
+      "create"
+    ],
     "group": "todolistgroups",
     "action": "create",
     "description": "Create a new group in a todolist.",
@@ -10082,6 +14388,10 @@
   },
   {
     "name": "todolistgroups_list",
+    "argv_prefix": [
+      "todolistgroups",
+      "list"
+    ],
     "group": "todolistgroups",
     "action": "list",
     "description": "List all groups in a todolist.",
@@ -10135,6 +14445,10 @@
   },
   {
     "name": "todolistgroups_position",
+    "argv_prefix": [
+      "todolistgroups",
+      "position"
+    ],
     "group": "todolistgroups",
     "action": "position",
     "description": "Change group position",
@@ -10219,6 +14533,10 @@
   },
   {
     "name": "todolistgroups_show",
+    "argv_prefix": [
+      "todolistgroups",
+      "show"
+    ],
     "group": "todolistgroups",
     "action": "show",
     "description": "Show todolist group details",
@@ -10285,6 +14603,10 @@
   },
   {
     "name": "todolistgroups_update",
+    "argv_prefix": [
+      "todolistgroups",
+      "update"
+    ],
     "group": "todolistgroups",
     "action": "update",
     "description": "Update a todolist group",
@@ -10361,6 +14683,10 @@
   },
   {
     "name": "todolists_archive",
+    "argv_prefix": [
+      "todolists",
+      "archive"
+    ],
     "group": "todolists",
     "action": "archive",
     "description": "Archive a todolist to remove it from active view.",
@@ -10417,6 +14743,10 @@
   },
   {
     "name": "todolists_create",
+    "argv_prefix": [
+      "todolists",
+      "create"
+    ],
     "group": "todolists",
     "action": "create",
     "description": "Create a new todolist in a project.",
@@ -10493,6 +14823,10 @@
   },
   {
     "name": "todolists_list",
+    "argv_prefix": [
+      "todolists",
+      "list"
+    ],
     "group": "todolists",
     "action": "list",
     "description": "List all todolists in a project.",
@@ -10601,6 +14935,10 @@
   },
   {
     "name": "todolists_restore",
+    "argv_prefix": [
+      "todolists",
+      "restore"
+    ],
     "group": "todolists",
     "action": "restore",
     "description": "Restore a todolist from trash or archive to active status.",
@@ -10657,6 +14995,10 @@
   },
   {
     "name": "todolists_show",
+    "argv_prefix": [
+      "todolists",
+      "show"
+    ],
     "group": "todolists",
     "action": "show",
     "description": "Display detailed information about a todolist.",
@@ -10713,6 +15055,10 @@
   },
   {
     "name": "todolists_trash",
+    "argv_prefix": [
+      "todolists",
+      "trash"
+    ],
     "group": "todolists",
     "action": "trash",
     "description": "Move a todolist to the trash.",
@@ -10769,6 +15115,10 @@
   },
   {
     "name": "todolists_update",
+    "argv_prefix": [
+      "todolists",
+      "update"
+    ],
     "group": "todolists",
     "action": "update",
     "description": "Update an existing todolist's name or description.",
@@ -10845,6 +15195,10 @@
   },
   {
     "name": "todos_archive",
+    "argv_prefix": [
+      "todos",
+      "archive"
+    ],
     "group": "todos",
     "action": "archive",
     "description": "Archive a todo to remove it from active view.",
@@ -10892,6 +15246,10 @@
   },
   {
     "name": "todos_complete",
+    "argv_prefix": [
+      "todos",
+      "complete"
+    ],
     "group": "todos",
     "action": "complete",
     "description": "Mark one or more todos as completed.",
@@ -10943,6 +15301,10 @@
   },
   {
     "name": "todos_create",
+    "argv_prefix": [
+      "todos",
+      "create"
+    ],
     "group": "todos",
     "action": "create",
     "description": "Create a new todo in a project.",
@@ -11068,6 +15430,10 @@
   },
   {
     "name": "todos_list",
+    "argv_prefix": [
+      "todos",
+      "list"
+    ],
     "group": "todos",
     "action": "list",
     "description": "List todos in a project or todolist.",
@@ -11214,6 +15580,10 @@
   },
   {
     "name": "todos_position",
+    "argv_prefix": [
+      "todos",
+      "position"
+    ],
     "group": "todos",
     "action": "position",
     "description": "Reorder a todo within its todolist, or move it to a different list in the same project. Position is 1-based (1 = top).",
@@ -11289,6 +15659,10 @@
   },
   {
     "name": "todos_restore",
+    "argv_prefix": [
+      "todos",
+      "restore"
+    ],
     "group": "todos",
     "action": "restore",
     "description": "Restore a todo from trash or archive to active status.",
@@ -11336,6 +15710,10 @@
   },
   {
     "name": "todos_show",
+    "argv_prefix": [
+      "todos",
+      "show"
+    ],
     "group": "todos",
     "action": "show",
     "description": "Display detailed information about a todo.",
@@ -11391,7 +15769,124 @@
     }
   },
   {
+    "name": "todos_sweep",
+    "argv_prefix": [
+      "todos",
+      "sweep"
+    ],
+    "group": "todos",
+    "action": "sweep",
+    "description": "Sweep finds todos matching filters and applies actions to them.",
+    "positional": [],
+    "flags": [
+      {
+        "name": "assignee",
+        "type": "string",
+        "description": "Filter by assignee"
+      },
+      {
+        "name": "comment",
+        "type": "string",
+        "description": "Comment to add to matching todos",
+        "short": "c"
+      },
+      {
+        "name": "complete",
+        "type": "boolean",
+        "description": "Mark matching todos as complete"
+      },
+      {
+        "name": "done",
+        "type": "boolean",
+        "description": "Mark matching todos as complete (alias)"
+      },
+      {
+        "name": "dry-run",
+        "type": "boolean",
+        "description": "Preview without making changes",
+        "short": "n"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "overdue",
+        "type": "boolean",
+        "description": "Filter overdue todos"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "todoset",
+        "type": "string",
+        "description": "Todoset ID (for projects with multiple todosets)",
+        "short": "t"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "assignee": {
+          "type": "string",
+          "description": "Filter by assignee"
+        },
+        "comment": {
+          "type": "string",
+          "description": "Comment to add to matching todos"
+        },
+        "complete": {
+          "type": "boolean",
+          "description": "Mark matching todos as complete"
+        },
+        "done": {
+          "type": "boolean",
+          "description": "Mark matching todos as complete (alias)"
+        },
+        "dry-run": {
+          "type": "boolean",
+          "description": "Preview without making changes"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "overdue": {
+          "type": "boolean",
+          "description": "Filter overdue todos"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "todoset": {
+          "type": "string",
+          "description": "Todoset ID (for projects with multiple todosets)"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      }
+    }
+  },
+  {
     "name": "todos_trash",
+    "argv_prefix": [
+      "todos",
+      "trash"
+    ],
     "group": "todos",
     "action": "trash",
     "description": "Move a todo to the trash.",
@@ -11439,6 +15934,10 @@
   },
   {
     "name": "todos_uncomplete",
+    "argv_prefix": [
+      "todos",
+      "uncomplete"
+    ],
     "group": "todos",
     "action": "uncomplete",
     "description": "Reopen one or more completed todos.",
@@ -11490,6 +15989,10 @@
   },
   {
     "name": "todos_update",
+    "argv_prefix": [
+      "todos",
+      "update"
+    ],
     "group": "todos",
     "action": "update",
     "description": "Update an existing todo.",
@@ -11634,6 +16137,10 @@
   },
   {
     "name": "todosets_list",
+    "argv_prefix": [
+      "todosets",
+      "list"
+    ],
     "group": "todosets",
     "action": "list",
     "description": "List all todoset containers in a project, including enabled and disabled ones.",
@@ -11677,6 +16184,10 @@
   },
   {
     "name": "todosets_show",
+    "argv_prefix": [
+      "todosets",
+      "show"
+    ],
     "group": "todosets",
     "action": "show",
     "description": "Display detailed information about a todoset.",
@@ -11740,6 +16251,10 @@
   },
   {
     "name": "tools_create",
+    "argv_prefix": [
+      "tools",
+      "create"
+    ],
     "group": "tools",
     "action": "create",
     "description": "Create a new dock tool by cloning an existing one.",
@@ -11811,7 +16326,71 @@
     }
   },
   {
+    "name": "tools_delete",
+    "argv_prefix": [
+      "tools",
+      "delete"
+    ],
+    "group": "tools",
+    "action": "delete",
+    "description": "Permanently trash a dock tool.",
+    "positional": [
+      {
+        "name": "id",
+        "required": true,
+        "description": "ID"
+      }
+    ],
+    "flags": [
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID or name (alias for --project)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name (for breadcrumbs)",
+        "short": "p"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID or name (alias for --project)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name (for breadcrumbs)"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    }
+  },
+  {
     "name": "tools_disable",
+    "argv_prefix": [
+      "tools",
+      "disable"
+    ],
     "group": "tools",
     "action": "disable",
     "description": "Disable a tool to hide it from the project dock.",
@@ -11868,6 +16447,10 @@
   },
   {
     "name": "tools_enable",
+    "argv_prefix": [
+      "tools",
+      "enable"
+    ],
     "group": "tools",
     "action": "enable",
     "description": "Enable a tool to make it visible in the project dock.",
@@ -11924,6 +16507,10 @@
   },
   {
     "name": "tools_reposition",
+    "argv_prefix": [
+      "tools",
+      "reposition"
+    ],
     "group": "tools",
     "action": "reposition",
     "description": "Move a tool to a different position in the project dock.",
@@ -11998,6 +16585,10 @@
   },
   {
     "name": "tools_show",
+    "argv_prefix": [
+      "tools",
+      "show"
+    ],
     "group": "tools",
     "action": "show",
     "description": "Display detailed information about a dock tool.",
@@ -12053,63 +16644,11 @@
     }
   },
   {
-    "name": "tools_trash",
-    "group": "tools",
-    "action": "trash",
-    "description": "Permanently trash a dock tool.",
-    "positional": [
-      {
-        "name": "id",
-        "required": true,
-        "description": "ID"
-      }
-    ],
-    "flags": [
-      {
-        "name": "in",
-        "type": "string",
-        "description": "Project ID or name (alias for --project)"
-      },
-      {
-        "name": "project",
-        "type": "string",
-        "description": "Project ID or name (for breadcrumbs)",
-        "short": "p"
-      },
-      {
-        "name": "account",
-        "type": "string",
-        "description": "Account ID",
-        "short": "a"
-      }
-    ],
-    "input_schema": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "ID"
-        },
-        "in": {
-          "type": "string",
-          "description": "Project ID or name (alias for --project)"
-        },
-        "project": {
-          "type": "string",
-          "description": "Project ID or name (for breadcrumbs)"
-        },
-        "account": {
-          "type": "string",
-          "description": "Account ID"
-        }
-      },
-      "required": [
-        "id"
-      ]
-    }
-  },
-  {
     "name": "tools_update",
+    "argv_prefix": [
+      "tools",
+      "update"
+    ],
     "group": "tools",
     "action": "update",
     "description": "Update a dock tool's title.",
@@ -12175,12 +16714,27 @@
     }
   },
   {
-    "name": "uploads_archive",
+    "name": "uploads_create",
+    "argv_prefix": [
+      "uploads",
+      "create"
+    ],
     "group": "uploads",
-    "action": "archive",
-    "description": "List, show, and upload files in a project's Docs & Files area.",
-    "positional": [],
+    "action": "create",
+    "description": "Upload a file to a project's Docs & Files area.",
+    "positional": [
+      {
+        "name": "file",
+        "required": true,
+        "description": "File"
+      }
+    ],
     "flags": [
+      {
+        "name": "description",
+        "type": "string",
+        "description": "Upload description (Markdown)"
+      },
       {
         "name": "folder",
         "type": "string",
@@ -12212,6 +16766,14 @@
     "input_schema": {
       "type": "object",
       "properties": {
+        "file": {
+          "type": "string",
+          "description": "File"
+        },
+        "description": {
+          "type": "string",
+          "description": "Upload description (Markdown)"
+        },
         "folder": {
           "type": "string",
           "description": "Folder ID (alias for --vault)"
@@ -12232,72 +16794,18 @@
           "type": "string",
           "description": "Account ID"
         }
-      }
-    }
-  },
-  {
-    "name": "uploads_download",
-    "group": "uploads",
-    "action": "download",
-    "description": "List, show, and upload files in a project's Docs & Files area.",
-    "positional": [],
-    "flags": [
-      {
-        "name": "folder",
-        "type": "string",
-        "description": "Folder ID (alias for --vault)"
       },
-      {
-        "name": "in",
-        "type": "string",
-        "description": "Project ID (alias for --project)"
-      },
-      {
-        "name": "project",
-        "type": "string",
-        "description": "Project ID or name",
-        "short": "p"
-      },
-      {
-        "name": "vault",
-        "type": "string",
-        "description": "Folder ID (default: root)"
-      },
-      {
-        "name": "account",
-        "type": "string",
-        "description": "Account ID",
-        "short": "a"
-      }
-    ],
-    "input_schema": {
-      "type": "object",
-      "properties": {
-        "folder": {
-          "type": "string",
-          "description": "Folder ID (alias for --vault)"
-        },
-        "in": {
-          "type": "string",
-          "description": "Project ID (alias for --project)"
-        },
-        "project": {
-          "type": "string",
-          "description": "Project ID or name"
-        },
-        "vault": {
-          "type": "string",
-          "description": "Folder ID (default: root)"
-        },
-        "account": {
-          "type": "string",
-          "description": "Account ID"
-        }
-      }
+      "required": [
+        "file"
+      ]
     }
   },
   {
     "name": "uploads_list",
+    "argv_prefix": [
+      "uploads",
+      "list"
+    ],
     "group": "uploads",
     "action": "list",
     "description": "List uploaded files in a folder",
@@ -12386,68 +16894,11 @@
     }
   },
   {
-    "name": "uploads_restore",
-    "group": "uploads",
-    "action": "restore",
-    "description": "List, show, and upload files in a project's Docs & Files area.",
-    "positional": [],
-    "flags": [
-      {
-        "name": "folder",
-        "type": "string",
-        "description": "Folder ID (alias for --vault)"
-      },
-      {
-        "name": "in",
-        "type": "string",
-        "description": "Project ID (alias for --project)"
-      },
-      {
-        "name": "project",
-        "type": "string",
-        "description": "Project ID or name",
-        "short": "p"
-      },
-      {
-        "name": "vault",
-        "type": "string",
-        "description": "Folder ID (default: root)"
-      },
-      {
-        "name": "account",
-        "type": "string",
-        "description": "Account ID",
-        "short": "a"
-      }
-    ],
-    "input_schema": {
-      "type": "object",
-      "properties": {
-        "folder": {
-          "type": "string",
-          "description": "Folder ID (alias for --vault)"
-        },
-        "in": {
-          "type": "string",
-          "description": "Project ID (alias for --project)"
-        },
-        "project": {
-          "type": "string",
-          "description": "Project ID or name"
-        },
-        "vault": {
-          "type": "string",
-          "description": "Folder ID (default: root)"
-        },
-        "account": {
-          "type": "string",
-          "description": "Account ID"
-        }
-      }
-    }
-  },
-  {
     "name": "uploads_show",
+    "argv_prefix": [
+      "uploads",
+      "show"
+    ],
     "group": "uploads",
     "action": "show",
     "description": "Show details for a vault, document, or upload.",
@@ -12540,129 +16991,62 @@
     }
   },
   {
-    "name": "uploads_trash",
-    "group": "uploads",
-    "action": "trash",
-    "description": "List, show, and upload files in a project's Docs & Files area.",
-    "positional": [],
+    "name": "url_parse",
+    "argv_prefix": [
+      "url",
+      "parse"
+    ],
+    "group": "url",
+    "action": "parse",
+    "description": "Parse a Basecamp URL into its components.",
+    "positional": [
+      {
+        "name": "url",
+        "required": true,
+        "description": "URL"
+      }
+    ],
     "flags": [
       {
-        "name": "folder",
+        "name": "account",
         "type": "string",
-        "description": "Folder ID (alias for --vault)"
-      },
-      {
-        "name": "in",
-        "type": "string",
-        "description": "Project ID (alias for --project)"
+        "description": "Account ID",
+        "short": "a"
       },
       {
         "name": "project",
         "type": "string",
         "description": "Project ID or name",
         "short": "p"
-      },
-      {
-        "name": "vault",
-        "type": "string",
-        "description": "Folder ID (default: root)"
-      },
-      {
-        "name": "account",
-        "type": "string",
-        "description": "Account ID",
-        "short": "a"
       }
     ],
     "input_schema": {
       "type": "object",
       "properties": {
-        "folder": {
+        "url": {
           "type": "string",
-          "description": "Folder ID (alias for --vault)"
-        },
-        "in": {
-          "type": "string",
-          "description": "Project ID (alias for --project)"
-        },
-        "project": {
-          "type": "string",
-          "description": "Project ID or name"
-        },
-        "vault": {
-          "type": "string",
-          "description": "Folder ID (default: root)"
+          "description": "URL"
         },
         "account": {
           "type": "string",
           "description": "Account ID"
-        }
-      }
-    }
-  },
-  {
-    "name": "uploads_update",
-    "group": "uploads",
-    "action": "update",
-    "description": "List, show, and upload files in a project's Docs & Files area.",
-    "positional": [],
-    "flags": [
-      {
-        "name": "folder",
-        "type": "string",
-        "description": "Folder ID (alias for --vault)"
-      },
-      {
-        "name": "in",
-        "type": "string",
-        "description": "Project ID (alias for --project)"
-      },
-      {
-        "name": "project",
-        "type": "string",
-        "description": "Project ID or name",
-        "short": "p"
-      },
-      {
-        "name": "vault",
-        "type": "string",
-        "description": "Folder ID (default: root)"
-      },
-      {
-        "name": "account",
-        "type": "string",
-        "description": "Account ID",
-        "short": "a"
-      }
-    ],
-    "input_schema": {
-      "type": "object",
-      "properties": {
-        "folder": {
-          "type": "string",
-          "description": "Folder ID (alias for --vault)"
-        },
-        "in": {
-          "type": "string",
-          "description": "Project ID (alias for --project)"
         },
         "project": {
           "type": "string",
           "description": "Project ID or name"
-        },
-        "vault": {
-          "type": "string",
-          "description": "Folder ID (default: root)"
-        },
-        "account": {
-          "type": "string",
-          "description": "Account ID"
         }
-      }
+      },
+      "required": [
+        "url"
+      ]
     }
   },
   {
     "name": "vaults_archive",
+    "argv_prefix": [
+      "vaults",
+      "archive"
+    ],
     "group": "vaults",
     "action": "archive",
     "description": "Archive a file to remove it from active view.",
@@ -12736,7 +17120,232 @@
     }
   },
   {
+    "name": "vaults_documents_create",
+    "argv_prefix": [
+      "vaults",
+      "documents",
+      "create"
+    ],
+    "group": "vaults",
+    "action": "documents_create",
+    "description": "Create a new document",
+    "positional": [
+      {
+        "name": "title",
+        "required": true,
+        "description": "Title"
+      },
+      {
+        "name": "content",
+        "required": false,
+        "description": "Content (optional)"
+      }
+    ],
+    "flags": [
+      {
+        "name": "attach",
+        "type": "array",
+        "description": "Attach file (repeatable)"
+      },
+      {
+        "name": "draft",
+        "type": "boolean",
+        "description": "Create as draft (default: published)"
+      },
+      {
+        "name": "folder",
+        "type": "string",
+        "description": "Folder ID (alias for --vault)"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "no-subscribe",
+        "type": "boolean",
+        "description": "Don't subscribe anyone else (silent, no notifications)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "subscribe",
+        "type": "string",
+        "description": "Subscribe specific people (comma-separated names, emails, IDs, or \"me\")"
+      },
+      {
+        "name": "vault",
+        "type": "string",
+        "description": "Folder ID (default: root)"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Title"
+        },
+        "content": {
+          "type": "string",
+          "description": "Content (optional)"
+        },
+        "attach": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Attach file (repeatable)"
+        },
+        "draft": {
+          "type": "boolean",
+          "description": "Create as draft (default: published)"
+        },
+        "folder": {
+          "type": "string",
+          "description": "Folder ID (alias for --vault)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "no-subscribe": {
+          "type": "boolean",
+          "description": "Don't subscribe anyone else (silent, no notifications)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "subscribe": {
+          "type": "string",
+          "description": "Subscribe specific people (comma-separated names, emails, IDs, or \"me\")"
+        },
+        "vault": {
+          "type": "string",
+          "description": "Folder ID (default: root)"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      },
+      "required": [
+        "title"
+      ]
+    }
+  },
+  {
+    "name": "vaults_documents_list",
+    "argv_prefix": [
+      "vaults",
+      "documents",
+      "list"
+    ],
+    "group": "vaults",
+    "action": "documents_list",
+    "description": "List documents in a folder",
+    "positional": [],
+    "flags": [
+      {
+        "name": "all",
+        "type": "boolean",
+        "description": "Fetch all documents (no limit)"
+      },
+      {
+        "name": "folder",
+        "type": "string",
+        "description": "Folder ID (alias for --vault)"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "limit",
+        "type": "integer",
+        "description": "Maximum number of documents to fetch (0 = all)",
+        "short": "n"
+      },
+      {
+        "name": "page",
+        "type": "integer",
+        "description": "Fetch a single page (use --all for everything)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "vault",
+        "type": "string",
+        "description": "Folder ID (default: root)"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "all": {
+          "type": "boolean",
+          "description": "Fetch all documents (no limit)"
+        },
+        "folder": {
+          "type": "string",
+          "description": "Folder ID (alias for --vault)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Maximum number of documents to fetch (0 = all)"
+        },
+        "page": {
+          "type": "integer",
+          "description": "Fetch a single page (use --all for everything)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "vault": {
+          "type": "string",
+          "description": "Folder ID (default: root)"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      }
+    }
+  },
+  {
     "name": "vaults_download",
+    "argv_prefix": [
+      "vaults",
+      "download"
+    ],
     "group": "vaults",
     "action": "download",
     "description": "Download an uploaded file to the local filesystem.",
@@ -12820,7 +17429,184 @@
     }
   },
   {
+    "name": "vaults_folders_create",
+    "argv_prefix": [
+      "vaults",
+      "folders",
+      "create"
+    ],
+    "group": "vaults",
+    "action": "folders_create",
+    "description": "Create a new folder",
+    "positional": [
+      {
+        "name": "name",
+        "required": true,
+        "description": "Name"
+      }
+    ],
+    "flags": [
+      {
+        "name": "folder",
+        "type": "string",
+        "description": "Folder ID (alias for --vault)"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "vault",
+        "type": "string",
+        "description": "Folder ID (default: root)"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name"
+        },
+        "folder": {
+          "type": "string",
+          "description": "Folder ID (alias for --vault)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "vault": {
+          "type": "string",
+          "description": "Folder ID (default: root)"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    }
+  },
+  {
+    "name": "vaults_folders_list",
+    "argv_prefix": [
+      "vaults",
+      "folders",
+      "list"
+    ],
+    "group": "vaults",
+    "action": "folders_list",
+    "description": "List folders in a folder",
+    "positional": [],
+    "flags": [
+      {
+        "name": "all",
+        "type": "boolean",
+        "description": "Fetch all folders (no limit)"
+      },
+      {
+        "name": "folder",
+        "type": "string",
+        "description": "Folder ID (alias for --vault)"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "limit",
+        "type": "integer",
+        "description": "Maximum number of folders to fetch (0 = all)",
+        "short": "n"
+      },
+      {
+        "name": "page",
+        "type": "integer",
+        "description": "Fetch a single page (use --all for everything)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "vault",
+        "type": "string",
+        "description": "Folder ID (default: root)"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "all": {
+          "type": "boolean",
+          "description": "Fetch all folders (no limit)"
+        },
+        "folder": {
+          "type": "string",
+          "description": "Folder ID (alias for --vault)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Maximum number of folders to fetch (0 = all)"
+        },
+        "page": {
+          "type": "integer",
+          "description": "Fetch a single page (use --all for everything)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "vault": {
+          "type": "string",
+          "description": "Folder ID (default: root)"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      }
+    }
+  },
+  {
     "name": "vaults_list",
+    "argv_prefix": [
+      "vaults",
+      "list"
+    ],
     "group": "vaults",
     "action": "list",
     "description": "List all folders, documents, and uploads in a folder.",
@@ -12882,6 +17668,10 @@
   },
   {
     "name": "vaults_restore",
+    "argv_prefix": [
+      "vaults",
+      "restore"
+    ],
     "group": "vaults",
     "action": "restore",
     "description": "Restore a file from trash or archive to active status.",
@@ -12956,6 +17746,10 @@
   },
   {
     "name": "vaults_show",
+    "argv_prefix": [
+      "vaults",
+      "show"
+    ],
     "group": "vaults",
     "action": "show",
     "description": "Show details for a vault, document, or upload.",
@@ -13049,6 +17843,10 @@
   },
   {
     "name": "vaults_trash",
+    "argv_prefix": [
+      "vaults",
+      "trash"
+    ],
     "group": "vaults",
     "action": "trash",
     "description": "Move a file to the trash.",
@@ -13123,6 +17921,10 @@
   },
   {
     "name": "vaults_update",
+    "argv_prefix": [
+      "vaults",
+      "update"
+    ],
     "group": "vaults",
     "action": "update",
     "description": "Update a document, vault, or upload.",
@@ -13225,7 +18027,193 @@
     }
   },
   {
+    "name": "vaults_uploads_create",
+    "argv_prefix": [
+      "vaults",
+      "uploads",
+      "create"
+    ],
+    "group": "vaults",
+    "action": "uploads_create",
+    "description": "Upload a file to a project's Docs & Files area.",
+    "positional": [
+      {
+        "name": "file",
+        "required": true,
+        "description": "File"
+      }
+    ],
+    "flags": [
+      {
+        "name": "description",
+        "type": "string",
+        "description": "Upload description (Markdown)"
+      },
+      {
+        "name": "folder",
+        "type": "string",
+        "description": "Folder ID (alias for --vault)"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "vault",
+        "type": "string",
+        "description": "Folder ID (default: root)"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "file": {
+          "type": "string",
+          "description": "File"
+        },
+        "description": {
+          "type": "string",
+          "description": "Upload description (Markdown)"
+        },
+        "folder": {
+          "type": "string",
+          "description": "Folder ID (alias for --vault)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "vault": {
+          "type": "string",
+          "description": "Folder ID (default: root)"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      },
+      "required": [
+        "file"
+      ]
+    }
+  },
+  {
+    "name": "vaults_uploads_list",
+    "argv_prefix": [
+      "vaults",
+      "uploads",
+      "list"
+    ],
+    "group": "vaults",
+    "action": "uploads_list",
+    "description": "List uploaded files in a folder",
+    "positional": [],
+    "flags": [
+      {
+        "name": "all",
+        "type": "boolean",
+        "description": "Fetch all files (no limit)"
+      },
+      {
+        "name": "folder",
+        "type": "string",
+        "description": "Folder ID (alias for --vault)"
+      },
+      {
+        "name": "in",
+        "type": "string",
+        "description": "Project ID (alias for --project)"
+      },
+      {
+        "name": "limit",
+        "type": "integer",
+        "description": "Maximum number of files to fetch (0 = all)",
+        "short": "n"
+      },
+      {
+        "name": "page",
+        "type": "integer",
+        "description": "Fetch a single page (use --all for everything)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "description": "Project ID or name",
+        "short": "p"
+      },
+      {
+        "name": "vault",
+        "type": "string",
+        "description": "Folder ID (default: root)"
+      },
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account ID",
+        "short": "a"
+      }
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "all": {
+          "type": "boolean",
+          "description": "Fetch all files (no limit)"
+        },
+        "folder": {
+          "type": "string",
+          "description": "Folder ID (alias for --vault)"
+        },
+        "in": {
+          "type": "string",
+          "description": "Project ID (alias for --project)"
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Maximum number of files to fetch (0 = all)"
+        },
+        "page": {
+          "type": "integer",
+          "description": "Fetch a single page (use --all for everything)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project ID or name"
+        },
+        "vault": {
+          "type": "string",
+          "description": "Folder ID (default: root)"
+        },
+        "account": {
+          "type": "string",
+          "description": "Account ID"
+        }
+      }
+    }
+  },
+  {
     "name": "webhooks_create",
+    "argv_prefix": [
+      "webhooks",
+      "create"
+    ],
     "group": "webhooks",
     "action": "create",
     "description": "Create a new webhook for notifications.",
@@ -13291,6 +18279,10 @@
   },
   {
     "name": "webhooks_delete",
+    "argv_prefix": [
+      "webhooks",
+      "delete"
+    ],
     "group": "webhooks",
     "action": "delete",
     "description": "Delete a webhook",
@@ -13347,6 +18339,10 @@
   },
   {
     "name": "webhooks_list",
+    "argv_prefix": [
+      "webhooks",
+      "list"
+    ],
     "group": "webhooks",
     "action": "list",
     "description": "List webhooks",
@@ -13390,6 +18386,10 @@
   },
   {
     "name": "webhooks_show",
+    "argv_prefix": [
+      "webhooks",
+      "show"
+    ],
     "group": "webhooks",
     "action": "show",
     "description": "Show webhook details",
@@ -13446,6 +18446,10 @@
   },
   {
     "name": "webhooks_update",
+    "argv_prefix": [
+      "webhooks",
+      "update"
+    ],
     "group": "webhooks",
     "action": "update",
     "description": "Update a webhook",

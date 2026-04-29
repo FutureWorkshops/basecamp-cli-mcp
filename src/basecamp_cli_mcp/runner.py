@@ -126,7 +126,11 @@ class Runner:
         return body
 
     def build_argv(self, tool_spec: dict[str, Any], params: dict[str, Any]) -> list[str]:
-        argv: list[str] = [tool_spec["group"], tool_spec["action"]]
+        prefix = tool_spec.get("argv_prefix")
+        if prefix:
+            argv: list[str] = list(prefix)
+        else:
+            argv = [tool_spec["group"], tool_spec["action"]]
 
         for pos in tool_spec.get("positional") or []:
             value = params.get(pos["name"])

@@ -17,7 +17,13 @@ class Generator:
     def __init__(self, basecamp_bin: str | None = None) -> None:
         self.basecamp_bin = basecamp_bin or os.environ.get("BASECAMP_BIN", "basecamp")
 
+    _MAX_DEPTH = 5
+
     def generate(self) -> list[dict[str, Any]]:
+        # `commands --json` lists canonical top-level groups and skips the
+        # Shortcuts category. From each group we walk subcommands via
+        # `--agent --help`, since that's the only place nested groups like
+        # `cards step` and `cards column` are exposed.
         categories = self._list_commands()
         tools: list[dict[str, Any]] = []
 
@@ -25,19 +31,42 @@ class Generator:
             if category.get("name") == "Shortcuts":
                 continue
             for cmd in category.get("commands") or []:
-                group = cmd["name"]
-                for action in cmd.get("actions") or []:
-                    tools.append(self._tool_for(group, action))
+                tools.extend(self._tools_for_path([cmd["name"]]))
 
         tools.sort(key=lambda t: t["name"])
         return tools
 
-    def _tool_for(self, group: str, action: str) -> dict[str, Any]:
-        parsed = help_parser.parse(self._help_text(group, action))
-        # `--project` is mandatory for most basecamp commands but only some
-        # subcommands list it in their INHERITED FLAGS section (e.g. `todos
-        # update` infers it from the URL, which we no longer pass). Ensure
-        # every tool exposes it so agents can always supply project scope.
+    def _tools_for_path(self, path: list[str]) -> list[dict[str, Any]]:
+        if len(path) > self._MAX_DEPTH:
+            return []
+        subs = self._subcommands(path)
+        # Drop aliases — when two siblings share a short description, the CLI
+        # is exposing the same action twice (e.g. `move`/`mv`). Keep the
+        # longer name (or alphabetically last) so generated tool names match
+        # what users would type.
+        subs = self._dedupe_aliases(subs)
+        if not subs:
+            # Top-level groups with no subcommands aren't real (every group
+            # has at least `help`); only emit a tool when path is deeper than
+            # the seed.
+            return [self._tool_for_path(path)] if len(path) >= 2 else []
+        out: list[dict[str, Any]] = []
+        for sub in subs:
+            out.extend(self._tools_for_path([*path, sub["name"]]))
+        return out
+
+    @staticmethod
+    def _dedupe_aliases(subs: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        by_short: dict[str, dict[str, Any]] = {}
+        for s in subs:
+            short = s.get("short") or ""
+            existing = by_short.get(short)
+            if existing is None or len(s["name"]) > len(existing["name"]):
+                by_short[short] = s
+        return list(by_short.values())
+
+    def _tool_for_path(self, path: list[str]) -> dict[str, Any]:
+        parsed = help_parser.parse(self._help_text(path))
         flags = list(parsed["flags"])
         if not any(f["name"] == "project" for f in flags):
             flags.append({
@@ -51,11 +80,12 @@ class Generator:
             "positional": parsed["positional"],
             "flags": flags,
         }
-        summary = parsed["summary"] or f"{action} {group}"
+        summary = parsed["summary"] or " ".join(path)
         return {
-            "name": f"{group}_{action}",
-            "group": group,
-            "action": action,
+            "name": "_".join(path),
+            "argv_prefix": path,
+            "group": path[0],
+            "action": "_".join(path[1:]),
             "description": summary,
             "positional": parsed["positional"],
             "flags": flags,
@@ -99,14 +129,31 @@ class Generator:
         envelope = json.loads(result.stdout)
         return envelope["data"]
 
-    def _help_text(self, group: str, action: str) -> str:
+    def _help_text(self, path: list[str]) -> str:
         result = subprocess.run(
-            [self.basecamp_bin, group, action, "--help"],
+            [self.basecamp_bin, *path, "--help"],
             capture_output=True,
             text=True,
             encoding="utf-8",
         )
         return result.stdout
+
+    def _subcommands(self, path: list[str]) -> list[dict[str, Any]]:
+        result = subprocess.run(
+            [self.basecamp_bin, *path, "--agent", "--help"],
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+        )
+        try:
+            meta = json.loads(result.stdout)
+        except (json.JSONDecodeError, ValueError):
+            return []
+        return [
+            s
+            for s in meta.get("subcommands") or []
+            if s.get("name") and s["name"] != "help" and s["name"] not in path
+        ]
 
 
 def _flag_schema(flag: help_parser.Flag) -> dict[str, Any]:

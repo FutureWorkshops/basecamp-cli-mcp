@@ -75,6 +75,16 @@ VARIADIC_SPEC = {
 }
 
 
+def test_build_argv_uses_argv_prefix(runner: Runner) -> None:
+    spec = {
+        "argv_prefix": ["cards", "step", "complete"],
+        "positional": [{"name": "id", "required": True, "description": "ID"}],
+        "flags": [],
+    }
+    argv = runner.build_argv(spec, {"id": "789"})
+    assert argv == ["cards", "step", "complete", "789", "--json"]
+
+
 def test_build_argv_variadic_positional_list(runner: Runner) -> None:
     argv = runner.build_argv(VARIADIC_SPEC, {"id": ["789", "012", "345"]})
     assert argv == ["todos", "complete", "789", "012", "345", "--json"]
