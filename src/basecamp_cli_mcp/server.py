@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import fnmatch
 import json
+import sys
 from importlib.resources import files
 from typing import Any
 
@@ -22,8 +24,40 @@ def _load_tool_specs() -> list[dict[str, Any]]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def build_server(tool_specs: list[dict[str, Any]] | None = None, runner: Runner | None = None) -> Server:
+def filter_specs(
+    specs: list[dict[str, Any]],
+    include: list[str] | None = None,
+    exclude: list[str] | None = None,
+) -> list[dict[str, Any]]:
+    """Filter tool specs by fnmatch glob patterns against the tool name.
+
+    `include` patterns are unioned (a tool matching any pattern is kept);
+    if omitted, all tools start as candidates. `exclude` patterns are then
+    subtracted.
+    """
+    out = specs
+    if include:
+        out = [s for s in out if any(fnmatch.fnmatch(s["name"], p) for p in include)]
+    if exclude:
+        out = [s for s in out if not any(fnmatch.fnmatch(s["name"], p) for p in exclude)]
+    return out
+
+
+def build_server(
+    tool_specs: list[dict[str, Any]] | None = None,
+    runner: Runner | None = None,
+    include: list[str] | None = None,
+    exclude: list[str] | None = None,
+) -> Server:
     specs = tool_specs if tool_specs is not None else _load_tool_specs()
+    if include or exclude:
+        before = len(specs)
+        specs = filter_specs(specs, include=include, exclude=exclude)
+        print(
+            f"[basecamp-cli-mcp] tool filter: {before} -> {len(specs)} "
+            f"(include={include or []} exclude={exclude or []})",
+            file=sys.stderr,
+        )
     runner = runner or Runner()
     by_name = {s["name"]: s for s in specs}
 
@@ -62,7 +96,7 @@ def build_server(tool_specs: list[dict[str, Any]] | None = None, runner: Runner 
     return server
 
 
-async def run() -> None:
-    server = build_server()
+async def run(include: list[str] | None = None, exclude: list[str] | None = None) -> None:
+    server = build_server(include=include, exclude=exclude)
     async with stdio_server() as (read_stream, write_stream):
         await server.run(read_stream, write_stream, server.create_initialization_options())

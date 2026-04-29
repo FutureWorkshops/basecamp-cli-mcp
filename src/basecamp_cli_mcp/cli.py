@@ -16,6 +16,23 @@ def main(argv: list[str] | None = None) -> int:
         description="MCP server that wraps the basecamp CLI.",
     )
     parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
+    parser.add_argument(
+        "--include",
+        action="append",
+        default=None,
+        metavar="PATTERN",
+        help=(
+            "Only expose tools whose name matches PATTERN (fnmatch glob). "
+            "Repeatable. Example: --include 'cards_*' --include 'todos_*'."
+        ),
+    )
+    parser.add_argument(
+        "--exclude",
+        action="append",
+        default=None,
+        metavar="PATTERN",
+        help="Hide tools whose name matches PATTERN. Repeatable. Applied after --include.",
+    )
     sub = parser.add_subparsers(dest="command")
 
     gen = sub.add_parser("generate", help="Regenerate data/tools.json from the basecamp CLI.")
@@ -33,7 +50,7 @@ def main(argv: list[str] | None = None) -> int:
 
     from . import server
 
-    asyncio.run(server.run())
+    asyncio.run(server.run(include=args.include, exclude=args.exclude))
     return 0
 
 

@@ -49,6 +49,38 @@ claude mcp add basecamp -- uvx basecamp-cli-mcp
 
 If `uvx` isn't on Desktop's `PATH` (it strips most of your shell `PATH`), use the absolute path — `which uvx` from your shell.
 
+### Filtering tools
+
+By default the server exposes all 250+ tools. Most agents only need a handful, and a smaller
+catalog speeds up tool selection. Filter with `--include` / `--exclude` (fnmatch globs against
+tool names; both flags repeatable):
+
+```sh
+basecamp-cli-mcp --include 'cards_*' --include 'todos_*'
+basecamp-cli-mcp --include '*' --exclude 'webhooks_*' --exclude 'templates_*'
+```
+
+Register multiple profiles in `claude_desktop_config.json` and turn them on per task:
+
+```json
+{
+  "mcpServers": {
+    "basecamp-cards": {
+      "command": "uvx",
+      "args": ["basecamp-cli-mcp", "--include", "cards_*", "--include", "projects_list"]
+    },
+    "basecamp-todos": {
+      "command": "uvx",
+      "args": ["basecamp-cli-mcp", "--include", "todos_*", "--include", "projects_list"]
+    },
+    "basecamp-full": {
+      "command": "uvx",
+      "args": ["basecamp-cli-mcp"]
+    }
+  }
+}
+```
+
 ### `BASECAMP_BIN`
 
 If the `basecamp` CLI isn't on the spawned process's `PATH` (a real risk under Claude Desktop), set:
