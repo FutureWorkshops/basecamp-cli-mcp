@@ -54,3 +54,10 @@ def test_todos_complete_variadic_positional(fixtures: Path) -> None:
 def test_summary_extracted(fixtures: Path) -> None:
     parsed = parse(fixtures, "projects_list")
     assert parsed["summary"]
+
+
+def test_summary_stops_at_first_blank_line(fixtures: Path) -> None:
+    # todos_complete help has a short description, blank line, then a block of
+    # shell-syntax examples. The summary should keep only the first paragraph.
+    parsed = parse(fixtures, "todos_complete")
+    assert parsed["summary"] == "Mark one or more todos as completed."

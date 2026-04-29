@@ -44,12 +44,19 @@ def parse(help_text: str) -> Parsed:
 
 
 def _summary(text: str) -> str:
+    # Take only the first paragraph (up to the first blank line). The longer
+    # block that follows is shell-syntax examples and URL examples which are
+    # noise for an MCP agent looking at this tool spec.
     lines: list[str] = []
     for line in text.splitlines():
-        if line.strip() == "USAGE":
+        stripped = line.strip()
+        if stripped == "USAGE":
             break
-        if line.strip():
-            lines.append(line.strip())
+        if not stripped:
+            if lines:
+                break
+            continue
+        lines.append(stripped)
     return " ".join(lines)
 
 

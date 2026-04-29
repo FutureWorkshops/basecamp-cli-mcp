@@ -39,7 +39,7 @@
     "name": "accounts_update",
     "group": "accounts",
     "action": "update",
-    "description": "Update account settings. basecamp accounts update --name \"New Company Name\"",
+    "description": "Update account settings.",
     "positional": [],
     "flags": [
       {
@@ -110,7 +110,7 @@
     "name": "assignments_due",
     "group": "assignments",
     "action": "due",
-    "description": "View assignments filtered by due date scope. Scopes: overdue, due_today, due_tomorrow, due_later_this_week, due_next_week, due_later. basecamp assignments due overdue basecamp assignments due due_today",
+    "description": "View assignments filtered by due date scope.",
     "positional": [
       {
         "name": "scope",
@@ -145,7 +145,7 @@
     "name": "attachments_download",
     "group": "attachments",
     "action": "download",
-    "description": "Download file attachments from any Basecamp recording. Fetches the recording's rich text content, extracts <bc-attachment> elements, and downloads the referenced files in parallel. You can pass a recording ID or URL: basecamp attachments download 789 basecamp attachments download https://3.basecamp.com/123/buckets/456/messages/789 Options: --out <dir>     Output directory (default: current directory) --out -         Stream a single file to stdout (requires single selection) --file <name>   Download only the named file --index <n>     Select attachment by 1-based index (disambiguates duplicate names) --type <type>   Recording type hint (todo, todolist, message, comment, card, card-table, document, schedule-entry, checkin, answer, forward, upload)",
+    "description": "Download file attachments from any Basecamp recording.",
     "positional": [
       {
         "name": "id",
@@ -210,7 +210,7 @@
     "name": "attachments_list",
     "group": "attachments",
     "action": "list",
-    "description": "List all file attachments embedded in an item's content. Attachments are extracted from the item's rich text content (HTML). This works on any item type: todos, messages, cards, comments, documents, etc. You can pass either an ID or a Basecamp URL: basecamp attachments list 789 basecamp attachments list https://3.basecamp.com/123/buckets/456/todos/789",
+    "description": "List all file attachments embedded in an item's content.",
     "positional": [
       {
         "name": "id",
@@ -380,7 +380,7 @@
     "name": "boost_create",
     "group": "boost",
     "action": "create",
-    "description": "Boost an item with a short note or emoji. You can pass either an ID or a Basecamp URL: basecamp boost create 789 \"\ud83c\udf89\" --project my-project basecamp boost create https://3.basecamp.com/123/buckets/456/todos/789 \"\ud83d\udc4d\" Use --event to boost a specific event within the item.",
+    "description": "Boost an item with a short note or emoji.",
     "positional": [
       {
         "name": "id",
@@ -445,7 +445,7 @@
     "name": "boost_delete",
     "group": "boost",
     "action": "delete",
-    "description": "Delete a boost. You can pass either a boost ID or a Basecamp URL: basecamp boost delete 789 basecamp boost delete https://3.basecamp.com/123/buckets/456/boosts/789",
+    "description": "Delete a boost.",
     "positional": [
       {
         "name": "boost-id",
@@ -491,7 +491,7 @@
     "name": "boost_list",
     "group": "boost",
     "action": "list",
-    "description": "List boosts on an item. You can pass either an ID or a Basecamp URL: basecamp boost list 789 --project my-project basecamp boost list https://3.basecamp.com/123/buckets/456/todos/789 Use --event to list boosts on a specific event within the item.",
+    "description": "List boosts on an item.",
     "positional": [
       {
         "name": "id",
@@ -546,7 +546,7 @@
     "name": "boost_show",
     "group": "boost",
     "action": "show",
-    "description": "Show details of a specific boost. You can pass either a boost ID or a Basecamp URL: basecamp boost show 789 --project my-project basecamp boost show https://3.basecamp.com/123/buckets/456/boosts/789",
+    "description": "Show details of a specific boost.",
     "positional": [
       {
         "name": "boost-id",
@@ -592,7 +592,7 @@
     "name": "cards_archive",
     "group": "cards",
     "action": "archive",
-    "description": "Archive a card to remove it from active view. You can pass either an ID or a Basecamp URL: basecamp cards archive 789",
+    "description": "Archive a card to remove it from active view.",
     "positional": [
       {
         "name": "id",
@@ -891,7 +891,7 @@
     "name": "cards_move",
     "group": "cards",
     "action": "move",
-    "description": "Move a card to a different column in the card table. You can pass either a card ID or a Basecamp URL: basecamp cards move 789 --to \"Done\" --in my-project basecamp cards move https://3.basecamp.com/123/buckets/456/card_tables/cards/789 --to \"Done\" basecamp cards move 789 --to \"Done\" --position 1 --in my-project basecamp cards move 789 --on-hold --in my-project basecamp cards move 789 --to 456 --on-hold --in my-project",
+    "description": "Move a card to a different column in the card table.",
     "positional": [
       {
         "name": "id",
@@ -983,7 +983,7 @@
     "name": "cards_restore",
     "group": "cards",
     "action": "restore",
-    "description": "Restore a card from trash or archive to active status. You can pass either an ID or a Basecamp URL: basecamp cards restore 789",
+    "description": "Restore a card from trash or archive to active status.",
     "positional": [
       {
         "name": "id",
@@ -1038,7 +1038,7 @@
     "name": "cards_show",
     "group": "cards",
     "action": "show",
-    "description": "Display detailed information about a card. You can pass either a card ID or a Basecamp URL: basecamp cards show 789 basecamp cards show https://3.basecamp.com/123/buckets/456/card_tables/cards/789",
+    "description": "Display detailed information about a card.",
     "positional": [
       {
         "name": "id",
@@ -1167,7 +1167,7 @@
     "name": "cards_trash",
     "group": "cards",
     "action": "trash",
-    "description": "Move a card to the trash. You can pass either an ID or a Basecamp URL: basecamp cards trash 789",
+    "description": "Move a card to the trash.",
     "positional": [
       {
         "name": "id",
@@ -1222,7 +1222,7 @@
     "name": "cards_update",
     "group": "cards",
     "action": "update",
-    "description": "Update an existing card. You can pass either a card ID or a Basecamp URL: basecamp cards update 789 --title \"new title\" basecamp cards update 789 --body \"new body\"",
+    "description": "Update an existing card.",
     "positional": [
       {
         "name": "id",
@@ -1328,7 +1328,7 @@
     "name": "chat_delete",
     "group": "chat",
     "action": "delete",
-    "description": "Delete a message line from a chat. This permanently deletes the message \u2014 it is not moved to trash. You can pass either a line ID or a Basecamp line URL: basecamp chat delete 789 --in my-project basecamp chat delete https://3.basecamp.com/123/buckets/456/chats/789/lines/111",
+    "description": "Delete a message line from a chat.",
     "positional": [
       {
         "name": "id",
@@ -1394,7 +1394,7 @@
     "name": "chat_line",
     "group": "chat",
     "action": "line",
-    "description": "Show details of a specific message line. You can pass either a line ID or a Basecamp line URL: basecamp chat line 789 --in my-project basecamp chat line https://3.basecamp.com/123/buckets/456/chats/789/lines/111",
+    "description": "Show details of a specific message line.",
     "positional": [
       {
         "name": "id",
@@ -1556,7 +1556,7 @@
     "name": "chat_post",
     "group": "chat",
     "action": "post",
-    "description": "Post a message to a chat. By default, messages are sent as plain text. Use --content-type text/html for rich text (HTML) messages. @mentions (@Name or @First.Last) are resolved automatically and the content type is promoted to text/html when mentions are present.",
+    "description": "Post a message to a chat.",
     "positional": [
       {
         "name": "message",
@@ -1642,7 +1642,7 @@
     "name": "chat_upload",
     "group": "chat",
     "action": "upload",
-    "description": "Upload a file directly to a chat room. The file is uploaded as a chat line (message with an attachment).",
+    "description": "Upload a file directly to a chat room.",
     "positional": [
       {
         "name": "file",
@@ -1753,7 +1753,7 @@
     "name": "checkins_answers",
     "group": "checkins",
     "action": "answers",
-    "description": "List answers for a check-in question. You can pass either a question ID or a Basecamp URL: basecamp checkins answers 789 --in my-project basecamp checkins answers https://3.basecamp.com/123/buckets/456/questions/789",
+    "description": "List answers for a check-in question.",
     "positional": [
       {
         "name": "question_id",
@@ -1961,7 +1961,7 @@
     "name": "comments_archive",
     "group": "comments",
     "action": "archive",
-    "description": "Archive a comment to remove it from active view. You can pass either an ID or a Basecamp URL: basecamp comments archive 789",
+    "description": "Archive a comment to remove it from active view.",
     "positional": [
       {
         "name": "id",
@@ -2007,7 +2007,7 @@
     "name": "comments_create",
     "group": "comments",
     "action": "create",
-    "description": "Add a comment to a Basecamp item (todo, message, card, etc.) The first argument is the item ID or URL to comment on. Comma-separated IDs add the same comment to multiple items: basecamp comment 789 \"Looks good!\" basecamp comment 789,012,345 \"Looks good!\" basecamp comment https://3.basecamp.com/123/buckets/456/todos/789 \"Looks good!\" Content supports Markdown and @mentions (@Name or @First.Last): basecamp comment 789 \"Hey @Jane.Smith, **please review**\"",
+    "description": "Add a comment to a Basecamp item (todo, message, card, etc.)",
     "positional": [
       {
         "name": "id",
@@ -2158,7 +2158,7 @@
     "name": "comments_restore",
     "group": "comments",
     "action": "restore",
-    "description": "Restore a comment from trash or archive to active status. You can pass either an ID or a Basecamp URL: basecamp comments restore 789",
+    "description": "Restore a comment from trash or archive to active status.",
     "positional": [
       {
         "name": "id",
@@ -2204,7 +2204,7 @@
     "name": "comments_show",
     "group": "comments",
     "action": "show",
-    "description": "Display detailed information about a comment. You can pass either a comment ID or a Basecamp URL: basecamp comments show 789 basecamp comments show https://3.basecamp.com/123/buckets/456/todos/111#__recording_789",
+    "description": "Display detailed information about a comment.",
     "positional": [
       {
         "name": "id",
@@ -2250,7 +2250,7 @@
     "name": "comments_trash",
     "group": "comments",
     "action": "trash",
-    "description": "Move a comment to the trash. You can pass either an ID or a Basecamp URL: basecamp comments trash 789",
+    "description": "Move a comment to the trash.",
     "positional": [
       {
         "name": "id",
@@ -2296,7 +2296,7 @@
     "name": "comments_update",
     "group": "comments",
     "action": "update",
-    "description": "Update an existing comment's content. You can pass either a comment ID or a Basecamp URL: basecamp comments update 789 \"new text\" basecamp comments update https://3.basecamp.com/123/buckets/456/todos/111#__recording_789 \"new text\"",
+    "description": "Update an existing comment's content.",
     "positional": [
       {
         "name": "id",
@@ -2352,7 +2352,7 @@
     "name": "completion_bash",
     "group": "completion",
     "action": "bash",
-    "description": "Generate the autocompletion script for bash. This script depends on the 'bash-completion' package. If it is not installed already, you can install it via your OS's package manager. To load completions in your current shell session: $ source <(basecamp completion bash) To load completions for every new session, add to ~/.bashrc: eval \"$(basecamp completion bash)\" Or install system-wide (requires root): Linux: $ basecamp completion bash | sudo tee /etc/bash_completion.d/basecamp > /dev/null macOS: $ basecamp completion bash > $(brew --prefix)/etc/bash_completion.d/basecamp",
+    "description": "Generate the autocompletion script for bash.",
     "positional": [],
     "flags": [],
     "input_schema": {
@@ -2364,7 +2364,7 @@
     "name": "completion_fish",
     "group": "completion",
     "action": "fish",
-    "description": "Generate the autocompletion script for fish. To load completions in your current shell session: $ basecamp completion fish | source To load completions for every new session, execute once: $ basecamp completion fish > ~/.config/fish/completions/basecamp.fish You will need to start a new shell for this setup to take effect.",
+    "description": "Generate the autocompletion script for fish.",
     "positional": [],
     "flags": [],
     "input_schema": {
@@ -2376,7 +2376,7 @@
     "name": "completion_powershell",
     "group": "completion",
     "action": "powershell",
-    "description": "Generate the autocompletion script for powershell. To load completions in your current shell session: PS> basecamp completion powershell | Out-String | Invoke-Expression To load completions for every new session, add the output of the above command to your powershell profile.",
+    "description": "Generate the autocompletion script for powershell.",
     "positional": [],
     "flags": [],
     "input_schema": {
@@ -2388,7 +2388,7 @@
     "name": "completion_refresh",
     "group": "completion",
     "action": "refresh",
-    "description": "Refresh the completion cache by fetching fresh data from Basecamp. This command fetches the current list of projects and people from Basecamp and updates the local cache used for tab completion. Requires authentication. The cache is also updated automatically when you run commands like: basecamp projects basecamp people list basecamp me Note: If you set cache_dir in a config file, completions won't find it. Set BASECAMP_CACHE_DIR in your environment instead.",
+    "description": "Refresh the completion cache by fetching fresh data from Basecamp.",
     "positional": [],
     "flags": [],
     "input_schema": {
@@ -2400,7 +2400,7 @@
     "name": "completion_status",
     "group": "completion",
     "action": "status",
-    "description": "Show the status of the completion cache. Displays information about the cached completion data including: - Number of cached projects, people, and accounts - When the cache was last updated - Whether the cache is stale - Cache file location Note: If you set cache_dir in a config file, completions won't find it. Set BASECAMP_CACHE_DIR in your environment instead.",
+    "description": "Show the status of the completion cache.",
     "positional": [],
     "flags": [],
     "input_schema": {
@@ -2412,7 +2412,7 @@
     "name": "completion_zsh",
     "group": "completion",
     "action": "zsh",
-    "description": "Generate the autocompletion script for zsh. If shell completion is not already enabled in your environment you will need to enable it. You can execute the following once: $ echo \"autoload -U compinit; compinit\" >> ~/.zshrc To load completions in your current shell session: $ source <(basecamp completion zsh) To load completions for every new session, add AFTER compinit in ~/.zshrc: eval \"$(basecamp completion zsh)\" Or install to a directory in your fpath (add BEFORE compinit in ~/.zshrc): $ mkdir -p ~/.zsh/completions $ basecamp completion zsh > ~/.zsh/completions/_basecamp # Then add to ~/.zshrc: #   fpath=(~/.zsh/completions $fpath) #   autoload -U compinit; compinit",
+    "description": "Generate the autocompletion script for zsh.",
     "positional": [],
     "flags": [],
     "input_schema": {
@@ -2436,7 +2436,7 @@
     "name": "config_project",
     "group": "config",
     "action": "project",
-    "description": "Select a project and set it as the default in local config. Use --project to set non-interactively: basecamp config project --project 12345 basecamp config project --project \"Project Name\" Without --project, an interactive picker is shown.",
+    "description": "Select a project and set it as the default in local config.",
     "positional": [],
     "flags": [],
     "input_schema": {
@@ -2448,7 +2448,7 @@
     "name": "config_set",
     "group": "config",
     "action": "set",
-    "description": "Set a configuration value in the local or global config file. Valid keys: account_id, project_id (or project), todolist_id, base_url, cache_dir, cache_enabled, format, scope, default_profile, hints, stats, verbose, onboarded, llm_provider (or llm), llm_model, llm_api_key, llm_endpoint, llm_max_concurrent, llm_token_budget, experimental.<feature>",
+    "description": "Set a configuration value in the local or global config file.",
     "positional": [
       {
         "name": "key",
@@ -2506,7 +2506,7 @@
     "name": "config_trust",
     "group": "config",
     "action": "trust",
-    "description": "Trust a local or repo .basecamp/config.json to allow authority keys (base_url, default_profile, profiles). Without arguments, trusts the nearest .basecamp/config.json (CWD or repo root). With --list, shows all trusted config paths.",
+    "description": "Trust a local or repo .basecamp/config.json to allow authority keys (base_url, default_profile, profiles).",
     "positional": [
       {
         "name": "path",
@@ -2575,7 +2575,7 @@
     "name": "config_untrust",
     "group": "config",
     "action": "untrust",
-    "description": "Revoke trust from a local or repo .basecamp/config.json. Authority keys (base_url, default_profile, profiles) will be rejected again. Without arguments, untrusts the nearest .basecamp/config.json.",
+    "description": "Revoke trust from a local or repo .basecamp/config.json. Authority keys (base_url, default_profile, profiles) will be rejected again.",
     "positional": [
       {
         "name": "path",
@@ -2598,7 +2598,7 @@
     "name": "docs_archive",
     "group": "docs",
     "action": "archive",
-    "description": "Archive a file to remove it from active view. You can pass either an ID or a Basecamp URL: basecamp files archive 789",
+    "description": "Archive a file to remove it from active view.",
     "positional": [
       {
         "name": "id",
@@ -2662,7 +2662,7 @@
     "name": "docs_download",
     "group": "docs",
     "action": "download",
-    "description": "Download an uploaded file to the local filesystem. You can pass either an upload ID, a Basecamp URL, or a storage URL: basecamp files download 789 --in my-project basecamp files download https://3.basecamp.com/123/buckets/456/uploads/789 basecamp files download \"https://storage.3.basecamp.com/123/blobs/abc/download/report.pdf\" basecamp files download 789 --out ./downloads --in my-project basecamp files download 789 --out - --in my-project  # stream to stdout Storage URLs (from attachments in rich text) are downloaded directly via the API. No --in flag is needed for storage URLs. Use --out - to stream the file to stdout (for piping to other commands).",
+    "description": "Download an uploaded file to the local filesystem.",
     "positional": [
       {
         "name": "upload-id",
@@ -2787,7 +2787,7 @@
     "name": "docs_restore",
     "group": "docs",
     "action": "restore",
-    "description": "Restore a file from trash or archive to active status. You can pass either an ID or a Basecamp URL: basecamp files restore 789",
+    "description": "Restore a file from trash or archive to active status.",
     "positional": [
       {
         "name": "id",
@@ -2851,7 +2851,7 @@
     "name": "docs_show",
     "group": "docs",
     "action": "show",
-    "description": "Show details for a vault, document, or upload. You can pass either an item ID or a Basecamp URL: basecamp files show 789 --in my-project basecamp files show https://3.basecamp.com/123/buckets/456/documents/789",
+    "description": "Show details for a vault, document, or upload.",
     "positional": [
       {
         "name": "id",
@@ -2934,7 +2934,7 @@
     "name": "docs_trash",
     "group": "docs",
     "action": "trash",
-    "description": "Move a file to the trash. You can pass either an ID or a Basecamp URL: basecamp files trash 789",
+    "description": "Move a file to the trash.",
     "positional": [
       {
         "name": "id",
@@ -2998,7 +2998,7 @@
     "name": "docs_update",
     "group": "docs",
     "action": "update",
-    "description": "Update a document, vault, or upload. You can pass either an item ID or a Basecamp URL: basecamp files update 789 --title \"new title\" --in my-project basecamp files update 789 --content \"new content\" --in my-project",
+    "description": "Update a document, vault, or upload.",
     "positional": [
       {
         "name": "id",
@@ -3091,7 +3091,7 @@
     "name": "files_archive",
     "group": "files",
     "action": "archive",
-    "description": "Archive a file to remove it from active view. You can pass either an ID or a Basecamp URL: basecamp files archive 789",
+    "description": "Archive a file to remove it from active view.",
     "positional": [
       {
         "name": "id",
@@ -3155,7 +3155,7 @@
     "name": "files_download",
     "group": "files",
     "action": "download",
-    "description": "Download an uploaded file to the local filesystem. You can pass either an upload ID, a Basecamp URL, or a storage URL: basecamp files download 789 --in my-project basecamp files download https://3.basecamp.com/123/buckets/456/uploads/789 basecamp files download \"https://storage.3.basecamp.com/123/blobs/abc/download/report.pdf\" basecamp files download 789 --out ./downloads --in my-project basecamp files download 789 --out - --in my-project  # stream to stdout Storage URLs (from attachments in rich text) are downloaded directly via the API. No --in flag is needed for storage URLs. Use --out - to stream the file to stdout (for piping to other commands).",
+    "description": "Download an uploaded file to the local filesystem.",
     "positional": [
       {
         "name": "upload-id",
@@ -3280,7 +3280,7 @@
     "name": "files_restore",
     "group": "files",
     "action": "restore",
-    "description": "Restore a file from trash or archive to active status. You can pass either an ID or a Basecamp URL: basecamp files restore 789",
+    "description": "Restore a file from trash or archive to active status.",
     "positional": [
       {
         "name": "id",
@@ -3344,7 +3344,7 @@
     "name": "files_show",
     "group": "files",
     "action": "show",
-    "description": "Show details for a vault, document, or upload. You can pass either an item ID or a Basecamp URL: basecamp files show 789 --in my-project basecamp files show https://3.basecamp.com/123/buckets/456/documents/789",
+    "description": "Show details for a vault, document, or upload.",
     "positional": [
       {
         "name": "id",
@@ -3427,7 +3427,7 @@
     "name": "files_trash",
     "group": "files",
     "action": "trash",
-    "description": "Move a file to the trash. You can pass either an ID or a Basecamp URL: basecamp files trash 789",
+    "description": "Move a file to the trash.",
     "positional": [
       {
         "name": "id",
@@ -3491,7 +3491,7 @@
     "name": "files_update",
     "group": "files",
     "action": "update",
-    "description": "Update a document, vault, or upload. You can pass either an item ID or a Basecamp URL: basecamp files update 789 --title \"new title\" --in my-project basecamp files update 789 --content \"new content\" --in my-project",
+    "description": "Update a document, vault, or upload.",
     "positional": [
       {
         "name": "id",
@@ -3696,7 +3696,7 @@
     "name": "forwards_replies",
     "group": "forwards",
     "action": "replies",
-    "description": "List all replies to an email forward. You can pass either a forward ID or a Basecamp URL: basecamp forwards replies 789 --in my-project basecamp forwards replies https://3.basecamp.com/123/buckets/456/inbox_forwards/789",
+    "description": "List all replies to an email forward.",
     "positional": [
       {
         "name": "forward_id",
@@ -3779,7 +3779,7 @@
     "name": "forwards_reply",
     "group": "forwards",
     "action": "reply",
-    "description": "Display detailed information about a reply to an email forward. You can pass either IDs or Basecamp URLs: basecamp forwards reply 789 456 --in my-project basecamp forwards reply https://3.basecamp.com/123/buckets/456/inbox_forwards/789 456",
+    "description": "Display detailed information about a reply to an email forward.",
     "positional": [
       {
         "name": "forward_id",
@@ -3844,7 +3844,7 @@
     "name": "forwards_show",
     "group": "forwards",
     "action": "show",
-    "description": "Display detailed information about an email forward. You can pass either a forward ID or a Basecamp URL: basecamp forwards show 789 --in my-project basecamp forwards show https://3.basecamp.com/123/buckets/456/inbox_forwards/789",
+    "description": "Display detailed information about an email forward.",
     "positional": [
       {
         "name": "id",
@@ -3899,7 +3899,7 @@
     "name": "gauges_create",
     "group": "gauges",
     "action": "create",
-    "description": "Create a new needle on a project's gauge. basecamp gauges create --position 75 --color green --in MyProject basecamp gauges create --position 50 --color yellow --description \"Halfway there\" --in MyProject",
+    "description": "Create a new needle on a project's gauge.",
     "positional": [],
     "flags": [
       {
@@ -4023,7 +4023,7 @@
     "name": "gauges_disable",
     "group": "gauges",
     "action": "disable",
-    "description": "Disable the gauge tool on a project. The gauge is not deleted \u2014 just hidden. Use 'basecamp gauges enable' to restore.",
+    "description": "Disable the gauge tool on a project.",
     "positional": [],
     "flags": [
       {
@@ -4056,7 +4056,7 @@
     "name": "gauges_enable",
     "group": "gauges",
     "action": "enable",
-    "description": "Enable the gauge tool on a project. basecamp gauges enable --in MyProject",
+    "description": "Enable the gauge tool on a project.",
     "positional": [],
     "flags": [
       {
@@ -4168,7 +4168,7 @@
     "name": "gauges_needles",
     "group": "gauges",
     "action": "needles",
-    "description": "List all needles on a project's gauge. basecamp gauges needles --in MyProject",
+    "description": "List all needles on a project's gauge.",
     "positional": [],
     "flags": [
       {
@@ -4201,7 +4201,7 @@
     "name": "gauges_update",
     "group": "gauges",
     "action": "update",
-    "description": "Update a needle's description. basecamp gauges update 12345 --description \"Updated status\"",
+    "description": "Update a needle's description.",
     "positional": [
       {
         "name": "id",
@@ -4256,7 +4256,7 @@
     "name": "hillcharts_show",
     "group": "hillcharts",
     "action": "show",
-    "description": "Show the hill chart state for a todoset, including all tracked todolists. basecamp hillcharts show --in MyProject basecamp hillcharts show --in MyProject --todoset 12345",
+    "description": "Show the hill chart state for a todoset, including all tracked todolists.",
     "positional": [],
     "flags": [
       {
@@ -4299,7 +4299,7 @@
     "name": "hillcharts_track",
     "group": "hillcharts",
     "action": "track",
-    "description": "Track one or more todolists on a project's hill chart. Provide comma-separated todolist IDs or names: basecamp hillcharts track 111,222,333 --in MyProject basecamp hillcharts track \"Shopping list\" --in MyProject",
+    "description": "Track one or more todolists on a project's hill chart.",
     "positional": [
       {
         "name": "todolist-ids",
@@ -4355,7 +4355,7 @@
     "name": "hillcharts_untrack",
     "group": "hillcharts",
     "action": "untrack",
-    "description": "Remove one or more todolists from a project's hill chart. Provide comma-separated todolist IDs or names: basecamp hillcharts untrack 111,222,333 --in MyProject basecamp hillcharts untrack \"Shopping list\" --in MyProject",
+    "description": "Remove one or more todolists from a project's hill chart.",
     "positional": [
       {
         "name": "todolist-ids",
@@ -4411,7 +4411,7 @@
     "name": "lineup_create",
     "group": "lineup",
     "action": "create",
-    "description": "Create a new lineup marker with a name and date. The date accepts natural language dates: - Relative: today, tomorrow, +3, in 5 days - Weekdays: monday, next friday - Explicit: 2024-03-15 (YYYY-MM-DD)",
+    "description": "Create a new lineup marker with a name and date.",
     "positional": [
       {
         "name": "name",
@@ -4447,7 +4447,7 @@
     "name": "lineup_delete",
     "group": "lineup",
     "action": "delete",
-    "description": "Delete an existing lineup marker. You can pass either a marker ID or a Basecamp URL: basecamp lineup delete 789 basecamp lineup delete https://3.basecamp.com/123/my/lineup/markers/789",
+    "description": "Delete an existing lineup marker.",
     "positional": [
       {
         "name": "id",
@@ -4485,7 +4485,7 @@
     "name": "lineup_update",
     "group": "lineup",
     "action": "update",
-    "description": "Update an existing lineup marker's name or date. You can pass either a marker ID or a Basecamp URL: basecamp lineup update 789 \"new name\" basecamp lineup update 789 \"new name\" 2024-03-15",
+    "description": "Update an existing lineup marker's name or date.",
     "positional": [
       {
         "name": "id",
@@ -4582,7 +4582,7 @@
     "name": "messages_archive",
     "group": "messages",
     "action": "archive",
-    "description": "Archive a message to remove it from active view. You can pass either an ID or a Basecamp URL: basecamp messages archive 789",
+    "description": "Archive a message to remove it from active view.",
     "positional": [
       {
         "name": "id",
@@ -4837,7 +4837,7 @@
     "name": "messages_pin",
     "group": "messages",
     "action": "pin",
-    "description": "Pin a message to the top of the message board. You can pass either a message ID or a Basecamp URL: basecamp messages pin 789 basecamp messages pin https://3.basecamp.com/123/buckets/456/messages/789",
+    "description": "Pin a message to the top of the message board.",
     "positional": [
       {
         "name": "id",
@@ -4892,7 +4892,7 @@
     "name": "messages_publish",
     "group": "messages",
     "action": "publish",
-    "description": "Publish a draft message, making it visible on the message board. You can pass either a message ID or a Basecamp URL: basecamp messages publish 789 basecamp messages publish https://3.basecamp.com/123/buckets/456/messages/789",
+    "description": "Publish a draft message, making it visible on the message board.",
     "positional": [
       {
         "name": "id",
@@ -4947,7 +4947,7 @@
     "name": "messages_restore",
     "group": "messages",
     "action": "restore",
-    "description": "Restore a message from trash or archive to active status. You can pass either an ID or a Basecamp URL: basecamp messages restore 789",
+    "description": "Restore a message from trash or archive to active status.",
     "positional": [
       {
         "name": "id",
@@ -5002,7 +5002,7 @@
     "name": "messages_show",
     "group": "messages",
     "action": "show",
-    "description": "Display detailed information about a message. You can pass either a message ID or a Basecamp URL: basecamp messages show 789 basecamp messages show https://3.basecamp.com/123/buckets/456/messages/789",
+    "description": "Display detailed information about a message.",
     "positional": [
       {
         "name": "id",
@@ -5066,7 +5066,7 @@
     "name": "messages_trash",
     "group": "messages",
     "action": "trash",
-    "description": "Move a message to the trash. You can pass either an ID or a Basecamp URL: basecamp messages trash 789",
+    "description": "Move a message to the trash.",
     "positional": [
       {
         "name": "id",
@@ -5121,7 +5121,7 @@
     "name": "messages_unpin",
     "group": "messages",
     "action": "unpin",
-    "description": "Remove a message from the pinned position. You can pass either a message ID or a Basecamp URL: basecamp messages unpin 789 basecamp messages unpin https://3.basecamp.com/123/buckets/456/messages/789",
+    "description": "Remove a message from the pinned position.",
     "positional": [
       {
         "name": "id",
@@ -5176,7 +5176,7 @@
     "name": "messages_update",
     "group": "messages",
     "action": "update",
-    "description": "Update an existing message's title or body. You can pass either a message ID or a Basecamp URL: basecamp messages update 789 --title \"new title\" basecamp messages update 789 --body \"new body\"",
+    "description": "Update an existing message's title or body.",
     "positional": [
       {
         "name": "id",
@@ -5424,7 +5424,7 @@
     "name": "notifications_read",
     "group": "notifications",
     "action": "read",
-    "description": "Mark one or more notifications as read. Accepts notification IDs from the page you were viewing. Use --page to match the page you listed (defaults to first page). basecamp notifications read 12345 basecamp notifications read 12345 67890 --page 2",
+    "description": "Mark one or more notifications as read.",
     "positional": [
       {
         "name": "id",
@@ -5681,7 +5681,7 @@
     "name": "profile_create",
     "group": "profile",
     "action": "create",
-    "description": "Create a new named profile and optionally authenticate. Examples: basecamp profile create personal basecamp profile create staging --base-url https://staging.example.com basecamp profile create triage-bot --scope full",
+    "description": "Create a new named profile and optionally authenticate.",
     "positional": [
       {
         "name": "name",
@@ -5990,7 +5990,7 @@
     "name": "projects_show",
     "group": "projects",
     "action": "show",
-    "description": "Display detailed information about a project including its dock (the set of enabled tools: message board, to-dos, schedule, etc.). By default only enabled tools are shown. Use --all to include disabled tools.",
+    "description": "Display detailed information about a project including its dock (the set of enabled tools: message board, to-dos, schedule, etc.).",
     "positional": [
       {
         "name": "id",
@@ -6026,7 +6026,7 @@
     "name": "projects_update",
     "group": "projects",
     "action": "update",
-    "description": "Update an existing project's name or description. Examples: basecamp projects update 12345 --name \"New Name\" basecamp projects update 12345 --description \"New description\"",
+    "description": "Update an existing project's name or description.",
     "positional": [
       {
         "name": "id",
@@ -6073,7 +6073,7 @@
     "name": "recordings_archive",
     "group": "recordings",
     "action": "archive",
-    "description": "Archive an item to remove it from active view. You can pass either an ID or a Basecamp URL: basecamp recordings archive 789 basecamp recordings archive https://3.basecamp.com/123/buckets/456/recordings/789",
+    "description": "Archive an item to remove it from active view.",
     "positional": [
       {
         "name": "id",
@@ -6224,7 +6224,7 @@
     "name": "recordings_restore",
     "group": "recordings",
     "action": "restore",
-    "description": "Restore an item from trash or archive to active status. You can pass either an ID or a Basecamp URL: basecamp recordings restore 789 basecamp recordings restore https://3.basecamp.com/123/buckets/456/recordings/789",
+    "description": "Restore an item from trash or archive to active status.",
     "positional": [
       {
         "name": "id",
@@ -6270,7 +6270,7 @@
     "name": "recordings_trash",
     "group": "recordings",
     "action": "trash",
-    "description": "Move an item to the trash. You can pass either an ID or a Basecamp URL: basecamp recordings trash 789 basecamp recordings trash https://3.basecamp.com/123/buckets/456/recordings/789",
+    "description": "Move an item to the trash.",
     "positional": [
       {
         "name": "id",
@@ -6316,7 +6316,7 @@
     "name": "recordings_visibility",
     "group": "recordings",
     "action": "visibility",
-    "description": "Set whether an item is visible to clients. You can pass either an ID or a Basecamp URL: basecamp recordings visibility 789 --visible basecamp recordings visibility https://3.basecamp.com/123/buckets/456/recordings/789 --visible",
+    "description": "Set whether an item is visible to clients.",
     "positional": [
       {
         "name": "id",
@@ -6410,7 +6410,7 @@
     "name": "reports_assigned",
     "group": "reports",
     "action": "assigned",
-    "description": "View todos assigned to a specific person. If no person is specified, defaults to \"me\" (the current user). Results can be grouped by project or date.",
+    "description": "View todos assigned to a specific person.",
     "positional": [
       {
         "name": "person",
@@ -6443,7 +6443,7 @@
     "name": "reports_overdue",
     "group": "reports",
     "action": "overdue",
-    "description": "View all overdue todos grouped by how late they are. Todos are grouped into categories: - Under a week late - Over a week late - Over a month late - Over three months late",
+    "description": "View all overdue todos grouped by how late they are.",
     "positional": [],
     "flags": [],
     "input_schema": {
@@ -6455,7 +6455,7 @@
     "name": "reports_schedule",
     "group": "reports",
     "action": "schedule",
-    "description": "View upcoming schedule entries and assignables within a date window. Defaults to a 30-day window starting today. Use --start and --end to specify a different range. Dates can be natural language (e.g., \"today\", \"next week\", \"+7\") or YYYY-MM-DD format.",
+    "description": "View upcoming schedule entries and assignables within a date window.",
     "positional": [],
     "flags": [
       {
@@ -6775,7 +6775,7 @@
     "name": "schedule_show",
     "group": "schedule",
     "action": "show",
-    "description": "Display details of a schedule entry. You can pass either an entry ID or a Basecamp URL: basecamp schedule show 789 --in my-project basecamp schedule show https://3.basecamp.com/123/buckets/456/schedule_entries/789",
+    "description": "Display details of a schedule entry.",
     "positional": [
       {
         "name": "id",
@@ -6849,7 +6849,7 @@
     "name": "schedule_update",
     "group": "schedule",
     "action": "update",
-    "description": "Update an existing schedule entry. You can pass either an entry ID or a Basecamp URL: basecamp schedule update 789 --summary \"new title\" --in my-project basecamp schedule update https://3.basecamp.com/123/buckets/456/schedule_entries/789 --summary \"new title\"",
+    "description": "Update an existing schedule entry.",
     "positional": [
       {
         "name": "id",
@@ -7037,7 +7037,7 @@
     "name": "subscriptions_add",
     "group": "subscriptions",
     "action": "add",
-    "description": "Add people to the subscribers list for an item. You can pass either an ID or a Basecamp URL: basecamp subscriptions add 789 --people 1,2,3 basecamp subscriptions add https://3.basecamp.com/123/buckets/456/recordings/789 --people 1,2,3",
+    "description": "Add people to the subscribers list for an item.",
     "positional": [
       {
         "name": "id",
@@ -7082,7 +7082,7 @@
     "name": "subscriptions_remove",
     "group": "subscriptions",
     "action": "remove",
-    "description": "Remove people from the subscribers list for an item. You can pass either an ID or a Basecamp URL: basecamp subscriptions remove 789 --people 1,2,3 basecamp subscriptions remove https://3.basecamp.com/123/buckets/456/recordings/789 --people 1,2,3",
+    "description": "Remove people from the subscribers list for an item.",
     "positional": [
       {
         "name": "id",
@@ -7127,7 +7127,7 @@
     "name": "subscriptions_show",
     "group": "subscriptions",
     "action": "show",
-    "description": "Display all current subscribers for an item. You can pass either an ID or a Basecamp URL: basecamp subscriptions show 789 basecamp subscriptions show https://3.basecamp.com/123/buckets/456/recordings/789",
+    "description": "Display all current subscribers for an item.",
     "positional": [
       {
         "name": "id",
@@ -7153,7 +7153,7 @@
     "name": "subscriptions_subscribe",
     "group": "subscriptions",
     "action": "subscribe",
-    "description": "Subscribe yourself to receive notifications for an item. You can pass either an ID or a Basecamp URL: basecamp subscriptions subscribe 789 basecamp subscriptions subscribe https://3.basecamp.com/123/buckets/456/recordings/789",
+    "description": "Subscribe yourself to receive notifications for an item.",
     "positional": [
       {
         "name": "id",
@@ -7179,7 +7179,7 @@
     "name": "subscriptions_unsubscribe",
     "group": "subscriptions",
     "action": "unsubscribe",
-    "description": "Unsubscribe yourself from notifications for an item. You can pass either an ID or a Basecamp URL: basecamp subscriptions unsubscribe 789 basecamp subscriptions unsubscribe https://3.basecamp.com/123/buckets/456/recordings/789",
+    "description": "Unsubscribe yourself from notifications for an item.",
     "positional": [
       {
         "name": "id",
@@ -7205,7 +7205,7 @@
     "name": "templates_construct",
     "group": "templates",
     "action": "construct",
-    "description": "Create a new project from a template. This is an asynchronous operation. The command returns a construction ID which can be polled via 'templates construction' until the status is \"completed\".",
+    "description": "Create a new project from a template.",
     "positional": [
       {
         "name": "template_id",
@@ -8027,7 +8027,7 @@
     "name": "todolists_archive",
     "group": "todolists",
     "action": "archive",
-    "description": "Archive a todolist to remove it from active view. You can pass either an ID or a Basecamp URL: basecamp todolists archive 789",
+    "description": "Archive a todolist to remove it from active view.",
     "positional": [
       {
         "name": "id",
@@ -8237,7 +8237,7 @@
     "name": "todolists_restore",
     "group": "todolists",
     "action": "restore",
-    "description": "Restore a todolist from trash or archive to active status. You can pass either an ID or a Basecamp URL: basecamp todolists restore 789",
+    "description": "Restore a todolist from trash or archive to active status.",
     "positional": [
       {
         "name": "id",
@@ -8283,7 +8283,7 @@
     "name": "todolists_show",
     "group": "todolists",
     "action": "show",
-    "description": "Display detailed information about a todolist. You can pass either a todolist ID or a Basecamp URL: basecamp todolists show 789 --in my-project basecamp todolists show https://3.basecamp.com/123/buckets/456/todolists/789",
+    "description": "Display detailed information about a todolist.",
     "positional": [
       {
         "name": "id",
@@ -8329,7 +8329,7 @@
     "name": "todolists_trash",
     "group": "todolists",
     "action": "trash",
-    "description": "Move a todolist to the trash. You can pass either an ID or a Basecamp URL: basecamp todolists trash 789",
+    "description": "Move a todolist to the trash.",
     "positional": [
       {
         "name": "id",
@@ -8375,7 +8375,7 @@
     "name": "todolists_update",
     "group": "todolists",
     "action": "update",
-    "description": "Update an existing todolist's name or description. You can pass either a todolist ID or a Basecamp URL: basecamp todolists update 789 --name \"new name\" --in my-project basecamp todolists update 789 --description \"new desc\" --in my-project",
+    "description": "Update an existing todolist's name or description.",
     "positional": [
       {
         "name": "id",
@@ -8441,7 +8441,7 @@
     "name": "todos_archive",
     "group": "todos",
     "action": "archive",
-    "description": "Archive a todo to remove it from active view. You can pass either an ID or a Basecamp URL: basecamp todos archive 789",
+    "description": "Archive a todo to remove it from active view.",
     "positional": [
       {
         "name": "id",
@@ -8467,7 +8467,7 @@
     "name": "todos_complete",
     "group": "todos",
     "action": "complete",
-    "description": "Mark one or more todos as completed. You can pass todo IDs, Basecamp URLs, or comma-separated IDs: basecamp todos complete 789 basecamp todos complete 789 012 345 basecamp todos complete 789,012,345 basecamp todos complete https://3.basecamp.com/123/buckets/456/todos/789",
+    "description": "Mark one or more todos as completed.",
     "positional": [
       {
         "name": "id",
@@ -8738,7 +8738,7 @@
     "name": "todos_position",
     "group": "todos",
     "action": "position",
-    "description": "Reorder a todo within its todolist, or move it to a different list in the same project. Position is 1-based (1 = top). You can pass either a todo ID or a Basecamp URL: basecamp todos position 789 --to 1 basecamp todos position https://3.basecamp.com/123/buckets/456/todos/789 --to 1 Move to a different todolist in the same project: basecamp todos position 789 --to 1 --list \"Sprint 1\" --in myproject basecamp todos position 789 --to 1 --list 321 basecamp todos position <todo-url> --to 1 --list <todolist-url>",
+    "description": "Reorder a todo within its todolist, or move it to a different list in the same project. Position is 1-based (1 = top).",
     "positional": [
       {
         "name": "id",
@@ -8793,7 +8793,7 @@
     "name": "todos_restore",
     "group": "todos",
     "action": "restore",
-    "description": "Restore a todo from trash or archive to active status. You can pass either an ID or a Basecamp URL: basecamp todos restore 789",
+    "description": "Restore a todo from trash or archive to active status.",
     "positional": [
       {
         "name": "id",
@@ -8819,7 +8819,7 @@
     "name": "todos_show",
     "group": "todos",
     "action": "show",
-    "description": "Display detailed information about a todo. You can pass either a todo ID or a Basecamp URL: basecamp todos show 789 basecamp todos show https://3.basecamp.com/123/buckets/456/todos/789",
+    "description": "Display detailed information about a todo.",
     "positional": [
       {
         "name": "id",
@@ -8855,7 +8855,7 @@
     "name": "todos_trash",
     "group": "todos",
     "action": "trash",
-    "description": "Move a todo to the trash. You can pass either an ID or a Basecamp URL: basecamp todos trash 789",
+    "description": "Move a todo to the trash.",
     "positional": [
       {
         "name": "id",
@@ -8881,7 +8881,7 @@
     "name": "todos_uncomplete",
     "group": "todos",
     "action": "uncomplete",
-    "description": "Reopen one or more completed todos. You can pass todo IDs, Basecamp URLs, or comma-separated IDs: basecamp todos uncomplete 789 basecamp todos uncomplete 789 012 345 basecamp todos uncomplete 789,012,345 basecamp todos uncomplete https://3.basecamp.com/123/buckets/456/todos/789",
+    "description": "Reopen one or more completed todos.",
     "positional": [
       {
         "name": "id",
@@ -8911,7 +8911,7 @@
     "name": "todos_update",
     "group": "todos",
     "action": "update",
-    "description": "Update an existing todo. You can pass either a todo ID or a Basecamp URL: basecamp todos update 789 \"New title\" basecamp todos update 789 --title \"New title\" basecamp todos update 789 --due \"next friday\" basecamp todos update https://3.basecamp.com/123/buckets/456/todos/789 --description \"Details\" Clear a field by passing its --no- flag or an empty value: basecamp todos update 789 --no-due basecamp todos update 789 --due \"\" basecamp todos update 789 --no-description",
+    "description": "Update an existing todo.",
     "positional": [
       {
         "name": "id",
@@ -9121,7 +9121,7 @@
     "name": "tools_create",
     "group": "tools",
     "action": "create",
-    "description": "Create a new dock tool by cloning an existing one. For example, clone a Chat to create a second chat room in the same project.",
+    "description": "Create a new dock tool by cloning an existing one.",
     "positional": [
       {
         "name": "title",
@@ -9183,7 +9183,7 @@
     "name": "tools_disable",
     "group": "tools",
     "action": "disable",
-    "description": "Disable a tool to hide it from the project dock. The tool is not deleted - just hidden. Use 'basecamp tools enable' to restore.",
+    "description": "Disable a tool to hide it from the project dock.",
     "positional": [
       {
         "name": "id",
@@ -9385,7 +9385,7 @@
     "name": "tools_trash",
     "group": "tools",
     "action": "trash",
-    "description": "Permanently trash a dock tool. WARNING: This permanently removes the tool and all its content.",
+    "description": "Permanently trash a dock tool.",
     "positional": [
       {
         "name": "id",
@@ -9719,7 +9719,7 @@
     "name": "uploads_show",
     "group": "uploads",
     "action": "show",
-    "description": "Show details for a vault, document, or upload. You can pass either an item ID or a Basecamp URL: basecamp files show 789 --in my-project basecamp files show https://3.basecamp.com/123/buckets/456/documents/789",
+    "description": "Show details for a vault, document, or upload.",
     "positional": [
       {
         "name": "id",
@@ -9904,7 +9904,7 @@
     "name": "vaults_archive",
     "group": "vaults",
     "action": "archive",
-    "description": "Archive a file to remove it from active view. You can pass either an ID or a Basecamp URL: basecamp files archive 789",
+    "description": "Archive a file to remove it from active view.",
     "positional": [
       {
         "name": "id",
@@ -9968,7 +9968,7 @@
     "name": "vaults_download",
     "group": "vaults",
     "action": "download",
-    "description": "Download an uploaded file to the local filesystem. You can pass either an upload ID, a Basecamp URL, or a storage URL: basecamp files download 789 --in my-project basecamp files download https://3.basecamp.com/123/buckets/456/uploads/789 basecamp files download \"https://storage.3.basecamp.com/123/blobs/abc/download/report.pdf\" basecamp files download 789 --out ./downloads --in my-project basecamp files download 789 --out - --in my-project  # stream to stdout Storage URLs (from attachments in rich text) are downloaded directly via the API. No --in flag is needed for storage URLs. Use --out - to stream the file to stdout (for piping to other commands).",
+    "description": "Download an uploaded file to the local filesystem.",
     "positional": [
       {
         "name": "upload-id",
@@ -10093,7 +10093,7 @@
     "name": "vaults_restore",
     "group": "vaults",
     "action": "restore",
-    "description": "Restore a file from trash or archive to active status. You can pass either an ID or a Basecamp URL: basecamp files restore 789",
+    "description": "Restore a file from trash or archive to active status.",
     "positional": [
       {
         "name": "id",
@@ -10157,7 +10157,7 @@
     "name": "vaults_show",
     "group": "vaults",
     "action": "show",
-    "description": "Show details for a vault, document, or upload. You can pass either an item ID or a Basecamp URL: basecamp files show 789 --in my-project basecamp files show https://3.basecamp.com/123/buckets/456/documents/789",
+    "description": "Show details for a vault, document, or upload.",
     "positional": [
       {
         "name": "id",
@@ -10240,7 +10240,7 @@
     "name": "vaults_trash",
     "group": "vaults",
     "action": "trash",
-    "description": "Move a file to the trash. You can pass either an ID or a Basecamp URL: basecamp files trash 789",
+    "description": "Move a file to the trash.",
     "positional": [
       {
         "name": "id",
@@ -10304,7 +10304,7 @@
     "name": "vaults_update",
     "group": "vaults",
     "action": "update",
-    "description": "Update a document, vault, or upload. You can pass either an item ID or a Basecamp URL: basecamp files update 789 --title \"new title\" --in my-project basecamp files update 789 --content \"new content\" --in my-project",
+    "description": "Update a document, vault, or upload.",
     "positional": [
       {
         "name": "id",
@@ -10397,7 +10397,7 @@
     "name": "webhooks_create",
     "group": "webhooks",
     "action": "create",
-    "description": "Create a new webhook for notifications. Event types: Todo, Todolist, Message, Comment, Document, Upload, Vault, Schedule::Entry, Kanban::Card, Question, Question::Answer",
+    "description": "Create a new webhook for notifications.",
     "positional": [
       {
         "name": "url",
