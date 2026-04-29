@@ -1,4 +1,7 @@
-/.bundle/
-/vendor/
-/tmp/
-*.gem
+/.venv/
+/dist/
+/build/
+__pycache__/
+*.egg-info/
+*.pyc
+.pytest_cache/

@@ -7,27 +7,31 @@ drive Basecamp directly.
 
 ## Requirements
 
-- Ruby 4.0.x (see `.ruby-version`)
+- Python ≥ 3.11
 - The `basecamp` CLI on `PATH`, already authenticated (`basecamp setup`)
-
-## Install
-
-```sh
-bundle install
-```
+- [`uv`](https://docs.astral.sh/uv/) for the recommended install
 
 ## Run
 
+The fastest way — no install step at all:
+
 ```sh
-bin/basecamp-mcp
+uvx basecamp-cli-mcp
 ```
 
-This starts a stdio MCP server that reads JSON-RPC on stdin and writes on stdout.
+`uvx` resolves the package, runs it in an ephemeral isolated env, and exec's it on stdin/stdout.
+
+To install permanently:
+
+```sh
+uv tool install basecamp-cli-mcp
+basecamp-cli-mcp
+```
 
 ### Add to Claude Code
 
 ```sh
-claude mcp add basecamp -- /absolute/path/to/basecamp-cli-mcp/bin/basecamp-mcp
+claude mcp add basecamp -- uvx basecamp-cli-mcp
 ```
 
 ### Add to Claude Desktop (`claude_desktop_config.json`)
@@ -36,16 +40,28 @@ claude mcp add basecamp -- /absolute/path/to/basecamp-cli-mcp/bin/basecamp-mcp
 {
   "mcpServers": {
     "basecamp": {
-      "command": "/absolute/path/to/basecamp-cli-mcp/bin/basecamp-mcp"
+      "command": "uvx",
+      "args": ["basecamp-cli-mcp"]
     }
   }
 }
 ```
 
+If `uvx` isn't on Desktop's `PATH` (it strips most of your shell `PATH`), use the absolute path — `which uvx` from your shell.
+
+### `BASECAMP_BIN`
+
+If the `basecamp` CLI isn't on the spawned process's `PATH` (a real risk under Claude Desktop), set:
+
+```json
+"env": { "BASECAMP_BIN": "/absolute/path/to/basecamp" }
+```
+
 ## How it works
 
-Tool schemas are pre-generated and committed to `data/tools.json`. At runtime the server
-loads that file and registers one MCP tool per entry. Each tool:
+Tool schemas are pre-generated and committed to `src/basecamp_cli_mcp/data/tools.json` (shipped
+inside the wheel as package data). At runtime the server loads that file and registers one MCP
+tool per entry. Each tool:
 
 1. Builds `argv` from positional arguments and flags defined in the schema.
 2. Shells out: `basecamp <group> <action> <args...> --json`.
@@ -56,26 +72,28 @@ underlying actions (`todos_create`, `cards_create`, …) are already exposed.
 
 ## Regenerating tool schemas
 
-After upgrading the `basecamp` CLI, regenerate `data/tools.json`:
+After upgrading the `basecamp` CLI:
 
 ```sh
-bundle exec rake tools:generate
+uv run basecamp-cli-mcp generate
 ```
 
-Review the diff and commit. The generator reads `basecamp commands --json` and parses
-`basecamp <group> <action> --help` for each action.
+Review the diff in `src/basecamp_cli_mcp/data/tools.json` and commit. The generator reads
+`basecamp commands --json` and parses `basecamp <group> <action> --help` for each action.
 
 ## Development
 
 ```sh
-bundle exec rake test        # run tests
-bundle exec rake             # default task (tests)
+uv sync
+uv run pytest
+uv build                       # wheel + sdist into dist/
 ```
 
 Layout:
 
-- `lib/basecamp_mcp/server.rb` — wires up `MCP::Server` from `data/tools.json`
-- `lib/basecamp_mcp/runner.rb` — builds argv and shells out
-- `lib/basecamp_mcp/generator.rb` — regenerates `data/tools.json`
-- `lib/basecamp_mcp/help_parser.rb` — parses `--help` text into a schema
-- `data/tools.json` — generated tool schemas (committed)
+- `src/basecamp_cli_mcp/server.py` — wires up the MCP server from `data/tools.json`
+- `src/basecamp_cli_mcp/runner.py` — builds argv and shells out
+- `src/basecamp_cli_mcp/generator.py` — regenerates `data/tools.json`
+- `src/basecamp_cli_mcp/help_parser.py` — parses `--help` text into a schema
+- `src/basecamp_cli_mcp/cli.py` — entrypoint (`basecamp-cli-mcp`)
+- `src/basecamp_cli_mcp/data/tools.json` — generated tool schemas (committed)
