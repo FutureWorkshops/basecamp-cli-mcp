@@ -57,7 +57,7 @@ class Runner:
         raise BasecampError(message, stderr=result.stderr, data=payload)
 
     def _todos_update_via_api(self, params: dict[str, Any]) -> Any:
-        todo_id = params.get("id") or params.get("id_or_url") or params.get("todo_id")
+        todo_id = params.get("id") or params.get("todo_id")
         project_id = params.get("project") or params.get("in")
         if not todo_id or not project_id:
             raise ValueError(

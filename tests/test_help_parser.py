@@ -44,9 +44,11 @@ def test_todos_complete_variadic_positional(fixtures: Path) -> None:
     parsed = parse(fixtures, "todos_complete")
     pos = parsed["positional"]
     assert len(pos) == 1
-    assert pos[0]["name"] == "id_or_url"
+    assert pos[0]["name"] == "id"
     assert pos[0]["required"]
     assert pos[0].get("variadic") is True
+    # "or URL" trimmed from description so agents don't think they need to pass URLs.
+    assert "URL" not in pos[0]["description"]
 
 
 def test_summary_extracted(fixtures: Path) -> None:

@@ -69,25 +69,25 @@ VARIADIC_SPEC = {
     "group": "todos",
     "action": "complete",
     "positional": [
-        {"name": "id_or_url", "required": True, "variadic": True, "description": "IDs"},
+        {"name": "id", "required": True, "variadic": True, "description": "IDs"},
     ],
     "flags": [],
 }
 
 
 def test_build_argv_variadic_positional_list(runner: Runner) -> None:
-    argv = runner.build_argv(VARIADIC_SPEC, {"id_or_url": ["789", "012", "345"]})
+    argv = runner.build_argv(VARIADIC_SPEC, {"id": ["789", "012", "345"]})
     assert argv == ["todos", "complete", "789", "012", "345", "--json"]
 
 
 def test_build_argv_variadic_positional_scalar(runner: Runner) -> None:
-    argv = runner.build_argv(VARIADIC_SPEC, {"id_or_url": "789"})
+    argv = runner.build_argv(VARIADIC_SPEC, {"id": "789"})
     assert argv == ["todos", "complete", "789", "--json"]
 
 
 def test_build_argv_variadic_required_raises_on_empty(runner: Runner) -> None:
     with pytest.raises(ValueError):
-        runner.build_argv(VARIADIC_SPEC, {"id_or_url": []})
+        runner.build_argv(VARIADIC_SPEC, {"id": []})
 
 
 def test_parse_envelope_valid_json() -> None:

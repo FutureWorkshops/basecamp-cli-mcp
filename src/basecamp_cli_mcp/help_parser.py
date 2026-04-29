@@ -69,11 +69,19 @@ def _positional(text: str) -> list[Positional]:
     return out
 
 
+_OR_URL_RE = re.compile(r"\s*\bor\s+URL\b", re.IGNORECASE)
+
+
 def _make_positional(raw_name: str, variadic_marker: str | None, description: str, *, required: bool) -> Positional:
+    # Take the first pipe-segment so <id|url> becomes "id". The CLI still
+    # accepts URLs at the shell level — we just don't expose them in the MCP
+    # schema, since agents only need to pass IDs.
+    name = raw_name.split("|", 1)[0]
+    cleaned_desc = _OR_URL_RE.sub("", description).strip()
     pos: Positional = {
-        "name": raw_name.replace("|", "_or_"),
+        "name": name,
         "required": required,
-        "description": description.strip(),
+        "description": cleaned_desc,
     }
     if variadic_marker:
         pos["variadic"] = True
