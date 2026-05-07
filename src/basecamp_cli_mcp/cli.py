@@ -43,10 +43,20 @@ def main(argv: list[str] | None = None) -> int:
         help="Path to write tools.json (default: in-tree data/tools.json next to this package).",
     )
 
+    sub.add_parser(
+        "setup",
+        help="Install the basecamp CLI (if missing) and run `basecamp setup` to authenticate.",
+    )
+
     args = parser.parse_args(argv)
 
     if args.command == "generate":
         return _generate(args.output)
+
+    if args.command == "setup":
+        from .setup_cmd import run as run_setup
+
+        return run_setup()
 
     from . import server
 

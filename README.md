@@ -8,8 +8,25 @@ drive Basecamp directly.
 ## Requirements
 
 - Python ≥ 3.11
-- The `basecamp` CLI on `PATH`, already authenticated (`basecamp setup`)
+- The `basecamp` CLI on `PATH`, already authenticated (`basecamp setup`) — see [First-time setup](#first-time-setup) below to do both in one command
 - [`uv`](https://docs.astral.sh/uv/) for the recommended install
+
+## First-time setup
+
+If you don't have the `basecamp` CLI installed yet:
+
+```sh
+uvx basecamp-cli-mcp setup
+```
+
+This checks for the `basecamp` binary, runs the official installer (`curl -fsSL https://basecamp.com/install-cli | bash`) after a y/N prompt if it's missing, then runs `basecamp setup` to walk you through OAuth.
+
+On macOS, after auth completes it offers to:
+
+1. Add `basecamp` to your `claude_desktop_config.json` (with a timestamped backup of any existing file).
+2. Restart Claude Desktop.
+
+Both steps prompt y/N. macOS and Linux only for the install/auth — on Windows the command prints the PowerShell installer and exits. The Claude Desktop step is macOS-only.
 
 ## Run
 
