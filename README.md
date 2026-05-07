@@ -23,10 +23,13 @@ This checks for the `basecamp` binary, runs the official installer (`curl -fsSL 
 
 On macOS, after auth completes it offers to:
 
-1. Add `basecamp` to your `claude_desktop_config.json` (with a timestamped backup of any existing file).
+1. Add `basecamp` to your `claude_desktop_config.json` (with a timestamped backup of any existing file). You'll choose between:
+   - **Minimal** — todos, cards, card tables, card steps (plus `projects_list`). A focused tool set that's easier for agents to navigate.
+   - **Full** — all 250+ tools.
+   - **Skip** — leave the config alone.
 2. Restart Claude Desktop.
 
-Both steps prompt y/N. macOS and Linux only for the install/auth — on Windows the command prints the PowerShell installer and exits. The Claude Desktop step is macOS-only.
+macOS and Linux only for the install/auth — on Windows the command prints the PowerShell installer and exits. The Claude Desktop step is macOS-only.
 
 ## Run
 

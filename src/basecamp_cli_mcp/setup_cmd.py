@@ -18,6 +18,17 @@ CLAUDE_DESKTOP_CONFIG_MACOS = (
     Path.home() / "Library" / "Application Support" / "Claude" / "claude_desktop_config.json"
 )
 
+# Minimal tool set: project/task management — todos and cards (plus card
+# tables and card steps), with projects_list so agents can look up project IDs.
+MINIMAL_INCLUDES = [
+    "todos_*",
+    "todolists_*",
+    "todolistgroups_*",
+    "todosets_*",
+    "cards_*",
+    "projects_list",
+]
+
 
 def _prompt(question: str) -> bool:
     try:
@@ -25,6 +36,19 @@ def _prompt(question: str) -> bool:
     except EOFError:
         return False
     return answer in ("y", "yes")
+
+
+def _prompt_claude_desktop_choice() -> str:
+    """Returns "minimal", "full", or "skip"."""
+    print("Add basecamp-cli-mcp to Claude Desktop?")
+    print("  1) Minimal — todos, cards, card tables, card steps")
+    print("  2) Full — all 250+ tools")
+    print("  3) Skip")
+    try:
+        answer = input("Choice [3]: ").strip()
+    except EOFError:
+        return "skip"
+    return {"1": "minimal", "2": "full"}.get(answer, "skip")
 
 
 def _resolve_binary() -> str | None:
@@ -89,7 +113,8 @@ def _maybe_configure_claude_desktop() -> None:
         return
 
     print()
-    if not _prompt("Configure Claude Desktop to use basecamp-cli-mcp?"):
+    choice = _prompt_claude_desktop_choice()
+    if choice == "skip":
         return
 
     config_path = CLAUDE_DESKTOP_CONFIG_MACOS
@@ -126,7 +151,11 @@ def _maybe_configure_claude_desktop() -> None:
     # Claude Desktop strips most of the user's PATH, so resolve uvx absolutely
     # if we can. Fall back to bare "uvx" if it's not on our PATH.
     uvx = shutil.which("uvx") or "uvx"
-    servers["basecamp"] = {"command": uvx, "args": ["basecamp-cli-mcp"]}
+    args = ["basecamp-cli-mcp"]
+    if choice == "minimal":
+        for pattern in MINIMAL_INCLUDES:
+            args.extend(["--include", pattern])
+    servers["basecamp"] = {"command": uvx, "args": args}
 
     config_path.write_text(json.dumps(config, indent=2) + "\n", encoding="utf-8")
     print(f"Updated {config_path}")
