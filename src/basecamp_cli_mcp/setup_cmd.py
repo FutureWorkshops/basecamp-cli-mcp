@@ -24,9 +24,6 @@ CLAUDE_DESKTOP_CONFIG_MACOS = (
 # can leave notes on cards/todos.
 MINIMAL_INCLUDES = [
     "todos_*",
-    "todolists_*",
-    "todolistgroups_*",
-    "todosets_*",
     "cards_*",
     "projects_list",
     "assignments_due",
