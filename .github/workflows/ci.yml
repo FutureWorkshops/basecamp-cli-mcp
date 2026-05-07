@@ -9,25 +9,28 @@ jobs:
   test:
     name: Tests
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
     steps:
       - uses: actions/checkout@v4
-      - uses: ruby/setup-ruby@v1
+      - uses: astral-sh/setup-uv@v3
         with:
-          bundler-cache: true
-      - run: bundle exec rake test
+          enable-cache: true
+      - name: Set up Python ${{ matrix.python-version }}
+        run: uv python install ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: uv sync --all-extras
+      - name: Run tests
+        run: uv run pytest
 
-  audit:
-    name: Dependency audit
+  build:
+    name: Build wheel
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-      - name: Install bundler-audit
-        run: gem install bundler-audit
-      - name: Check for vulnerable gems
-        run: bundle-audit check --update
+      - uses: astral-sh/setup-uv@v3
+      - run: uv build
 
   dependency-review:
     name: Dependency review
