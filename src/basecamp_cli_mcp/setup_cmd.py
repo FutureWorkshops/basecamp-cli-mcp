@@ -19,7 +19,9 @@ CLAUDE_DESKTOP_CONFIG_MACOS = (
 )
 
 # Minimal tool set: project/task management — todos and cards (plus card
-# tables and card steps), with projects_list so agents can look up project IDs.
+# tables and card steps), with projects_list so agents can look up project IDs,
+# assignments_due for upcoming-work queries, and comments_create so agents
+# can leave notes on cards/todos.
 MINIMAL_INCLUDES = [
     "todos_*",
     "todolists_*",
@@ -27,6 +29,8 @@ MINIMAL_INCLUDES = [
     "todosets_*",
     "cards_*",
     "projects_list",
+    "assignments_due",
+    "comments_create",
 ]
 
 
@@ -41,7 +45,7 @@ def _prompt(question: str) -> bool:
 def _prompt_claude_desktop_choice() -> str:
     """Returns "minimal", "full", or "skip"."""
     print("Add basecamp-cli-mcp to Claude Desktop?")
-    print("  1) Minimal — todos, cards, card tables, card steps")
+    print("  1) Minimal — todos, cards, card tables, card steps, due assignments")
     print("  2) Full — all 250+ tools")
     print("  3) Skip")
     try:
