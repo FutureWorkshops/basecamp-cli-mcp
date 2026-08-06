@@ -1,6 +1,6 @@
 [project]
 name = "basecamp-cli-mcp"
-version = "0.7.1"
+version = "0.7.2"
 description = "MCP server that wraps the basecamp CLI."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -9,7 +9,10 @@ authors = [{ name = "Matt Brooke-Smith", email = "matt@futureworkshops.com" }]
 keywords = ["mcp", "basecamp", "model-context-protocol"]
 
 dependencies = [
-    "mcp>=1.2",
+    # mcp 2.0 dropped the low-level Server decorator API this server is built on
+    # (`@server.list_tools()` / `@server.call_tool()`), so an unbounded range makes
+    # `uvx basecamp-cli-mcp` fail at startup. See server.py.
+    "mcp>=1.2,<2",
 ]
 
 [project.urls]
