@@ -134,3 +134,34 @@ async def test_unknown_tool_becomes_error_result() -> None:
         result = await session.call_tool("nope_missing", {})
         assert result.is_error is True
         assert "Unknown tool: nope_missing" in result.content[0].text
+
+
+async def test_call_tool_returns_unstructured_stdout_as_is() -> None:
+    """The CLI sometimes prints text rather than a JSON envelope."""
+    async for session in _session(FakeRunner(result="Done.")):
+        result = await session.call_tool("projects_list", {})
+        assert result.content[0].text == "Done."
+
+
+async def test_run_wires_stdio_to_the_server(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Guards the three-way wiring that the mcp 2.0 upgrade could have broken:
+    stdio_server(), Server.run(), and create_initialization_options()."""
+    from contextlib import asynccontextmanager
+
+    from basecamp_cli_mcp import server as server_module
+
+    @asynccontextmanager
+    async def fake_stdio():
+        yield ("read-stream", "write-stream")
+
+    served: list[tuple[Any, ...]] = []
+
+    async def fake_run(self, read, write, init_options, **kwargs):
+        served.append((read, write, type(init_options).__name__))
+
+    monkeypatch.setattr(server_module, "stdio_server", fake_stdio)
+    monkeypatch.setattr(type(build_server(tool_specs=SPECS)), "run", fake_run)
+
+    await server_module.run(include=["projects_*"])
+
+    assert served == [("read-stream", "write-stream", "InitializationOptions")]

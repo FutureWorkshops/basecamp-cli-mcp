@@ -196,3 +196,115 @@ def test_todos_update_propagates_get_error() -> None:
     runner = FakeRunner([BasecampError("not found")])
     with pytest.raises(BasecampError):
         runner.call(UPDATE_SPEC, {"id": 1, "project": 2, "due": "2026-04-29"})
+
+
+# --- _merge_todo_body branches ----------------------------------------------
+#
+# The workaround sends a full PUT body, so every field it does *not* override
+# has to be carried over from the current todo. A wrong branch here silently
+# wipes a field on the real record.
+
+CURRENT_FULL = {
+    "content": "Original title",
+    "description": "<div>Original description</div>",
+    "due_on": "2026-08-20",
+    "starts_on": "2026-08-01",
+    "assignees": [{"id": 11}, {"id": 22}],
+    "completion_subscribers": [{"id": 33}],
+}
+
+
+def test_merge_preserves_every_untouched_field() -> None:
+    body = Runner._merge_todo_body(CURRENT_FULL, {})
+    assert body == {
+        "content": "Original title",
+        "description": "<div>Original description</div>",
+        "due_on": "2026-08-20",
+        "starts_on": "2026-08-01",
+        "assignee_ids": [11, 22],
+        "completion_subscriber_ids": [33],
+    }
+
+
+def test_merge_sets_description() -> None:
+    body = Runner._merge_todo_body(CURRENT_FULL, {"description": "<div>New</div>"})
+    assert body["description"] == "<div>New</div>"
+
+
+def test_merge_clears_description_with_no_description() -> None:
+    body = Runner._merge_todo_body(CURRENT_FULL, {"no-description": True})
+    assert body["description"] == ""
+
+
+def test_merge_sets_and_clears_starts_on() -> None:
+    assert Runner._merge_todo_body(CURRENT_FULL, {"starts-on": "2026-09-01"})[
+        "starts_on"
+    ] == "2026-09-01"
+    assert Runner._merge_todo_body(CURRENT_FULL, {"no-starts-on": True})["starts_on"] is None
+
+
+def test_merge_adds_notify_only_when_asked() -> None:
+    assert "notify" not in Runner._merge_todo_body(CURRENT_FULL, {})
+    assert Runner._merge_todo_body(CURRENT_FULL, {"notify": True})["notify"] is True
+
+
+def test_merge_accepts_assignees_as_a_list_or_csv() -> None:
+    assert Runner._merge_todo_body(CURRENT_FULL, {"assignee": [1, 2]})["assignee_ids"] == [1, 2]
+    assert Runner._merge_todo_body(CURRENT_FULL, {"to": "3, 4"})["assignee_ids"] == [3, 4]
+
+
+def test_merge_cannot_currently_unassign_everyone() -> None:
+    """Known limitation, pinned so it's visible rather than surprising.
+
+    The lookup is `params.get("assignee") or params.get("to")`, so an empty list
+    is falsy and falls through to "not specified" — the current assignees are
+    carried over instead of being cleared. There is no way to unassign everyone
+    through this path today; it would need an explicit `no-assignee` flag.
+    """
+    assert Runner._merge_todo_body(CURRENT_FULL, {"assignee": []})["assignee_ids"] == [11, 22]
+
+
+def test_merge_falls_back_to_title_when_content_is_absent() -> None:
+    body = Runner._merge_todo_body({"title": "From title"}, {})
+    assert body["content"] == "From title"
+
+
+def test_merge_defaults_missing_fields() -> None:
+    body = Runner._merge_todo_body({}, {})
+    assert body == {
+        "content": "",
+        "description": "",
+        "due_on": None,
+        "starts_on": None,
+        "assignee_ids": [],
+        "completion_subscriber_ids": [],
+    }
+
+
+def test_merge_skips_assignees_without_ids() -> None:
+    body = Runner._merge_todo_body({"assignees": [{"id": 5}, {"name": "no id"}]}, {})
+    assert body["assignee_ids"] == [5]
+
+
+def test_todos_update_rejects_a_non_dict_get_response() -> None:
+    runner = FakeRunner(["not a dict"])
+    with pytest.raises(BasecampError, match="Unexpected response fetching todo"):
+        runner.call(UPDATE_SPEC, {"id": "1", "project": "2"})
+
+
+def test_optional_positional_is_skipped_when_absent() -> None:
+    spec = {
+        "group": "cards",
+        "action": "list",
+        "positional": [
+            {"name": "column", "required": False, "description": "Column"},
+            {"name": "filter", "required": False, "description": "Filter"},
+        ],
+        "flags": [],
+    }
+    assert Runner().build_argv(spec, {"filter": "open"}) == [
+        "cards",
+        "list",
+        "open",
+        "--json",
+    ]
