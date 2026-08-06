@@ -5,3 +5,6 @@ __pycache__/
 *.egg-info/
 *.pyc
 .pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
