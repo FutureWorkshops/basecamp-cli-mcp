@@ -1,6 +1,6 @@
 [project]
 name = "basecamp-cli-mcp"
-version = "0.7.1"
+version = "0.8.0"
 description = "MCP server that wraps the basecamp CLI."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -9,7 +9,10 @@ authors = [{ name = "Matt Brooke-Smith", email = "matt@futureworkshops.com" }]
 keywords = ["mcp", "basecamp", "model-context-protocol"]
 
 dependencies = [
-    "mcp>=1.2",
+    # server.py uses the mcp 2.0 low-level Server (on_list_tools / on_call_tool
+    # callbacks). The 1.x decorator API it replaced is gone in 2.0, so the range
+    # is pinned on both sides.
+    "mcp>=2,<3",
 ]
 
 [project.urls]
@@ -32,7 +35,16 @@ include = ["src/basecamp_cli_mcp", "tests", "README.md", "LICENSE"]
 [dependency-groups]
 dev = [
     "pytest>=8",
+    "anyio>=4",
+    "pytest-cov>=5",
 ]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.coverage.run]
+source = ["src/basecamp_cli_mcp"]
+branch = true
+
+[tool.coverage.report]
+exclude_also = ['if __name__ == "__main__":']

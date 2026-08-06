@@ -7,7 +7,7 @@ from importlib.resources import files
 from typing import Any
 
 import mcp.types as types
-from mcp.server import Server
+from mcp.server import Server, ServerRequestContext
 from mcp.server.stdio import stdio_server
 
 from . import __version__
@@ -61,39 +61,68 @@ def build_server(
     runner = runner or Runner()
     by_name = {s["name"]: s for s in specs}
 
-    server: Server = Server(name="basecamp", version=__version__, instructions=INSTRUCTIONS)
+    tools = [
+        types.Tool(
+            name=s["name"],
+            description=s["description"],
+            input_schema=s["input_schema"],
+        )
+        for s in specs
+    ]
 
-    @server.list_tools()
-    async def list_tools() -> list[types.Tool]:
-        return [
-            types.Tool(
-                name=s["name"],
-                description=s["description"],
-                inputSchema=s["input_schema"],
-            )
-            for s in specs
-        ]
+    async def on_list_tools(
+        ctx: ServerRequestContext[object],
+        params: types.PaginatedRequestParams | None,
+    ) -> types.ListToolsResult:
+        return types.ListToolsResult(tools=tools)
 
-    @server.call_tool()
-    async def call_tool(name: str, arguments: dict[str, Any] | None) -> list[types.TextContent]:
-        spec = by_name.get(name)
-        if spec is None:
-            raise ValueError(f"Unknown tool: {name}")
+    async def on_call_tool(
+        ctx: ServerRequestContext[object],
+        params: types.CallToolRequestParams,
+    ) -> types.CallToolResult:
+        # A failing tool is reported as an error *result*, not a JSON-RPC error, so
+        # the client can show the CLI's own message. This matches how the SDK's own
+        # MCPServer handles tool exceptions.
         try:
-            data = runner.call(spec, arguments or {})
+            text = _call_spec(runner, by_name, params.name, params.arguments or {})
         except BasecampError as e:
             detail = f"\n{e.stderr}" if e.stderr else ""
-            raise RuntimeError(f"{e}{detail}") from e
+            return _error_result(f"{e}{detail}")
+        except Exception as e:  # noqa: BLE001 - surfaced to the client as tool output
+            return _error_result(str(e))
+        return types.CallToolResult(content=[types.TextContent(type="text", text=text)])
 
-        if data is None:
-            text = ""
-        elif isinstance(data, str):
-            text = data
-        else:
-            text = json.dumps(data, indent=2)
-        return [types.TextContent(type="text", text=text)]
+    return Server(
+        name="basecamp",
+        version=__version__,
+        instructions=INSTRUCTIONS,
+        on_list_tools=on_list_tools,
+        on_call_tool=on_call_tool,
+    )
 
-    return server
+
+def _call_spec(
+    runner: Runner,
+    by_name: dict[str, dict[str, Any]],
+    name: str,
+    arguments: dict[str, Any],
+) -> str:
+    spec = by_name.get(name)
+    if spec is None:
+        raise ValueError(f"Unknown tool: {name}")
+    data = runner.call(spec, arguments)
+    if data is None:
+        return ""
+    if isinstance(data, str):
+        return data
+    return json.dumps(data, indent=2)
+
+
+def _error_result(text: str) -> types.CallToolResult:
+    return types.CallToolResult(
+        content=[types.TextContent(type="text", text=text)],
+        is_error=True,
+    )
 
 
 async def run(include: list[str] | None = None, exclude: list[str] | None = None) -> None:

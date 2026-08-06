@@ -77,3 +77,28 @@ def test_summary_stops_at_first_blank_line(fixtures: Path) -> None:
     # shell-syntax examples. The summary should keep only the first paragraph.
     parsed = parse(fixtures, "todos_complete")
     assert parsed["summary"] == "Mark one or more todos as completed."
+
+
+@pytest.mark.parametrize(
+    ("hint", "expected"),
+    [
+        (None, "boolean"),
+        ("bool", "boolean"),
+        ("stringArray", "array"),
+        ("int", "integer"),
+        ("string", "string"),
+        ("duration", "string"),
+    ],
+)
+def test_type_hint_mapping(hint: str | None, expected: str) -> None:
+    """A bare flag has no hint and is a switch; anything unrecognised is a string."""
+    assert help_parser._map_type(hint) == expected
+
+
+def test_summary_is_empty_when_help_opens_with_usage() -> None:
+    """Some actions have no prose description, only a USAGE block."""
+    assert help_parser.parse("USAGE\n  basecamp cards move <id>\n")["summary"] == ""
+
+
+def test_summary_skips_leading_blank_lines() -> None:
+    assert help_parser.parse("\n\n  Move a card.\n\nUSAGE\n")["summary"] == "Move a card."
