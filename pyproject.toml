@@ -9,7 +9,10 @@ authors = [{ name = "Matt Brooke-Smith", email = "matt@futureworkshops.com" }]
 keywords = ["mcp", "basecamp", "model-context-protocol"]
 
 dependencies = [
-    "mcp>=1.2",
+    # mcp 2.0 dropped the low-level Server decorator API this server is built on
+    # (`@server.list_tools()` / `@server.call_tool()`), so stay on 1.x until the
+    # 2.0 migration lands. 1.30 is the first release with every security fix.
+    "mcp>=1.30,<2",
 ]
 
 [project.urls]

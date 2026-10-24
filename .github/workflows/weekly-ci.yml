@@ -1,0 +1,12 @@
+name: Weekly CI
+
+# Full CI sweep every Friday night, so dependency or upstream-engine drift is
+# caught even in weeks where nothing was pushed.
+on:
+  schedule:
+    - cron: "0 22 * * 5"
+  workflow_dispatch:
+
+jobs:
+  ci:
+    uses: ./.github/workflows/ci.yml
