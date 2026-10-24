@@ -15,6 +15,7 @@ uv sync                                # install deps into .venv
 uv run pytest                          # all tests
 uv run pytest tests/test_runner.py     # single file
 uv run pytest -k pattern               # filter
+uv run pytest --cov --cov-report=term-missing   # coverage (branch, ~98%)
 uv run basecamp-cli-mcp generate       # regenerate src/basecamp_cli_mcp/data/tools.json
 uv run basecamp-cli-mcp                # run the stdio MCP server
 uv build                               # wheel + sdist into dist/
