@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_call:
 
 jobs:
   test:
@@ -13,8 +14,8 @@ jobs:
       matrix:
         python-version: ["3.11", "3.12"]
     steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v3
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.2
         with:
           enable-cache: true
       - name: Set up Python ${{ matrix.python-version }}
@@ -28,16 +29,29 @@ jobs:
     name: Build wheel
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v3
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.2
       - run: uv build
+
+  audit:
+    name: Security audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.2
+      # Audit exactly what uv.lock pins (runtime and dev), so a vulnerable
+      # dependency fails CI rather than waiting for a Dependabot email.
+      - name: Export locked dependencies
+        run: uv export --frozen --all-groups --all-extras --no-emit-project --no-hashes -o requirements-audit.txt
+      - name: pip-audit
+        run: uvx pip-audit --strict --disable-pip --no-deps -r requirements-audit.txt
 
   dependency-review:
     name: Dependency review
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/dependency-review-action@v4
+      - uses: actions/checkout@v7
+      - uses: actions/dependency-review-action@v5.0.0
         with:
           fail-on-severity: moderate
