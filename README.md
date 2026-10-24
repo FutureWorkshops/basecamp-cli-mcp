@@ -1,5 +1,9 @@
 # basecamp-cli-mcp
 
+> **Retired, October 2026.** This server wrapped the `basecamp` CLI, which Future Workshops no longer uses. It has been replaced by [basecamp-mcp-rails](https://github.com/FutureWorkshops/basecamp-mcp-rails), a hosted Rails MCP server that connects to Basecamp with "Sign in with Basecamp" and needs no CLI install. Use that instead.
+>
+> This repository is archived and read-only, and gets no further fixes or security updates. The instructions below are kept for reference only.
+
 A Model Context Protocol (MCP) server that wraps the [`basecamp`](https://github.com/basecamp/cli)
 CLI. Every non-shortcut CLI action (`projects list`, `todos create`, `cards update`, etc.) is
 exposed as an MCP tool, so MCP-compatible clients (Claude Code, Claude Desktop, etc.) can
